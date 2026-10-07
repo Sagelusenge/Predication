@@ -1,0 +1,773 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "background": "#fbf9f5", "on-secondary-fixed": "#261900", "on-tertiary-container": "#728bb7", "tertiary-fixed-dim": "#adc7f7", "on-error": "#ffffff", "primary-fixed-dim": "#b3c9e0", "surface-container-low": "#f5f3ef", "surface-container": "#efeeea", "surface-container-lowest": "#ffffff", "surface": "#fbf9f5", "inverse-surface": "#30312e", "on-surface-variant": "#43474c", "surface-dim": "#dbdad6", "surface-bright": "#fbf9f5", "on-secondary-fixed-variant": "#5d4201", "on-tertiary": "#ffffff", "on-tertiary-fixed": "#001b3c", "on-error-container": "#93000a", "on-secondary-container": "#785a1a", "tertiary": "#000d23", "surface-container-high": "#eae8e4", "inverse-primary": "#b3c9e0", "inverse-on-surface": "#f2f0ed", "surface-container-highest": "#e4e2de", "error-container": "#ffdad6", "secondary-container": "#fed488", "surface-tint": "#4c6075", "surface-variant": "#e4e2de", "secondary": "#775a19", "on-surface": "#1b1c1a", "primary": "#000f1d", "primary-fixed": "cfe5fd", "primary-container": "#0f2537", "on-secondary": "#ffffff", "on-primary-container": "#788da3", "error": "#ba1a1a", "tertiary-container": "#012349", "on-primary": "#ffffff", "secondary-fixed-dim": "#e9c176", "tertiary-fixed": "#d6e3ff", "outline": "#74777d", "on-tertiary-fixed-variant": "#2d476f", "on-primary-fixed": "#061d2f", "on-primary-fixed-variant": "#34495c", "secondary-fixed": "#ffdea5", "on-background": "#1b1c1a", "outline-variant": "#c3c7cd" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "margin": "3rem", "space-xl": "2.5rem", "margin-mobile": "1.25rem", "gutter": "1.5rem", "space-xs": "0.25rem", "gutter-mobile": "1rem", "space-sm": "0.5rem", "space-md": "1rem", "margin-tablet": "2rem" }, "fontFamily": { "label-sm": [ "Plus Jakarta Sans" ], "body-md": [ "Plus Jakarta Sans" ], "display-lg": [ "Playfair Display" ], "display-lg-mobile": [ "Playfair Display" ], "title-sm": [ "Plus Jakarta Sans" ], "headline-lg": [ "Playfair Display" ], "title-md": [ "Plus Jakarta Sans" ], "body-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Playfair Display" ], "headline-md": [ "Playfair Display" ], "headline-lg-mobile": [ "Playfair Display" ], "label-md": [ "Plus Jakarta Sans" ], "body-sm": [ "Plus Jakarta Sans" ] }, "fontSize": { "label-sm": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600" } ], "body-md": [ "15px", { "lineHeight": "24px", "fontWeight": "400" } ], "display-lg": [ "48px", { "lineHeight": "56px", "fontWeight": "600" } ], "display-lg-mobile": [ "34px", { "lineHeight": "42px", "fontWeight": "600" } ], "title-sm": [ "16px", { "lineHeight": "24px", "fontWeight": "600" } ], "headline-lg": [ "32px", { "lineHeight": "40px", "fontWeight": "600" } ], "title-md": [ "18px", { "lineHeight": "26px", "fontWeight": "600" } ], "body-lg": [ "17px", { "lineHeight": "28px", "fontWeight": "400" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "fontWeight": "500" } ], "headline-md": [ "24px", { "lineHeight": "32px", "fontWeight": "500" } ], "headline-lg-mobile": [ "26px", { "lineHeight": "34px", "fontWeight": "600" } ], "label-md": [ "14px", { "lineHeight": "20px", "fontWeight": "500" } ], "body-sm": [ "13px", { "lineHeight": "20px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-background font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 max-w-7xl mx-auto px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md"><img alt="Logo Ministère CBCA" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XBxesSmVl_uCpzCkJD9HGbLs-SJzE5cbtIBuQS2aKYf_bwUxStRMs7EkT83aPGBhfArYozpisemLy_9rrrYrTNBewZdU3a98mDeqSwHaM_V21MFQjE-5Q9VNXG0SC3PK2pEnqU2Sna-i51bvF5F-_OUjOWU2LUlH9VudUiPi-w31hp3OZ-GdnXpS5x5co0_4wRmFGATzWzCbiwEIaqLyYUuKdGJitcNy_Abfjn895R"><div class="flex flex-col"><span class="font-title-sm text-title-sm text-primary tracking-tight">Ministère Pastoral</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">CBCA • Communauté Baptiste</span></div></div><nav class="hidden lg:flex items-center gap-space-lg" data-active-classes="bg-primary-container text-on-primary font-title-sm px-space-md py-space-xs rounded-lg"><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="accueil" href="#">Accueil</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="a-propos" href="#">À propos</a><a aria-current="page" class="transition-colors bg-primary-container text-on-primary font-title-sm px-space-md py-space-xs rounded-lg" data-path="predications" href="#">Prédications</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="sainte-bible" href="#">Sainte Bible</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="contact" href="#">Contact</a></nav><div class="flex items-center gap-space-md"><a class="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-label-md text-label-md" data-path="admin-connexion" href="#"><span class="material-symbols-outlined text-[18px]">lock</span><span class="">Espace Admin</span></a><div class="flex items-center gap-space-xs pl-space-xs border-l border-surface-variant"><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3Cb-N2OcNWXqkXCFwkdo7M2R2CRD4jvcvLjYXP7c3XeEwTs8TkHLGdQQP7u8QuIGYahWutQ2z0hdjNQZGU7sjC2xg5wSywx5U3qaL8HK-P7-X6T1ojSrX1XX8UHnEEN8rOvqPFl6kSoCIpUzftd68JTKF2wE8UY0sbaMd_hu8rj69pEZq12i_9h721EjPmGNKrbHCssUbKVfHDXvHv0iro7HKSrtAKxTVWXTpTYo"><div class="hidden xl:flex flex-col"><span class="font-label-sm text-label-sm font-semibold text-primary leading-tight">Bureau Pastoral</span><span class="font-label-sm text-[10px] text-secondary leading-tight">Connecté</span></div></div><button aria-label="Menu mobile" class="lg:hidden p-space-xs text-on-surface-variant hover:text-on-surface rounded-lg"><span class="material-symbols-outlined text-[24px]">menu</span></button></div></div></header><main class="w-full pt-20 pb-28 bg-background"><div class="flex flex-col w-full">
+<!-- Subtle decorative ambient glow -->
+<div class="relative w-full max-w-7xl mx-auto px-gutter py-space-lg">
+<!-- HEADER SECTION -->
+<section class="flex flex-col gap-space-xs mb-space-xl">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm uppercase tracking-widest">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Archives &amp; Podcasts Numériques
+        </span>
+<span class="text-outline-variant font-label-sm text-label-sm">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Saison 2025</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md pt-2">
+<div class="max-w-2xl">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Prédications &amp; Enseignements Bibliques</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">
+            Écoutez, méditez et téléchargez les messages pastoraux pour grandir dans la grâce et la vérité du Christ.
+          </p>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<div class="px-space-md py-space-sm rounded-xl bg-surface-container-low flex items-center gap-space-sm shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">podcasts</span>
+<div>
+<p class="font-title-sm text-title-sm text-primary leading-tight">68 Messages</p>
+<p class="font-label-sm text-[11px] text-on-surface-variant">Audio Studio CBCA</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FEATURED HERO AUDIO PLAYER ("À LA UNE") -->
+<section class="relative mb-space-xl">
+<div class="rounded-2xl bg-surface-container-lowest shadow-xl overflow-hidden">
+<div class="grid grid-cols-1 lg:grid-cols-12">
+<!-- Column Left: Visual Artwork & Context -->
+<div class="lg:col-span-5 relative bg-primary-container p-space-lg flex flex-col justify-between overflow-hidden text-on-primary">
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(#d6e3ff 1px, transparent 1px); background-size: 16px 16px;"></div>
+<div class="relative z-10">
+<div class="flex items-center justify-between mb-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm uppercase">
+<span class="material-symbols-outlined text-[14px]">star</span>
+                  Dernier Culte • À la une
+                </span>
+<span class="font-label-sm text-label-sm text-on-primary-container">Dimanche 16 Fév. 2025</span>
+</div>
+<div class="aspect-[16/10] w-full rounded-xl overflow-hidden shadow-md mb-space-md relative group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Intérieur d'un sanctuaire lumineux avec un pasteur prêchant avec ferveur devant une congrégation attentive, éclairage doré matinal par de grandes fenêtres, tons marine et ambre feutrés, style documentaire sacré serein." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuZSre6hRhKzuSER3e4jlGQp_bS6F-1oqYnCq54Q_PGWB52xweaIpjCsmr6Xv0kWZg8Ck120DF3bpjMxAXpDpOQYLnVRDT8K-ZwLosUh0ZJ0NLEX_P9AV8MyI9MA0tOyvtpGLgY-ocwcrb4YPKDr8mcHQ4WDYz0nJ3s7kapkCie4o8IkGh1ostopgTY6ievOBNifggv506n7MnP_aUR7Iqme4Kwgaxe-Y41ouHNzM">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent flex items-end p-space-md">
+<span class="px-space-sm py-1 rounded bg-surface-container-lowest/90 backdrop-blur-sm text-primary font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">menu_book</span>
+                    Philippiens 4:6-7 &amp; Luc 18:1-8
+                  </span>
+</div>
+</div>
+<span class="inline-block px-2.5 py-0.5 rounded-md bg-white/10 text-secondary-fixed font-label-sm text-[11px] mb-1 tracking-wider uppercase">
+                Série : La Vie de Victoire en Christ
+              </span>
+<h2 class="font-headline-md text-headline-md text-white tracking-normal mt-1 leading-snug">
+                La Puissance de la Prière Persévérante
+              </h2>
+</div>
+<div class="relative z-10 pt-space-md mt-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-title-sm text-title-sm shadow-sm">
+                  EK
+                </div>
+<div>
+<p class="font-title-sm text-title-sm text-white leading-tight">Pasteur Emmanuel Kasereka</p>
+<p class="font-label-sm text-label-sm text-on-primary-container">CBCA Goma-Ville • Culte Dominical</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Column Right: Audio Control Deck & Waveform -->
+<div class="lg:col-span-7 p-space-lg flex flex-col justify-between bg-surface-container-lowest">
+<div>
+<!-- Scripture & Quick Quote -->
+<div class="p-space-md rounded-xl bg-surface-container-low mb-space-lg">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[24px] shrink-0">format_quote</span>
+<div>
+<p class="font-headline-sm text-title-sm text-primary italic leading-snug">
+                      “Ne vous inquiétez de rien; mais en toute chose faites connaître vos besoins à Dieu par des prières et des supplications, avec des actions de grâces.”
+                    </p>
+<span class="font-label-sm text-label-sm text-secondary font-semibold mt-1 inline-block">— Philippiens 4:6</span>
+</div>
+</div>
+</div>
+<!-- Waveform Scrubber -->
+<div class="flex flex-col gap-2 mb-space-lg">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-secondary font-semibold">18:45 Écoulé</span>
+<span class="text-on-surface-variant font-medium">Durée totale : 48:20</span>
+</div>
+<!-- Interactive Waveform SVG Bars -->
+<div class="h-16 w-full flex items-end gap-[3px] py-1 cursor-pointer group px-1 rounded-lg bg-surface-container-low/50 hover:bg-surface-container-low transition-colors" title="Cliquer pour naviguer">
+<!-- First section: listened (gold/secondary) -->
+<div class="flex-1 bg-secondary rounded-full h-[30%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[45%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[60%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[75%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[50%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[90%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[100%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[80%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[65%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[40%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[85%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[95%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[70%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[55%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[88%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[62%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[40%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[75%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[92%]"></div>
+<div class="flex-1 bg-secondary rounded-full h-[48%]"></div>
+<!-- Active marker pointer bar -->
+<div class="flex-1 bg-primary rounded-full h-[100%] relative">
+<span class="absolute -top-3 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<!-- Second section: unplayed (surface-dim / outline-variant) -->
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[60%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[45%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[80%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[95%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[70%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[50%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[68%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[85%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[40%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[30%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[55%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[75%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[90%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[60%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[42%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[68%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[82%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[50%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[35%]"></div>
+<div class="flex-1 bg-outline-variant/50 group-hover:bg-outline-variant rounded-full h-[25%]"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] font-label-sm text-on-surface-variant px-1">
+<span class="">00:00 Introduction</span>
+<span class="">15:30 Exégèse Luc 18</span>
+<span class="">32:10 Application Pastorale</span>
+<span class="">45:00 Prière Finale</span>
+</div>
+</div>
+<!-- Main Controller Center -->
+<div class="flex flex-wrap items-center justify-between gap-space-md py-space-sm">
+<!-- Jump & Big Play/Pause -->
+<div class="flex items-center gap-space-md">
+<button class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface transition-colors" title="Reculer de 15 secondes" type="button">
+<span class="material-symbols-outlined text-[20px]">export_notes</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-secondary-fixed text-on-secondary-fixed hover:bg-secondary-fixed-dim transition-all flex items-center justify-center shadow-lg hover:scale-105" title="Pause / Reprendre" type="button">
+<span class="material-symbols-outlined text-[32px]">pause</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface transition-colors" title="Avancer de 15 secondes" type="button">
+<span class="material-symbols-outlined text-[20px]">apps</span>
+</button>
+</div>
+<!-- Playback Speed Pills -->
+<div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-xl">
+<button class="px-2.5 py-1 rounded-lg text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">0.75x</button>
+<button class="px-2.5 py-1 rounded-lg text-label-sm font-label-sm bg-primary text-on-primary font-bold shadow-sm" type="button">1.0x</button>
+<button class="px-2.5 py-1 rounded-lg text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">1.25x</button>
+<button class="px-2.5 py-1 rounded-lg text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">1.5x</button>
+<button class="px-2.5 py-1 rounded-lg text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">2x</button>
+</div>
+<!-- Volume Slider -->
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">volume_up</span>
+<div class="w-24 h-1.5 rounded-full bg-surface-container-highest cursor-pointer relative">
+<div class="w-4/5 h-full rounded-full bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Toolbar (Download, Share, Notes) -->
+<div class="pt-space-md mt-space-md border-t border-surface-container-high flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<a class="px-space-md py-space-xs rounded-lg bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md flex items-center gap-1.5 shadow-sm transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span class="">Télécharger MP3 (Haute Qualité • 44 Mo)</span>
+</a>
+<a class="px-space-sm py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1.5 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px] text-secondary">description</span>
+<span class="">Notes (PDF)</span>
+</a>
+</div>
+<!-- Share buttons -->
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant mr-1">Partager :</span>
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-on-secondary-container text-on-surface-variant flex items-center justify-center transition-colors" title="Partager sur WhatsApp" type="button">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-on-secondary-container text-on-surface-variant flex items-center justify-center transition-colors" title="Partager sur Facebook" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-on-secondary-container text-on-surface-variant flex items-center justify-center transition-colors" title="Copier le lien d'écoute" type="button">
+<span class="material-symbols-outlined text-[18px]">link</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SEARCH & ADVANCED FILTER TOOLBAR -->
+<section class="mb-space-xl">
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
+<!-- Search bar -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[22px]">search</span>
+<input class="w-full pl-12 pr-space-md py-3 rounded-xl bg-surface-container-low text-on-surface placeholder:text-outline text-body-md font-body-md focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all" placeholder="Rechercher par mot-clé, thème, prédicateur, verset..." type="text">
+<button class="absolute right-space-sm top-1/2 -translate-y-1/2 px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container transition-colors" type="button">
+            Filtrer
+          </button>
+</div>
+<!-- Filter Dropdowns & Category Chips -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+<!-- Filter 1: Séries -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wider">Série Thématique</label>
+<div class="relative">
+<select class="w-full px-space-sm py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md appearance-none focus:outline-none cursor-pointer pr-8">
+<option selected="">Toutes les séries</option>
+<option>Vivre par la Foi</option>
+<option>Le Foyer Chrétien</option>
+<option>Étude sur l'Épître aux Romains</option>
+<option>Messages Spéciaux CBCA</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Filter 2: Catégorie -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wider">Type de rassemblement</label>
+<div class="relative">
+<select class="w-full px-space-sm py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md appearance-none focus:outline-none cursor-pointer pr-8">
+<option selected="">Toutes les catégories</option>
+<option>Culte Dominical</option>
+<option>Étude Biblique</option>
+<option>Conférence &amp; Retraite</option>
+<option>Jeûne et Prière</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Filter 3: Canon Biblique -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wider">Livre Biblique</label>
+<div class="relative">
+<select class="w-full px-space-sm py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md appearance-none focus:outline-none cursor-pointer pr-8">
+<option selected="">Tous les Livres</option>
+<option>Ancien Testament (Pentateuque, Prophètes)</option>
+<option>Les Évangiles &amp; Actes</option>
+<option>Les Épîtres Pauliniennes &amp; Générales</option>
+<option>L'Apocalypse</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Filter 4: Année & Tri -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wider">Trier par &amp; Année</label>
+<div class="relative">
+<select class="w-full px-space-sm py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md appearance-none focus:outline-none cursor-pointer pr-8">
+<option>Plus récentes d'abord (2025)</option>
+<option>Plus écoutées</option>
+<option>Durée la plus courte</option>
+<option>Année 2024</option>
+<option>Année 2023</option>
+<option>Archives historiques</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">sort</span>
+</div>
+</div>
+</div>
+<!-- Quick tag chips -->
+<div class="flex flex-wrap items-center gap-2 pt-space-xs">
+<span class="font-label-sm text-[11px] text-on-surface-variant font-semibold">Thèmes populaires :</span>
+<button class="px-3 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm shadow-sm" type="button">
+            Tous les thèmes
+          </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" type="button">
+            Prière &amp; Intercession
+          </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" type="button">
+            Sainteté
+          </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" type="button">
+            Famille &amp; Mariage
+          </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" type="button">
+            Épreuves &amp; Consolations
+          </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" type="button">
+            Grâce &amp; Salut
+          </button>
+</div>
+</div>
+</section>
+<!-- SERMONS MAIN GRID (6 RICH CARDS) -->
+<section class="mb-space-xl">
+<div class="flex items-center justify-between mb-space-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Dernières Prédications En Ligne</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Prédicateurs ordonnés et pasteurs invités de la CBCA</p>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Affichage de 6 sur 68 prédications</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- Card 1 -->
+<article class="flex flex-col rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
+<div class="relative aspect-[16/9] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Une Bible ouverte reposant sur un pupitre en bois avec une lumière douce dorée symbolisant la paix au milieu des bourrasques de la vie, atmosphère solennelle et paisible, nuances de bleu marine et de lin chaud." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbPNfNje5gPS1gQ-3jF8vZm1sY_l01f_Np3bBxgOrh82r85e9OTfY1Rg-t0uiA6ULemtAmPubCnvGd61izkq37DAsdEDdXxUsa9BwEZPRmXnPZ6HxUrWzSxL4yYULQwTCelGXEipslQVeMYIx0yyFgDvuKHbPFlkO7yH9BniCUpoyvlTT2sa4TyOwMuibpLpyxQXYHTDTwcyFg7o9OaWO34FhEolp0og2NOyCadSc">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-space-sm left-space-sm">
+<span class="px-2.5 py-1 rounded-md bg-surface-container-lowest/90 backdrop-blur-sm text-secondary font-label-sm text-label-sm font-semibold shadow-sm">
+                Marc 4:35-41
+              </span>
+</div>
+<div class="absolute bottom-space-sm right-space-sm flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/75 text-white font-label-sm text-[11px] backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary-fixed">schedule</span>
+<span class="">44:12</span>
+</div>
+<div class="absolute bottom-space-sm left-space-sm">
+<span class="px-2 py-0.5 rounded bg-primary/80 text-white font-label-sm text-[10px] uppercase tracking-wider backdrop-blur-sm">
+                Vivre par la Foi
+              </span>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-[12px] mb-1">
+<span class="">09 Février 2025</span>
+<span class="">•</span>
+<span class="text-primary font-medium">Rév. Dr. Jean-Luc Bauma</span>
+</div>
+<h3 class="font-headline-sm text-title-md text-primary group-hover:text-secondary transition-colors leading-snug mb-2">
+                Garder la foi au milieu de la tempête
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">
+                Comment faire confiance à Jésus lorsque les vents contraires menacent notre barque et que Dieu semble silencieux.
+              </p>
+</div>
+<!-- Mini Audio Player Trigger & Tools -->
+<div class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-container hover:text-on-secondary-container text-primary font-label-sm text-label-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">play_circle</span>
+<span class="">Écouter</span>
+</button>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Télécharger l'audio" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Ajouter aux favoris" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Partager le lien" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="flex flex-col rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
+<div class="relative aspect-[16/9] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Un chemin lumineux traversant une vallée paisible bordée d'arbres majestueux sous une lueur divine et cristalline, symbolisant la droiture chrétienne, ambiance contemplative et sereine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsT6-23ofFeFoSy7F_e4DfYOTw9uAMzwiFma133nLx143sSUzawRPk2rah0PWQ5yd1fBi3YmhsVrx8AtstWMYVcsXXjpq3JUpNOb8pYoEElx-QbwCyKfsT3QYtMJ_Apfu6pjL1gmeUJLrJJKsvHw9lqP8FHlncaMjGy4T--rzdIIQShb9ERUW9GrF38w7bjK3oE9uj8PNFf76ZwMka2yEvvfozdQSz--xsaHiSNr4">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-space-sm left-space-sm">
+<span class="px-2.5 py-1 rounded-md bg-surface-container-lowest/90 backdrop-blur-sm text-secondary font-label-sm text-label-sm font-semibold shadow-sm">
+                1 Pierre 1:15-16
+              </span>
+</div>
+<div class="absolute bottom-space-sm right-space-sm flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/75 text-white font-label-sm text-[11px] backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary-fixed">schedule</span>
+<span class="">51:30</span>
+</div>
+<div class="absolute bottom-space-sm left-space-sm">
+<span class="px-2 py-0.5 rounded bg-primary/80 text-white font-label-sm text-[10px] uppercase tracking-wider backdrop-blur-sm">
+                Enseignement Pratique
+              </span>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-[12px] mb-1">
+<span class="">02 Février 2025</span>
+<span class="">•</span>
+<span class="text-primary font-medium">Pasteur Samuel Muhindo</span>
+</div>
+<h3 class="font-headline-sm text-title-md text-primary group-hover:text-secondary transition-colors leading-snug mb-2">
+                Marcher dans la sainteté et l'intégrité
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">
+                L'appel biblique à une vie consacrée et transparente dans notre génération confrontée aux compromis moraux.
+              </p>
+</div>
+<div class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-container hover:text-on-secondary-container text-primary font-label-sm text-label-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">play_circle</span>
+<span class="">Écouter</span>
+</button>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Télécharger l'audio" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Ajouter aux favoris" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Partager le lien" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="flex flex-col rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
+<div class="relative aspect-[16/9] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Deux mains unies au service de la communauté dans un élan de générosité fraternelle et de dévouement chrétien, tonalité chaude, lumière ambrée douce." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4SAy9DnU6kYx083-kHTMhUb7YRwwZoZRDP4ihLqag-oXW81FoHY-v36kaSiOei96IUznTTDnqRUG191HmwmuNm29AHM6smHo_ejTmlpjzImM3kJ4CBaQaepRKdRsqXJSgKt7TDl82HOYi2ptUZ3X87YuzeXWahwgeQOPuyiCFRNfygfPjC6pUFsP8RyO6wBRaW8Ed7yumVTvbXh98fV-v37ddfc2RagxkyTJmsiQ">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-space-sm left-space-sm">
+<span class="px-2.5 py-1 rounded-md bg-surface-container-lowest/90 backdrop-blur-sm text-secondary font-label-sm text-label-sm font-semibold shadow-sm">
+                Colossiens 3:23-24
+              </span>
+</div>
+<div class="absolute bottom-space-sm right-space-sm flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/75 text-white font-label-sm text-[11px] backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary-fixed">schedule</span>
+<span class="">38:45</span>
+</div>
+<div class="absolute bottom-space-sm left-space-sm">
+<span class="px-2 py-0.5 rounded bg-primary/80 text-white font-label-sm text-[10px] uppercase tracking-wider backdrop-blur-sm">
+                Ministère &amp; Vocation
+              </span>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-[12px] mb-1">
+<span class="">26 Janvier 2025</span>
+<span class="">•</span>
+<span class="text-primary font-medium">Pasteur Esther Kavira</span>
+</div>
+<h3 class="font-headline-sm text-title-md text-primary group-hover:text-secondary transition-colors leading-snug mb-2">
+                Servir Dieu avec fidélité et humilité
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">
+                Tout ce que vous faites, faites-le de bon cœur comme pour le Seigneur et non pour les hommes.
+              </p>
+</div>
+<div class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-container hover:text-on-secondary-container text-primary font-label-sm text-label-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">play_circle</span>
+<span class="">Écouter</span>
+</button>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Télécharger l'audio" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Ajouter aux favoris" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Partager le lien" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="flex flex-col rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
+<div class="relative aspect-[16/9] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Rayons de soleil filtrant à travers des nuages orageux sur des collines de l'est du Congo, évoquant la grâce divine face à la fragilité humaine, lumière dramatique et réconfortante." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIlVYpSFzyrERdkC2XcWjNCDSR0O1Ks_Neb9d2PrBnTXWgBfkZQGm_x7g_9jpHfosGX48vyemSjg0_KjNhivWcfJzkgWsU7nvvOwGdstHY2elGW2v8fo0w2iVkznaPOixig72CxvFXfxMzQBqEGw6Edc0DB4cM3z16K64DX62lzJmtp3Ay0BMEbN3ZOICyDZ7NEoVCJZSAsSUSAADw982RztINziOrHIf_IoCRCzo">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-space-sm left-space-sm">
+<span class="px-2.5 py-1 rounded-md bg-surface-container-lowest/90 backdrop-blur-sm text-secondary font-label-sm text-label-sm font-semibold shadow-sm">
+                2 Corinthiens 12:9
+              </span>
+</div>
+<div class="absolute bottom-space-sm right-space-sm flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/75 text-white font-label-sm text-[11px] backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary-fixed">schedule</span>
+<span class="">47:05</span>
+</div>
+<div class="absolute bottom-space-sm left-space-sm">
+<span class="px-2 py-0.5 rounded bg-primary/80 text-white font-label-sm text-[10px] uppercase tracking-wider backdrop-blur-sm">
+                Consolation &amp; Espérance
+              </span>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-[12px] mb-1">
+<span class="">19 Janvier 2025</span>
+<span class="">•</span>
+<span class="text-primary font-medium">Pasteur Emmanuel Kasereka</span>
+</div>
+<h3 class="font-headline-sm text-title-md text-primary group-hover:text-secondary transition-colors leading-snug mb-2">
+                La grâce surabondante dans nos faiblesses
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">
+                Découvrez pourquoi la puissance de Dieu s'accomplit pleinement quand nous reconnaissons nos limites personnelles.
+              </p>
+</div>
+<div class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-container hover:text-on-secondary-container text-primary font-label-sm text-label-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">play_circle</span>
+<span class="">Écouter</span>
+</button>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Télécharger l'audio" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Ajouter aux favoris" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Partager le lien" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 5 -->
+<article class="flex flex-col rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
+<div class="relative aspect-[16/9] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Une famille chrétienne réunie dans un salon chaleureux lisant les saintes écritures ensemble, visages souriants baignés de lumière douce dorée, ambiance de piété domestique et de paix." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYEciYySGerZHjF9UW92ypNPCR0DEyd8gCl5bz6lT2cUVOOkzgm0VCx4ctLKvaAOCNh_CcZdBoRy5LpesV1U-d2iyCzpEJpF8QwqY7GYCOVHWWs9p3M2vOT_OR9BuVd6KtE6gYC3QrJiD8F7GopKcIwRhbK7J2fvTfKcOL9V7voMmb63_G-_LBj74HmS_YMip_iFtk9z31H5dCoze-MDhX0_f6bKdd6tuu_lYYtOg">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-space-sm left-space-sm">
+<span class="px-2.5 py-1 rounded-md bg-surface-container-lowest/90 backdrop-blur-sm text-secondary font-label-sm text-label-sm font-semibold shadow-sm">
+                Josué 24:15
+              </span>
+</div>
+<div class="absolute bottom-space-sm right-space-sm flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/75 text-white font-label-sm text-[11px] backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary-fixed">schedule</span>
+<span class="">42:18</span>
+</div>
+<div class="absolute bottom-space-sm left-space-sm">
+<span class="px-2 py-0.5 rounded bg-primary/80 text-white font-label-sm text-[10px] uppercase tracking-wider backdrop-blur-sm">
+                Le Foyer Chrétien
+              </span>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-[12px] mb-1">
+<span class="">12 Janvier 2025</span>
+<span class="">•</span>
+<span class="text-primary font-medium">Pasteur Jacques Paluku</span>
+</div>
+<h3 class="font-headline-sm text-title-md text-primary group-hover:text-secondary transition-colors leading-snug mb-2">
+                Bâtir une famille selon le cœur de Dieu
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">
+                Moi et ma maison, nous servirons l'Éternel. Les fondements bibliques d'un mariage solide et d'une éducation pieuse.
+              </p>
+</div>
+<div class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-container hover:text-on-secondary-container text-primary font-label-sm text-label-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">play_circle</span>
+<span class="">Écouter</span>
+</button>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Télécharger l'audio" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Ajouter aux favoris" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Partager le lien" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 6 -->
+<article class="flex flex-col rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
+<div class="relative aspect-[16/9] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Une colombe blanche s'envolant vers un ciel clair au-dessus d'une eau calme et limpide, symbolisant la libération et le pardon divin, esthétique biblique pure et élégante." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXIkThGS8cbezFUc0TWCwYpEImqrxYllo3t21Tv9SIXKLxwdEyrxkDx7yajsfl0TeFKnzTJXnF9VE9KTJQytOlRYWBDBudTWJJQ5yCgNlvVhAQwGEYt1tKe0YrPjeQehFK1Pb7GYWBBfFWLmz-HzUjCCbcMkhPmM3CjuvHhgXu_0ThGF1fZi_X_vG_gLGOf3yND1RuNNI1sduBx8qeBHrj5KzEz93ZoywfxYTQRJY">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-space-sm left-space-sm">
+<span class="px-2.5 py-1 rounded-md bg-surface-container-lowest/90 backdrop-blur-sm text-secondary font-label-sm text-label-sm font-semibold shadow-sm">
+                Matthieu 18:21-35
+              </span>
+</div>
+<div class="absolute bottom-space-sm right-space-sm flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/75 text-white font-label-sm text-[11px] backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary-fixed">schedule</span>
+<span class="">49:52</span>
+</div>
+<div class="absolute bottom-space-sm left-space-sm">
+<span class="px-2 py-0.5 rounded bg-primary/80 text-white font-label-sm text-[10px] uppercase tracking-wider backdrop-blur-sm">
+                Délivrance &amp; Guérison
+              </span>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-[12px] mb-1">
+<span class="">05 Janvier 2025</span>
+<span class="">•</span>
+<span class="text-primary font-medium">Pasteur David Kambale</span>
+</div>
+<h3 class="font-headline-sm text-title-md text-primary group-hover:text-secondary transition-colors leading-snug mb-2">
+                Le pardon : clé de la délivrance et de la paix
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">
+                Briser les chaînes de l'amertume et libérer la bénédiction de Dieu dans notre cœur selon l'enseignement de Christ.
+              </p>
+</div>
+<div class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-container hover:text-on-secondary-container text-primary font-label-sm text-label-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">play_circle</span>
+<span class="">Écouter</span>
+</button>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Télécharger l'audio" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Ajouter aux favoris" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors" title="Partager le lien" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- PAGINATION BAR -->
+<section class="flex flex-col sm:flex-row items-center justify-between gap-space-md p-space-md rounded-2xl bg-surface-container-lowest shadow-sm mb-space-xl">
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+        Affichage de <span class="font-semibold text-primary">1 - 6</span> sur <span class="font-semibold text-primary">68</span> prédications disponibles
+      </div>
+<nav aria-label="Pagination des prédications" class="flex items-center gap-1">
+<button class="p-2 rounded-lg text-outline-variant cursor-not-allowed" disabled="" type="button">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="w-9 h-9 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold shadow-sm" type="button">
+          1
+        </button>
+<button class="w-9 h-9 rounded-lg hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" type="button">
+          2
+        </button>
+<button class="w-9 h-9 rounded-lg hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" type="button">
+          3
+        </button>
+<button class="w-9 h-9 rounded-lg hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" type="button">
+          4
+        </button>
+<span class="px-2 text-on-surface-variant font-label-md">...</span>
+<button class="w-9 h-9 rounded-lg hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" type="button">
+          12
+        </button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface transition-colors" title="Page suivante" type="button">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</nav>
+</section>
+<!-- POPULAR & HIGH IMPACT RECOMMANDATIONS SECTION -->
+<section class="mb-space-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-lg gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Témoignages &amp; Impact</span>
+<h2 class="font-headline-md text-headline-md text-primary mt-1">Prédications Recommandées &amp; Plus Écoutées</h2>
+</div>
+<a class="font-label-md text-label-md text-secondary hover:text-on-secondary-container flex items-center gap-1 font-semibold group" href="#">
+<span class="">Consulter les archives annuelles</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Popular 1 -->
+<div class="p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 shadow-sm flex items-start gap-space-md group">
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0 font-headline-sm text-headline-sm">
+            01
+          </div>
+<div class="min-w-0 flex-1">
+<span class="font-label-sm text-[11px] text-secondary font-semibold uppercase">12.4K Écoutes • Romains 8:28</span>
+<h4 class="font-title-sm text-title-sm text-primary group-hover:text-secondary truncate mt-0.5">
+              Toutes choses concourent au bien
+            </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+              Pasteur Emmanuel Kasereka
+            </p>
+<div class="mt-2 flex items-center gap-3">
+<button class="text-secondary hover:underline font-label-sm text-label-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span> Écouter (39 min)
+              </button>
+</div>
+</div>
+</div>
+<!-- Popular 2 -->
+<div class="p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 shadow-sm flex items-start gap-space-md group">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest text-primary flex items-center justify-center shrink-0 font-headline-sm text-headline-sm">
+            02
+          </div>
+<div class="min-w-0 flex-1">
+<span class="font-label-sm text-[11px] text-secondary font-semibold uppercase">9.8K Écoutes • Psaume 23</span>
+<h4 class="font-title-sm text-title-sm text-primary group-hover:text-secondary truncate mt-0.5">
+              L'Éternel est mon Berger
+            </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+              Pasteur Jean-Luc Bauma
+            </p>
+<div class="mt-2 flex items-center gap-3">
+<button class="text-secondary hover:underline font-label-sm text-label-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span> Écouter (52 min)
+              </button>
+</div>
+</div>
+</div>
+<!-- Popular 3 -->
+<div class="p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 shadow-sm flex items-start gap-space-md group">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest text-primary flex items-center justify-center shrink-0 font-headline-sm text-headline-sm">
+            03
+          </div>
+<div class="min-w-0 flex-1">
+<span class="font-label-sm text-[11px] text-secondary font-semibold uppercase">8.1K Écoutes • Éphésiens 6</span>
+<h4 class="font-title-sm text-title-sm text-primary group-hover:text-secondary truncate mt-0.5">
+              Revêtir toutes les armes de Dieu
+            </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+              Pasteur Samuel Muhindo
+            </p>
+<div class="mt-2 flex items-center gap-3">
+<button class="text-secondary hover:underline font-label-sm text-label-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span> Écouter (46 min)
+              </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- INVITATION / PODCAST SUBCRIPTION CALLOUT -->
+<section class="rounded-3xl bg-primary text-on-primary p-space-xl overflow-hidden relative shadow-lg">
+<div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-secondary/10 blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-space-lg">
+<div class="max-w-xl">
+<span class="inline-block px-3 py-1 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm uppercase tracking-wider mb-space-sm">
+            Flux Audio Quotidien
+          </span>
+<h3 class="font-headline-md text-headline-md text-white">Ne manquez aucun enseignement du dimanche</h3>
+<p class="font-body-md text-body-md text-on-primary-container mt-2">
+            Abonnez-vous à notre canal audio et recevez directement chaque sermon matinal en notification sur votre téléphone via nos podcasts et notre chaîne officielle.
+          </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm shrink-0">
+<a class="px-space-lg py-space-sm rounded-xl bg-secondary-fixed text-on-secondary-fixed font-title-sm text-title-sm font-semibold hover:bg-secondary-fixed-dim transition-all shadow-md flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[20px]">rss_feed</span>
+<span class="">Flux Podcast RSS</span>
+</a>
+<a class="px-space-lg py-space-sm rounded-xl bg-white/10 text-white font-title-sm text-title-sm hover:bg-white/20 transition-all flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="">S'abonner aux alertes</span>
+</a>
+</div>
+</div>
+</section>
+</div>
+</div></main><footer class="w-full bg-surface-container-low pb-24 text-on-surface"><div class="max-w-7xl mx-auto px-gutter pt-space-xl pb-space-lg"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-space-lg mb-space-xl"><div class="lg:col-span-4 flex flex-col gap-space-md"><div class="flex items-center gap-space-sm"><img alt="Logo Ministère CBCA" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XBxesSmVl_uCpzCkJD9HGbLs-SJzE5cbtIBuQS2aKYf_bwUxStRMs7EkT83aPGBhfArYozpisemLy_9rrrYrTNBewZdU3a98mDeqSwHaM_V21MFQjE-5Q9VNXG0SC3PK2pEnqU2Sna-i51bvF5F-_OUjOWU2LUlH9VudUiPi-w31hp3OZ-GdnXpS5x5co0_4wRmFGATzWzCbiwEIaqLyYUuKdGJitcNy_Abfjn895R"><span class="font-headline-sm text-headline-sm text-primary">Ministère Pastoral CBCA</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed max-w-sm">Plateforme de diffusion de la parole, d'édification spirituelle et d'accompagnement pastoral de la Communauté Baptiste au Centre de l'Afrique.</p><div class="p-space-md rounded-lg bg-surface-container border border-surface-container-highest"><p class="font-headline-sm text-headline-sm text-secondary italic mb-space-xs">“Ta parole est une lampe à mes pieds, et une lumière sur mon sentier.”</p><span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">— Psaumes 119:105</span></div></div><div class="lg:col-span-3 flex flex-col gap-space-sm"><h4 class="font-title-sm text-title-sm text-primary mb-space-xs">Cultes &amp; Réunions de Prière</h4><div class="space-y-space-sm text-body-sm font-body-sm text-on-surface-variant"><div class="p-space-sm rounded-lg bg-surface-container-lowest"><span class="block font-semibold text-primary">Culte Dominical Matinal</span><span class="">Dimanche : 08h00 • 10h30</span></div><div class="p-space-sm rounded-lg bg-surface-container-lowest"><span class="block font-semibold text-primary">Culte de Louange &amp; Enseignement</span><span class="">Dimanche : 10h45 • 13h00</span></div><div class="p-space-sm rounded-lg bg-surface-container-lowest"><span class="block font-semibold text-primary">Intercession &amp; Prière du Soir</span><span class="">Mercredi &amp; Vendredi : 16h30 • 18h00</span></div></div></div><div class="lg:col-span-2 flex flex-col gap-space-sm"><h4 class="font-title-sm text-title-sm text-primary mb-space-xs">Navigation</h4><nav class="flex flex-col gap-space-xs text-body-sm font-body-sm text-on-surface-variant" data-active-classes="text-primary font-bold"><a class="hover:text-primary transition-colors" data-path="accueil" href="#">Accueil</a><a class="hover:text-primary transition-colors" data-path="a-propos" href="#">Vision &amp; Présentation</a><a aria-current="page" class="transition-colors text-primary font-bold" data-path="predications" href="#">Prédications Audio</a><a class="hover:text-primary transition-colors" data-path="contact" href="#">Demande Pastorale</a><a class="hover:text-primary transition-colors" data-path="admin-connexion" href="#">Portail Pastoral</a></nav></div><div class="lg:col-span-3 flex flex-col gap-space-sm"><h4 class="font-title-sm text-title-sm text-primary mb-space-xs">Contact &amp; Écoute</h4><div class="flex flex-col gap-space-xs text-body-sm font-body-sm text-on-surface-variant"><div class="flex items-start gap-space-xs"><span class="material-symbols-outlined text-[18px] text-secondary mt-0.5">location_on</span><span class="">Siège Communautaire CBCA, Ville • Province du Nord-Kivu, RDC</span></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[18px] text-secondary">call</span><span class="">+243 998 000 000 / +243 810 000 000</span></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[18px] text-secondary">mail</span><span class="">pastoral@cbca-communaute.org</span></div></div><div class="pt-space-sm"><span class="block font-label-sm text-label-sm text-on-surface-variant mb-space-xs">Canaux &amp; Podcasts chrétiens</span><div class="flex items-center gap-space-xs"><a class="p-space-xs rounded-lg bg-surface-container hover:bg-secondary-container hover:text-on-secondary-container text-on-surface-variant transition-colors" href="#" title="Diffusion Vidéo"><span class="material-symbols-outlined text-[20px]">play_circle</span></a><a class="p-space-xs rounded-lg bg-surface-container hover:bg-secondary-container hover:text-on-secondary-container text-on-surface-variant transition-colors" href="#" title="Messagerie Pastorale"><span class="material-symbols-outlined text-[20px]">chat</span></a><a class="p-space-xs rounded-lg bg-surface-container hover:bg-secondary-container hover:text-on-secondary-container text-on-surface-variant transition-colors" href="#" title="Podcasts audio"><span class="material-symbols-outlined text-[20px]">podcasts</span></a><a class="p-space-xs rounded-lg bg-surface-container hover:bg-secondary-container hover:text-on-secondary-container text-on-surface-variant transition-colors" href="#" title="Diffusion directe"><span class="material-symbols-outlined text-[20px]">radio</span></a></div></div></div></div><div class="pt-space-md border-t border-surface-container-highest flex flex-col sm:flex-row items-center justify-between gap-space-sm text-body-sm font-body-sm text-on-surface-variant"><p class="">© 2025 Communauté Baptiste au Centre de l'Afrique (CBCA). Tous droits réservés.</p><p class="text-label-sm font-label-sm text-secondary">Plateforme Officielle du Ministère Pastoral • Enracinés dans l'Évangile</p></div></div></footer><aside aria-label="Lecteur audio persistant" class="fixed bottom-0 left-0 right-0 z-50 bg-primary-container text-on-primary shadow-[0_-8px_30px_-4px_rgba(15,37,55,0.2)] border-t border-secondary-container/20"><div class="max-w-7xl mx-auto px-gutter h-20 flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0 w-1/4"><div class="relative w-12 h-12 rounded-lg bg-primary flex-shrink-0 flex items-center justify-center border border-secondary-container/40 overflow-hidden"><span class="material-symbols-outlined text-secondary-fixed text-[24px]">mic</span></div><div class="min-w-0"><p class="font-title-sm text-title-sm text-on-primary truncate">La Puissance de la Prière Persévérante</p><p class="font-label-sm text-label-sm text-on-primary-container truncate">Pasteur Principal • CBCA Goma-Ville</p></div></div><div class="flex-1 max-w-2xl flex flex-col items-center justify-center gap-1"><div class="flex items-center gap-space-md"><button class="text-on-primary-container hover:text-on-primary transition-colors" title="Reculer de 15 sec" type="button"><span class="material-symbols-outlined text-[20px]">replay_10</span></button><button class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center hover:bg-secondary-fixed-dim transition-transform hover:scale-105" title="Lecture / Pause" type="button"><span class="material-symbols-outlined text-[24px]">play_arrow</span></button><button class="text-on-primary-container hover:text-on-primary transition-colors" title="Avancer de 30 sec" type="button"><span class="material-symbols-outlined text-[20px]">forward_30</span></button></div><div class="w-full flex items-center gap-space-sm"><span class="font-label-sm text-label-sm text-on-primary-container">14:28</span><div class="relative flex-1 h-1.5 bg-on-primary-container/30 rounded-full cursor-pointer overflow-hidden"><div class="absolute left-0 top-0 bottom-0 w-[34%] bg-secondary-fixed rounded-full"></div></div><span class="font-label-sm text-label-sm text-on-primary-container">42:15</span></div></div><div class="flex items-center justify-end gap-space-sm w-1/4"><button class="px-space-xs py-0.5 rounded text-label-sm font-label-sm bg-primary text-secondary-fixed hover:bg-surface-container-high transition-colors" title="Vitesse de lecture" type="button">1.0x</button><div class="hidden md:flex items-center gap-space-xs text-on-primary-container"><span class="material-symbols-outlined text-[18px]">volume_up</span><div class="w-16 h-1.5 bg-on-primary-container/30 rounded-full cursor-pointer"><div class="w-3/4 h-full bg-secondary-fixed rounded-full"></div></div></div><a class="p-space-xs text-on-primary-container hover:text-on-primary transition-colors" href="#" title="Télécharger l'audio MP3"><span class="material-symbols-outlined text-[20px]">download</span></a><button class="p-space-xs text-on-primary-container hover:text-on-primary transition-colors" title="Réduire le lecteur" type="button"><span class="material-symbols-outlined text-[20px]">keyboard_arrow_down</span></button></div></div></aside>
+
+</body></html>

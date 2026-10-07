@@ -1,0 +1,710 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#fbf9f5","outline-variant":"#c3c7cd","tertiary-fixed":"#d6e3ff","surface-container-high":"#eae8e4","error":"#ba1a1a","inverse-primary":"#b3c9e0","background":"#fbf9f5","secondary-container":"#fed488","primary-fixed-dim":"#b3c9e0","on-surface":"#1b1c1a","on-surface-variant":"#43474c","secondary-fixed-dim":"#e9c176","surface-tint":"#4c6075","on-primary-container":"#788da3","primary-fixed":"#cfe5fd","outline":"#74777d","secondary-fixed":"#ffdea5","surface-container-low":"#f5f3ef","on-error":"#ffffff","on-background":"#1b1c1a","surface-dim":"#dbdad6","primary-container":"#0f2537","on-tertiary-fixed-variant":"#2d476f","error-container":"#ffdad6","tertiary-fixed-dim":"#adc7f7","on-primary-fixed":"#061d2f","tertiary":"#000d23","surface-container-lowest":"#ffffff","on-primary":"#ffffff","on-tertiary":"#ffffff","on-tertiary-fixed":"#001b3c","surface-variant":"#e4e2de","on-secondary":"#ffffff","on-primary-fixed-variant":"#34495c","primary":"#000f1d","on-secondary-fixed":"#261900","tertiary-container":"#012349","secondary":"#775a19","surface":"#fbf9f5","surface-container-highest":"#e4e2de","on-error-container":"#93000a","surface-container":"#efeeea","inverse-surface":"#30312e","inverse-on-surface":"#f2f0ed","on-tertiary-container":"#728bb7","on-secondary-container":"#785a1a","on-secondary-fixed-variant":"#5d4201"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"margin-tablet":"2rem","space-xl":"2.5rem","space-xs":"0.25rem","space-lg":"1.5rem",margin:"3rem","gutter-mobile":"1rem",gutter:"1.5rem","margin-mobile":"1.25rem","space-sm":"0.5rem","space-md":"1rem"},fontFamily:{"body-md":["Plus Jakarta Sans"],"headline-lg":["Playfair Display"],"display-lg-mobile":["Playfair Display"],"body-sm":["Plus Jakarta Sans"],"headline-md":["Playfair Display"],"body-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"display-lg":["Playfair Display"],"headline-sm":["Playfair Display"],"title-sm":["Plus Jakarta Sans"],"headline-lg-mobile":["Playfair Display"]},fontSize:{"body-md":["15px",{lineHeight:"24px",fontWeight:"400"}],"headline-lg":["32px",{lineHeight:"40px",fontWeight:"600"}],"display-lg-mobile":["34px",{lineHeight:"42px",fontWeight:"600"}],"body-sm":["13px",{lineHeight:"20px",fontWeight:"400"}],"headline-md":["24px",{lineHeight:"32px",fontWeight:"500"}],"body-lg":["17px",{lineHeight:"28px",fontWeight:"400"}],"label-md":["14px",{lineHeight:"20px",fontWeight:"500"}],"label-sm":["11px",{lineHeight:"16px",letterSpacing:"0.06em",fontWeight:"600"}],"title-md":["18px",{lineHeight:"26px",fontWeight:"600"}],"display-lg":["48px",{lineHeight:"56px",fontWeight:"600"}],"headline-sm":["20px",{lineHeight:"28px",fontWeight:"500"}],"title-sm":["16px",{lineHeight:"24px",fontWeight:"600"}],"headline-lg-mobile":["26px",{lineHeight:"34px",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between py-6"><div class="flex flex-col"><div class="px-6 pb-6 flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-secondary-fixed shadow-[0_2px_8px_-2px_rgba(15,37,55,0.1)]"><span class="material-symbols-outlined text-[24px]">church</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">CBCA Pastoral</span><span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Portail Pastoral</span></div></div><div class="px-6 py-2"><div class="h-px w-full bg-outline-variant/30"></div></div><nav class="flex flex-col gap-1 px-4 mt-3" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg shadow-[0_2px_8px_-2px_rgba(15,37,55,0.08)]"><a aria-current="page" class="flex items-center gap-3.5 px-3.5 py-2.5 transition-all bg-primary-container text-on-primary font-bold rounded-lg shadow-[0_2px_8px_-2px_rgba(15,37,55,0.08)]" data-path="tableau-de-bord" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-label-md text-label-md">Tableau de bord</span></a><a class="flex items-center gap-3.5 px-3.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="predications-et-medias" href="#"><span class="material-symbols-outlined text-[20px]">podium</span><span class="font-label-md text-label-md">Prédications &amp; Médias</span></a><a class="flex items-center justify-between px-3.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all group" data-path="sainte-bible-et-textes" href="#"><div class="flex items-center gap-3.5"><span class="material-symbols-outlined text-[20px]">menu_book</span><span class="font-label-md text-label-md">Sainte Bible &amp; Textes</span></div><span class="px-2 py-0.5 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed text-[11px] font-label-sm">AT &amp; NT</span></a><a class="flex items-center gap-3.5 px-3.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="commentaires-et-temoignages" href="#"><span class="material-symbols-outlined text-[20px]">volunteer_activism</span><span class="font-label-md text-label-md">Commentaires &amp; Témoignages</span></a><a class="flex items-center gap-3.5 px-3.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="statistiques-et-graphiques" href="#"><span class="material-symbols-outlined text-[20px]">insights</span><span class="font-label-md text-label-md">Statistiques &amp; Graphiques</span></a><a class="flex items-center gap-3.5 px-3.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="messages-recus" href="#"><span class="material-symbols-outlined text-[20px]">mark_email_unread</span><span class="font-label-md text-label-md">Messages reçus</span></a><a class="flex items-center gap-3.5 px-3.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="parametres" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-label-md text-label-md">Paramètres</span></a></nav></div><div class="px-4 flex flex-col gap-2"><div class="p-3 mx-2 rounded-xl bg-surface-container flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-secondary-container/40 flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[18px]">verified</span></div><div class="flex flex-col"><span class="font-label-sm text-label-sm text-primary">CBCA Goma-Ville</span><span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Session Sécurisée</span></div></div><a class="flex items-center gap-3.5 px-4 py-2.5 rounded-lg text-error hover:bg-error-container/20 hover:text-error transition-all" data-path="deconnexion" href="#"><span class="material-symbols-outlined text-[20px]">logout</span><span class="font-label-md text-label-md">Déconnexion</span></a></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8"><div class="flex items-center gap-3 w-96"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span><input class="w-full pl-9 pr-4 py-1.5 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-secondary/50 transition-all" placeholder="Rechercher prédication, auteur, thème biblique..." type="search"></div></div><div class="flex items-center gap-5"><button aria-label="Témoignages et Réactions" class="relative p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">favorite</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface"></span></button><button aria-label="Notifications" class="relative p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface"></span></button><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-3 pl-1"><div class="flex flex-col text-right"><span class="font-title-sm text-title-sm text-primary text-[14px] leading-tight">Pasteur Titulaire</span><span class="font-label-sm text-label-sm text-secondary text-[11px]">Administrateur CBCA</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-16 bg-surface w-full px-8 pb-24"><div class="flex flex-col w-full">
+<!-- Top Pastoral Greeting & Actions Bar -->
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-6 pb-8">
+<div class="flex flex-col space-y-1.5">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+          Direct CBCA Ministère En Ligne
+        </span>
+<span class="text-outline text-label-sm font-label-sm">• Paroisse Centrale &amp; Diaspora</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+        Bienvenue dans votre ministère pastoral, <span class="italic font-normal text-secondary">Pasteur Emmanuel</span>
+</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+        Voici l'impact spirituel de la diffusion de la Parole de Dieu et le rayonnement des prédications audio auprès des fidèles pour ce cycle d'édification.
+      </p>
+</div>
+<!-- Action Tools -->
+<div class="flex flex-wrap items-center gap-3">
+<!-- Period Selector -->
+<div class="inline-flex p-1 rounded-xl bg-surface-container-high shadow-sm" id="period-selector">
+<button class="px-3.5 py-1.5 rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface" onclick="setPeriod(this, '7j')" type="button">
+          7 derniers jours
+        </button>
+<button class="px-3.5 py-1.5 rounded-lg font-label-md text-label-md transition-all bg-surface-container-lowest text-primary shadow-sm font-bold" onclick="setPeriod(this, '30j')" type="button">
+          30 derniers jours
+        </button>
+<button class="px-3.5 py-1.5 rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface" onclick="setPeriod(this, 'annee')" type="button">
+          Cette année
+        </button>
+</div>
+<!-- Export Pastoral Report -->
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-primary shadow-sm hover:shadow transition-all font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-[19px] text-secondary">download_for_offline</span>
+<span class="">Exporter le rapport</span>
+</button>
+<!-- Publish New Sermon CTA -->
+<button class="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary shadow-md hover:shadow-lg transition-all font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-[19px] text-secondary-fixed">podium</span>
+<span class="">Publier une nouvelle prédication</span>
+</button>
+</div>
+</div>
+<!-- Pastoral Urgent Banner / Notification -->
+<div class="mb-8 p-4 rounded-xl bg-secondary-container/25 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined text-[22px]">health_and_safety</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-primary font-semibold">Demandes d'intercession et d'écoute pastorale urgente</span>
+<span class="px-2 py-0.2 rounded-full bg-error text-on-error font-label-sm text-label-sm">3 requêtes prioritaires</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Des familles éprouvées de Goma et Beni ont sollicité une prière d'accompagnement suite au message de dimanche.
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-sm text-label-sm hover:bg-surface-container transition-colors shadow-sm" type="button">
+        Consulter le carnet de prière
+      </button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<!-- KPI Key Pastoral Metrics (5 Cards Grid) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 mb-8">
+<!-- KPI 1 -->
+<div class="p-5 rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(15,37,55,0.04)] flex flex-col justify-between hover:shadow-[0_8px_20px_rgba(15,37,55,0.07)] transition-all">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total des Écoutes</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">headphones</span>
+</div>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-primary tracking-tight">48 320</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px] text-secondary">trending_up</span>
+            +14%
+          </span>
+<span class="font-body-sm text-body-sm text-outline text-[12px]">vs mois précédent</span>
+</div>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="p-5 rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(15,37,55,0.04)] flex flex-col justify-between hover:shadow-[0_8px_20px_rgba(15,37,55,0.07)] transition-all">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Témoignages &amp; Retours</span>
+<div class="w-8 h-8 rounded-lg bg-secondary-fixed/50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">volunteer_activism</span>
+</div>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-primary tracking-tight">684</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">
+            18 à modérer
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Messages reçus</span>
+</div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="p-5 rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(15,37,55,0.04)] flex flex-col justify-between hover:shadow-[0_8px_20px_rgba(15,37,55,0.07)] transition-all">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Amens &amp; Bénédictions</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</div>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-primary tracking-tight">5 920</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px] text-secondary">arrow_upward</span>
+            +28%
+          </span>
+<span class="font-body-sm text-body-sm text-outline text-[12px]">30 derniers j.</span>
+</div>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="p-5 rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(15,37,55,0.04)] flex flex-col justify-between hover:shadow-[0_8px_20px_rgba(15,37,55,0.07)] transition-all">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Téléchargements MP3</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">cloud_download</span>
+</div>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-primary tracking-tight">12 450</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-body-sm text-body-sm text-secondary font-semibold">Écoute locale</span>
+<span class="font-body-sm text-body-sm text-outline text-[12px]">Basse connexion</span>
+</div>
+</div>
+</div>
+<!-- KPI 5 -->
+<div class="p-5 rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(15,37,55,0.04)] flex flex-col justify-between hover:shadow-[0_8px_20px_rgba(15,37,55,0.07)] transition-all">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Temps d'Écoute</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-primary tracking-tight">18 900 h</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Moyenne:</span>
+<span class="font-body-sm text-body-sm text-primary font-semibold">32 min/fidèle</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Analytics & Visualizations Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+<!-- Big Evolution Chart: Listeners, Likes, Testimonies (8 cols) -->
+<div class="lg:col-span-8 p-6 rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(15,37,55,0.04)] flex flex-col justify-between">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold">Dynamique de l'Assemblée</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Évolution des Écoutes &amp; Réactions Spirituelles</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Pics marqués chaque dimanche de culte et vigiles de prière du vendredi.</p>
+</div>
+<!-- Legend -->
+<div class="flex items-center gap-4 text-[12px] font-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-primary"></span>
+<span class="text-on-surface-variant">Écoutes audio</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-secondary"></span>
+<span class="text-on-surface-variant">Amens / Likes</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-outline-variant"></span>
+<span class="text-on-surface-variant">Témoignages</span>
+</div>
+</div>
+</div>
+<!-- Interactive SVG Chart -->
+<div class="relative w-full h-64 sm:h-72 flex flex-col justify-end">
+<svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 760 220">
+<defs>
+<!-- Background primary gradient fill -->
+<linearGradient id="primaryAreaGrad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#000f1d" stop-opacity="0.18"></stop>
+<stop offset="100%" stop-color="#000f1d" stop-opacity="0.0"></stop>
+</linearGradient>
+<!-- Secondary Gold gradient fill -->
+<linearGradient id="goldAreaGrad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#775a19" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#775a19" stop-opacity="0.0"></stop>
+</linearGradient>
+</defs>
+<!-- Horizontal reference guidelines -->
+<line stroke="#eae8e4" stroke-dasharray="4 4" x1="0" x2="760" y1="20" y2="20"></line>
+<line stroke="#eae8e4" stroke-dasharray="4 4" x1="0" x2="760" y1="80" y2="80"></line>
+<line stroke="#eae8e4" stroke-dasharray="4 4" x1="0" x2="760" y1="140" y2="140"></line>
+<line stroke="#eae8e4" x1="0" x2="760" y1="200" y2="200"></line>
+<!-- Sunday Vertical Markers (Column Highlights) -->
+<rect fill="#f5f3ef" height="190" rx="4" width="30" x="75" y="10"></rect>
+<text fill="#775a19" font-size="10" font-weight="600" text-anchor="middle" x="90" y="215">DIM 04</text>
+<rect fill="#f5f3ef" height="190" rx="4" width="30" x="255" y="10"></rect>
+<text fill="#775a19" font-size="10" font-weight="600" text-anchor="middle" x="270" y="215">DIM 11</text>
+<rect fill="#f5f3ef" height="190" rx="4" width="30" x="435" y="10"></rect>
+<text fill="#775a19" font-size="10" font-weight="600" text-anchor="middle" x="450" y="215">DIM 18</text>
+<rect fill="#f5f3ef" height="190" rx="4" width="30" x="615" y="10"></rect>
+<text fill="#775a19" font-size="10" font-weight="600" text-anchor="middle" x="630" y="215">DIM 25</text>
+<!-- Area Paths -->
+<!-- Listeners Area (Primary) -->
+<path d="M 0,160 Q 40,150 90,45 T 180,140 T 270,30 T 360,130 T 450,22 T 540,120 T 630,35 T 720,110 L 760,115 L 760,200 L 0,200 Z" fill="url(#primaryAreaGrad)"></path>
+<path d="M 0,160 Q 40,150 90,45 T 180,140 T 270,30 T 360,130 T 450,22 T 540,120 T 630,35 T 720,110 L 760,115" fill="none" stroke="#000f1d" stroke-width="2.5"></path>
+<!-- Likes Area (Gold) -->
+<path d="M 0,185 Q 40,180 90,95 T 180,165 T 270,75 T 360,155 T 450,70 T 540,150 T 630,80 T 720,145 L 760,150 L 760,200 L 0,200 Z" fill="url(#goldAreaGrad)"></path>
+<path d="M 0,185 Q 40,180 90,95 T 180,165 T 270,75 T 360,155 T 450,70 T 540,150 T 630,80 T 720,145 L 760,150" fill="none" stroke="#775a19" stroke-width="2"></path>
+<!-- Testimonies Bars / Points -->
+<circle cx="90" cy="45" fill="#775a19" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="270" cy="30" fill="#775a19" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="450" cy="22" fill="#000f1d" r="5" stroke="#fed488" stroke-width="2"></circle>
+<circle cx="630" cy="35" fill="#775a19" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+<!-- Tooltip on peak (Dimanche 18) -->
+<g transform="translate(405, -5)">
+<rect fill="#000f1d" height="24" rx="6" width="90"></rect>
+<text fill="#ffffff" font-size="10" font-weight="600" text-anchor="middle" x="45" y="15">3 420 écoutes</text>
+</g>
+</svg>
+</div>
+<div class="pt-4 flex items-center justify-between text-outline text-[12px] font-label-sm">
+<span class="">Semaine 1</span>
+<span class="">Semaine 2</span>
+<span class="">Semaine 3 (Culte d'action de grâce)</span>
+<span class="">Semaine 4</span>
+</div>
+</div>
+<!-- Thematic Breakdown Chart (4 cols) -->
+<div class="lg:col-span-4 p-6 rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(15,37,55,0.04)] flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold">Enseignements</span>
+<span class="text-outline text-[12px] font-body-sm">4 séries actives</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-4">Répartition par Thématique</h2>
+<!-- Radial Donut SVG visualizer -->
+<div class="flex items-center justify-center my-3 relative">
+<svg class="w-36 h-36" viewBox="0 0 160 160">
+<!-- Background circle track -->
+<circle cx="80" cy="80" fill="none" r="62" stroke="#eae8e4" stroke-width="18"></circle>
+<!-- Slice 1: Foi & Épreuves (35% -> stroke-dasharray: 136 253) offset: 0 -->
+<circle cx="80" cy="80" fill="none" r="62" stroke="#000f1d" stroke-dasharray="136 253" stroke-dashoffset="0" stroke-width="18" transform="rotate(-90 80 80)"></circle>
+<!-- Slice 2: Prière & Intercession (28% -> stroke-dasharray: 109 280) offset: -136 -->
+<circle cx="80" cy="80" fill="none" r="62" stroke="#775a19" stroke-dasharray="109 280" stroke-dashoffset="-136" stroke-width="18" transform="rotate(-90 80 80)"></circle>
+<!-- Slice 3: Famille Chrétienne (20% -> stroke-dasharray: 78 311) offset: -245 -->
+<circle cx="80" cy="80" fill="none" r="62" stroke="#fed488" stroke-dasharray="78 311" stroke-dashoffset="-245" stroke-width="18" transform="rotate(-90 80 80)"></circle>
+<!-- Slice 4: Sanctification (17% -> stroke-dasharray: 66 323) offset: -323 -->
+<circle cx="80" cy="80" fill="none" r="62" stroke="#c3c7cd" stroke-dasharray="66 323" stroke-dashoffset="-323" stroke-width="18" transform="rotate(-90 80 80)"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">100%</span>
+<span class="font-label-sm text-label-sm text-outline text-[11px]">Édification</span>
+</div>
+</div>
+</div>
+<!-- Categories Detailed Progress Bars -->
+<div class="space-y-3 mt-4">
+<div>
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="flex items-center gap-2 text-primary font-medium">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span> Foi &amp; Épreuves
+            </span>
+<span class="font-semibold text-primary">35%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container">
+<div class="h-1.5 rounded-full bg-primary" style="width: 35%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="flex items-center gap-2 text-primary font-medium">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span> Prière &amp; Intercession
+            </span>
+<span class="font-semibold text-primary">28%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container">
+<div class="h-1.5 rounded-full bg-secondary" style="width: 28%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="flex items-center gap-2 text-primary font-medium">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span> Famille Chrétienne
+            </span>
+<span class="font-semibold text-primary">20%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container">
+<div class="h-1.5 rounded-full bg-secondary-container" style="width: 20%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="flex items-center gap-2 text-primary font-medium">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span> Sanctification
+            </span>
+<span class="font-semibold text-primary">17%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container">
+<div class="h-1.5 rounded-full bg-outline-variant" style="width: 17%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Main Row: Recent Sermons Table (Left) & Moderation Stream (Right) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Sermons Management Table (7 cols) -->
+<div class="lg:col-span-7 flex flex-col space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold">Diffusion Sonore</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Dernières Prédications Enregistrées</h2>
+</div>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary hover:underline" href="#">
+<span class="">Toutes les prédications</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<div class="rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(15,37,55,0.04)] overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<tr>
+<th class="py-3.5 px-4 font-semibold">Prédication &amp; Texte</th>
+<th class="py-3.5 px-3 font-semibold text-center">Écoutes</th>
+<th class="py-3.5 px-3 font-semibold text-center">Amens</th>
+<th class="py-3.5 px-3 font-semibold text-center">Complétion</th>
+<th class="py-3.5 px-3 font-semibold text-center">Statut</th>
+<th class="py-3.5 px-4 font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface font-body-sm text-body-sm">
+<!-- Item 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-secondary-fixed/40 flex items-center justify-center text-secondary shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">mic</span>
+</div>
+<div>
+<div class="font-title-sm text-title-sm text-primary font-semibold leading-snug">Demeurer inébranlable dans l'épreuve</div>
+<div class="flex items-center gap-2 mt-0.5 text-on-surface-variant text-[12px]">
+<span class="text-secondary font-medium">Jacques 1:2-8</span>
+<span class="">• 25 mai 2025</span>
+<span class="">• 42 min</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-center font-medium text-primary">14 210</td>
+<td class="py-3.5 px-3 text-center text-secondary font-medium">1 890</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-block px-2 py-0.5 rounded-full bg-surface-container text-primary text-[11px] font-semibold">84%</span>
+</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    Diffusé
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Écouter l'extrait" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Statistiques détaillées" type="button">
+<span class="material-symbols-outlined text-[18px]">insights</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Modifier la fiche" type="button">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+</div>
+<div>
+<div class="font-title-sm text-title-sm text-primary font-semibold leading-snug">La puissance de l'intercession secrète</div>
+<div class="flex items-center gap-2 mt-0.5 text-on-surface-variant text-[12px]">
+<span class="text-secondary font-medium">Matthieu 6:5-15</span>
+<span class="">• 18 mai 2025</span>
+<span class="">• 38 min</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-center font-medium text-primary">11 840</td>
+<td class="py-3.5 px-3 text-center text-secondary font-medium">1 420</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-block px-2 py-0.5 rounded-full bg-surface-container text-primary text-[11px] font-semibold">78%</span>
+</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    Diffusé
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Écouter l'extrait" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Statistiques détaillées" type="button">
+<span class="material-symbols-outlined text-[18px]">insights</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Modifier la fiche" type="button">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">family_restroom</span>
+</div>
+<div>
+<div class="font-title-sm text-title-sm text-primary font-semibold leading-snug">Bâtir un autel de bénédiction au foyer</div>
+<div class="flex items-center gap-2 mt-0.5 text-on-surface-variant text-[12px]">
+<span class="text-secondary font-medium">Josué 24:14-24</span>
+<span class="">• 11 mai 2025</span>
+<span class="">• 45 min</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-center font-medium text-primary">9 630</td>
+<td class="py-3.5 px-3 text-center text-secondary font-medium">1 150</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-block px-2 py-0.5 rounded-full bg-surface-container text-primary text-[11px] font-semibold">72%</span>
+</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    Diffusé
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Écouter l'extrait" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Statistiques détaillées" type="button">
+<span class="material-symbols-outlined text-[18px]">insights</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Modifier la fiche" type="button">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 4 (Draft) -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-outline shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">auto_stories</span>
+</div>
+<div>
+<div class="font-title-sm text-title-sm text-primary font-semibold leading-snug">Vivre sous la grâce renouvelée chaque matin</div>
+<div class="flex items-center gap-2 mt-0.5 text-on-surface-variant text-[12px]">
+<span class="text-secondary font-medium">Lamentations 3:22-26</span>
+<span class="">• Enregistrement Dim. prochain</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-center font-medium text-outline">-</td>
+<td class="py-3.5 px-3 text-center text-outline">-</td>
+<td class="py-3.5 px-3 text-center text-outline">-</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-[11px]">
+                    Brouillon
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded-md hover:bg-surface-container text-secondary font-label-sm text-[12px] font-semibold" title="Continuer la préparation" type="button">
+                      Éditer notes
+                    </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer Pagination -->
+<div class="p-4 bg-surface-container-low flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span class="">Affichage de 4 prédications sur 148 diffusées</span>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container text-on-surface-variant disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary text-on-primary font-bold flex items-center justify-center text-[13px]">1</button>
+<button class="w-8 h-8 rounded hover:bg-surface-container text-on-surface-variant flex items-center justify-center text-[13px]">2</button>
+<button class="w-8 h-8 rounded hover:bg-surface-container text-on-surface-variant flex items-center justify-center text-[13px]">3</button>
+<button class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Live Moderation Stream of Testimonies & Responses (5 cols) -->
+<div class="lg:col-span-5 flex flex-col space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold">Modération Spirituelle</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Témoignages &amp; Échos des Fidèles</h2>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+          18 en attente
+        </span>
+</div>
+<div class="flex flex-col space-y-4" id="moderation-feed">
+<!-- Moderation Card 1 -->
+<div class="p-5 rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(15,37,55,0.04)] hover:shadow-md transition-all flex flex-col space-y-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary font-bold text-sm">
+                MK
+              </div>
+<div>
+<div class="font-title-sm text-title-sm text-primary font-semibold">Maman Kavira Solange</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant text-[12px] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-secondary">location_on</span>
+                  CBCA Virunga • Goma
+                </div>
+</div>
+</div>
+<span class="text-outline text-label-sm font-label-sm">Il y a 35 min</span>
+</div>
+<!-- Sermon ref badge -->
+<div class="p-2 rounded-lg bg-surface-container-low flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">podium</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px] truncate">
+              Sur : <strong class="text-primary font-semibold">Demeurer inébranlable dans l'épreuve</strong> (Jc 1:2)
+            </span>
+</div>
+<!-- Message Body -->
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed italic">
+            « Pasteur, ce message audio a restauré ma paix intérieure ce matin. Après des semaines d'angoisse suite à la perte de notre commerce, la Parole sur Jacques m'a rappelé que l'épreuve produit la persévérance. Gloire à Dieu pour ce ministère ! »
+          </p>
+<!-- Interaction & Action Bar -->
+<div class="pt-2 flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-1 text-on-surface-variant text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">favorite</span>
+<span class="">12 amens par la communauté</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded-md bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm transition-colors" title="Mettre en avant sur la page d'accueil" type="button">
+                À la une
+              </button>
+<button class="px-3 py-1 rounded-md bg-secondary text-on-secondary font-label-sm text-label-sm hover:opacity-90 transition-opacity" onclick="approveTestimony(this)" type="button">
+                Approuver
+              </button>
+<button class="p-1 rounded-md hover:bg-error-container/30 text-error transition-colors" title="Signaler ou rejeter" type="button">
+<span class="material-symbols-outlined text-[18px]">flag</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Moderation Card 2 -->
+<div class="p-5 rounded-2xl bg-surface-container-lowest shadow-[0_2px_12px_rgba(15,37,55,0.04)] hover:shadow-md transition-all flex flex-col space-y-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold text-sm">
+                BK
+              </div>
+<div>
+<div class="font-title-sm text-title-sm text-primary font-semibold">Frère Baraka Kambale</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant text-[12px] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-secondary">flight</span>
+                  CBCA Diaspora • Belgique (Bruxelles)
+                </div>
+</div>
+</div>
+<span class="text-outline text-label-sm font-label-sm">Il y a 2 h</span>
+</div>
+<!-- Sermon ref badge -->
+<div class="p-2 rounded-lg bg-surface-container-low flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">podium</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px] truncate">
+              Sur : <strong class="text-primary font-semibold">La puissance de l'intercession secrète</strong> (Mt 6)
+            </span>
+</div>
+<!-- Message Body -->
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed italic">
+            « Nous écoutons vos prédications chaque soir en famille depuis la Belgique. C'est un lien vital qui nous unit spirituellement à notre église-mère CBCA. Pouvez-vous prier pour nos enfants qui débutent leurs examens d'État ? »
+          </p>
+<!-- Interaction & Action Bar -->
+<div class="pt-2 flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-1 text-on-surface-variant text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">favorite</span>
+<span class="">8 amens</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded-md bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm transition-colors" type="button">
+                Répondre pastoralement
+              </button>
+<button class="px-3 py-1 rounded-md bg-secondary text-on-secondary font-label-sm text-label-sm hover:opacity-90 transition-opacity" onclick="approveTestimony(this)" type="button">
+                Approuver
+              </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Moderator Note -->
+<div class="p-4 rounded-xl bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[20px]">shield</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Modération éthique CBCA : tous les messages sont relus avant affichage public.</span>
+</div>
+<button class="font-label-sm text-label-sm text-primary font-semibold hover:underline shrink-0">
+          Gérer les filtres
+        </button>
+</div>
+</div>
+</div>
+<!-- Bottom Floating Audio Player preview dock (Sanctuary Style) -->
+<div class="fixed bottom-0 left-72 right-0 bg-primary/95 backdrop-blur-xl shadow-[0_-8px_30px_-4px_rgba(15,37,55,0.2)] text-on-primary px-8 py-3.5 z-40 flex items-center justify-between transition-all">
+<div class="flex items-center gap-4 w-1/4 min-w-0">
+<div class="w-11 h-11 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0 relative overflow-hidden group cursor-pointer">
+<span class="material-symbols-outlined text-[24px]">church</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-white font-semibold truncate leading-snug">Demeurer inébranlable dans l'épreuve</span>
+<span class="font-body-sm text-body-sm text-secondary-fixed text-[12px] truncate">Pasteur Emmanuel • Jacques 1:2-8</span>
+</div>
+</div>
+<!-- Center Player Controls & Waveform -->
+<div class="flex flex-col items-center gap-1.5 w-2/5">
+<div class="flex items-center gap-4">
+<button class="text-on-primary-container hover:text-white transition-colors" title="Reculer 15s" type="button">
+<span class="material-symbols-outlined text-[20px]">export_notes</span>
+</button>
+<button class="w-9 h-9 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center hover:scale-105 transition-transform shadow-md" title="Lecture audio" type="button">
+<span class="material-symbols-outlined text-[22px]">play_arrow</span>
+</button>
+<button class="text-on-primary-container hover:text-white transition-colors" title="Avancer 15s" type="button">
+<span class="material-symbols-outlined text-[20px]">apps</span>
+</button>
+</div>
+<!-- Mini Waveform / Scrubber Bar -->
+<div class="w-full flex items-center gap-3">
+<span class="text-[11px] font-label-sm text-on-primary-container">12:45</span>
+<div class="flex-1 h-1.5 bg-on-primary-container/30 rounded-full overflow-hidden relative cursor-pointer">
+<div class="h-full bg-secondary-fixed rounded-full" style="width: 38%"></div>
+</div>
+<span class="text-[11px] font-label-sm text-on-primary-container">42:10</span>
+</div>
+</div>
+<!-- Volume & Quick Speeds -->
+<div class="flex items-center justify-end gap-3 w-1/4">
+<button class="px-2 py-0.5 rounded bg-on-primary-container/20 text-[11px] font-label-sm text-white hover:bg-on-primary-container/30" type="button">
+        1.0x
+      </button>
+<div class="flex items-center gap-1.5 text-on-primary-container">
+<span class="material-symbols-outlined text-[19px]">volume_up</span>
+<div class="w-16 h-1 bg-on-primary-container/30 rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-3/4 rounded-full"></div>
+</div>
+</div>
+<button class="p-1.5 text-on-primary-container hover:text-white transition-colors" title="Fermer le lecteur" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  function setPeriod(button, period) {
+    const parent = document.getElementById('period-selector');
+    const buttons = parent.querySelectorAll('button');
+    buttons.forEach(btn => {
+      btn.className = "px-3.5 py-1.5 rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface";
+    });
+    button.className = "px-3.5 py-1.5 rounded-lg font-label-md text-label-md transition-all bg-surface-container-lowest text-primary shadow-sm font-bold";
+  }
+
+  function approveTestimony(btn) {
+    btn.innerHTML = "Approuvé ✓";
+    btn.classList.remove('bg-secondary', 'text-on-secondary');
+    btn.classList.add('bg-surface-container', 'text-secondary', 'cursor-default');
+    btn.disabled = true;
+  }
+</script></main></div>
+
+</body></html>

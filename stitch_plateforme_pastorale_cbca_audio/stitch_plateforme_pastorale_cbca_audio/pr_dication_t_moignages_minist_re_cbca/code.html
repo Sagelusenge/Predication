@@ -1,0 +1,835 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "background": "#fbf9f5", "on-secondary-fixed": "#261900", "on-tertiary-container": "#728bb7", "tertiary-fixed-dim": "#adc7f7", "on-error": "#ffffff", "primary-fixed-dim": "#b3c9e0", "surface-container-low": "#f5f3ef", "surface-container": "#efeeea", "surface-container-lowest": "#ffffff", "surface": "#fbf9f5", "inverse-surface": "#30312e", "on-surface-variant": "#43474c", "surface-dim": "#dbdad6", "surface-bright": "#fbf9f5", "on-secondary-fixed-variant": "#5d4201", "on-tertiary": "#ffffff", "on-tertiary-fixed": "#001b3c", "on-error-container": "#93000a", "on-secondary-container": "#785a1a", "tertiary": "#000d23", "surface-container-high": "#eae8e4", "inverse-primary": "#b3c9e0", "inverse-on-surface": "#f2f0ed", "surface-container-highest": "#e4e2de", "error-container": "#ffdad6", "secondary-container": "#fed488", "surface-tint": "#4c6075", "surface-variant": "#e4e2de", "secondary": "#775a19", "on-surface": "#1b1c1a", "primary": "#000f1d", "primary-fixed": "cfe5fd", "primary-container": "#0f2537", "on-secondary": "#ffffff", "on-primary-container": "#788da3", "error": "#ba1a1a", "tertiary-container": "#012349", "on-primary": "#ffffff", "secondary-fixed-dim": "#e9c176", "tertiary-fixed": "#d6e3ff", "outline": "#74777d", "on-tertiary-fixed-variant": "#2d476f", "on-primary-fixed": "#061d2f", "on-primary-fixed-variant": "#34495c", "secondary-fixed": "#ffdea5", "on-background": "#1b1c1a", "outline-variant": "#c3c7cd" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "margin": "3rem", "space-xl": "2.5rem", "margin-mobile": "1.25rem", "gutter": "1.5rem", "space-xs": "0.25rem", "gutter-mobile": "1rem", "space-sm": "0.5rem", "space-md": "1rem", "margin-tablet": "2rem" }, "fontFamily": { "label-sm": [ "Plus Jakarta Sans" ], "body-md": [ "Plus Jakarta Sans" ], "display-lg": [ "Playfair Display" ], "display-lg-mobile": [ "Playfair Display" ], "title-sm": [ "Plus Jakarta Sans" ], "headline-lg": [ "Playfair Display" ], "title-md": [ "Plus Jakarta Sans" ], "body-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Playfair Display" ], "headline-md": [ "Playfair Display" ], "headline-lg-mobile": [ "Playfair Display" ], "label-md": [ "Plus Jakarta Sans" ], "body-sm": [ "Plus Jakarta Sans" ] }, "fontSize": { "label-sm": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600" } ], "body-md": [ "15px", { "lineHeight": "24px", "fontWeight": "400" } ], "display-lg": [ "48px", { "lineHeight": "56px", "fontWeight": "600" } ], "display-lg-mobile": [ "34px", { "lineHeight": "42px", "fontWeight": "600" } ], "title-sm": [ "16px", { "lineHeight": "24px", "fontWeight": "600" } ], "headline-lg": [ "32px", { "lineHeight": "40px", "fontWeight": "600" } ], "title-md": [ "18px", { "lineHeight": "26px", "fontWeight": "600" } ], "body-lg": [ "17px", { "lineHeight": "28px", "fontWeight": "400" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "fontWeight": "500" } ], "headline-md": [ "24px", { "lineHeight": "32px", "fontWeight": "500" } ], "headline-lg-mobile": [ "26px", { "lineHeight": "34px", "fontWeight": "600" } ], "label-md": [ "14px", { "lineHeight": "20px", "fontWeight": "500" } ], "body-sm": [ "13px", { "lineHeight": "20px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-background font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 max-w-7xl mx-auto px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md"><img alt="Logo Ministère CBCA" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XBxesSmVl_uCpzCkJD9HGbLs-SJzE5cbtIBuQS2aKYf_bwUxStRMs7EkT83aPGBhfArYozpisemLy_9rrrYrTNBewZdU3a98mDeqSwHaM_V21MFQjE-5Q9VNXG0SC3PK2pEnqU2Sna-i51bvF5F-_OUjOWU2LUlH9VudUiPi-w31hp3OZ-GdnXpS5x5co0_4wRmFGATzWzCbiwEIaqLyYUuKdGJitcNy_Abfjn895R"><div class="flex flex-col"><span class="font-title-sm text-title-sm text-primary tracking-tight">Ministère Pastoral</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">CBCA • Communauté Baptiste</span></div></div><nav class="hidden lg:flex items-center gap-space-lg" data-active-classes="bg-primary-container text-on-primary font-title-sm px-space-md py-space-xs rounded-lg"><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="accueil" href="#">Accueil</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="a-propos" href="#">À propos</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="predications" href="#">Prédications</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="sainte-bible" href="#">Sainte Bible</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="contact" href="#">Contact</a></nav><div class="flex items-center gap-space-md"><a class="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-label-md text-label-md" data-path="admin-connexion" href="#"><span class="material-symbols-outlined text-[18px]">lock</span><span class="">Espace Admin</span></a><div class="flex items-center gap-space-xs pl-space-xs border-l border-surface-variant"><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3Cb-N2OcNWXqkXCFwkdo7M2R2CRD4jvcvLjYXP7c3XeEwTs8TkHLGdQQP7u8QuIGYahWutQ2z0hdjNQZGU7sjC2xg5wSywx5U3qaL8HK-P7-X6T1ojSrX1XX8UHnEEN8rOvqPFl6kSoCIpUzftd68JTKF2wE8UY0sbaMd_hu8rj69pEZq12i_9h721EjPmGNKrbHCssUbKVfHDXvHv0iro7HKSrtAKxTVWXTpTYo"><div class="hidden xl:flex flex-col"><span class="font-label-sm text-label-sm font-semibold text-primary leading-tight">Bureau Pastoral</span><span class="font-label-sm text-[10px] text-secondary leading-tight">Connecté</span></div></div><button aria-label="Menu mobile" class="lg:hidden p-space-xs text-on-surface-variant hover:text-on-surface rounded-lg"><span class="material-symbols-outlined text-[24px]">menu</span></button></div></div></header><main class="w-full pt-20 pb-28 bg-background"><div class="flex flex-col w-full">
+<!-- Subtle Sanctuary Ambient Background Elements -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[850px] h-[380px] bg-gradient-to-b from-secondary/10 via-secondary-container/10 to-transparent blur-3xl pointer-events-none rounded-full"></div>
+<div class="max-w-7xl mx-auto px-gutter py-space-md">
+<!-- Breadcrumb Navigation -->
+<nav aria-label="Fil d'ariane" class="flex items-center flex-wrap gap-2 text-on-surface-variant font-label-md text-label-md mb-space-md">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]">home</span>
+<span class="">Accueil</span>
+</a>
+<span class="text-outline-variant font-body-sm text-body-sm">/</span>
+<a class="hover:text-primary transition-colors" href="#">Prédications</a>
+<span class="text-outline-variant font-body-sm text-body-sm">/</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm">Série : Vie de Prière</span>
+<span class="text-outline-variant font-body-sm text-body-sm">/</span>
+<span class="text-primary font-semibold truncate max-w-xs md:max-w-md">La Puissance de la Prière Persévérante</span>
+</nav>
+<!-- Main Sermon Feature Card (Hero Layout) -->
+<section class="bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden mb-space-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+<!-- Left Visual: Pastoral Image with Scripture Overlay -->
+<div class="lg:col-span-5 relative min-h-[320px] lg:min-h-full overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A dignified African pastor in reverent prayer at a warm wooden pulpit, soft morning sanctuary lighting coming through high arched windows, serene contemplative mood, palette of deep navy blue, warm gold accents, and subtle parchment tones, editorial photograph with shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwmtcbmczYqrptox0Sgco5_OMQLux2RWfDxB4Jv8Dn3pq_eTrNMgL8I72SbiSzVHwIEV7rkxVxjDdYJNyRvhcR-TnehX9bw_kwvW2oUI4fY0i2HCit5bDM_AfHMBWAajgU6bjBIj3WXM6AqIkyGmVi4mMd2Nsrf5gt26e-ESJggVUBE7q-oJLrt2cbF15xjqu7_YdzUY8fKV-qv0n-CwYD2EcG7ReCxr30qLPKTNk">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/45 to-transparent flex flex-col justify-end p-space-lg text-on-primary">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded bg-secondary-fixed/90 text-on-secondary-fixed font-label-sm text-label-sm font-semibold tracking-wider uppercase mb-space-sm w-fit backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px]">auto_stories</span>
+                Culte Dominical • Goma-Ville
+              </span>
+<h2 class="font-headline-md text-headline-md text-on-primary leading-snug">Pasteur Emmanuel Kasereka</h2>
+<p class="font-body-sm text-body-sm text-on-primary-container">Surintendant &amp; Berger de la Communauté CBCA</p>
+<div class="mt-space-md pt-space-sm flex items-center justify-between text-on-primary-container font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary-fixed">calendar_today</span>
+                  Dimanche 16 Février 2025
+                </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary-fixed">graphic_eq</span>
+                  Audio Studio HD
+                </span>
+</div>
+</div>
+</div>
+<!-- Right Content: Player & Key Actions -->
+<div class="lg:col-span-7 p-space-lg lg:p-space-xl flex flex-col justify-between bg-surface-container-lowest">
+<div>
+<!-- Badges Header -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="px-space-sm py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+                    Message d'Édification Majeur
+                  </span>
+<span class="px-space-sm py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+                    48 min 20 sec
+                  </span>
+</div>
+<!-- Interactive Amen Counter Pill -->
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container hover:bg-secondary-fixed/30 text-secondary transition-all active:scale-95 shadow-sm" id="heroAmenBtn" onclick="toggleAmenMain()" title="Dire Amen / Témoigner de la bénédiction reçue">
+<span class="material-symbols-outlined text-[20px] text-secondary transition-transform duration-300" id="heroAmenIcon">favorite</span>
+<span class="font-title-sm text-title-sm font-bold" id="heroAmenCount">1 248</span>
+<span class="font-label-sm text-label-sm">Amens &amp; Bénédictions</span>
+</button>
+</div>
+<!-- Sermon Title -->
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary tracking-tight mb-space-xs">
+                La Puissance de la Prière Persévérante
+              </h1>
+<p class="font-headline-sm text-headline-sm text-secondary italic mb-space-md">
+                « Prier sans cesse, espérer sans faiblir devant le trône de grâce. »
+              </p>
+<!-- Scripture Anchor Chips -->
+<div class="flex flex-wrap items-center gap-space-xs mb-space-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mr-1">Passages Clés :</span>
+<span class="px-space-sm py-1 rounded-lg bg-surface-container text-primary font-title-sm text-title-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">menu_book</span>
+                  Luc 18:1-8
+                </span>
+<span class="px-space-sm py-1 rounded-lg bg-surface-container text-primary font-title-sm text-title-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">menu_book</span>
+                  Philippiens 4:6-7
+                </span>
+<span class="px-space-sm py-1 rounded-lg bg-surface-container text-primary font-title-sm text-title-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">menu_book</span>
+                  Jacques 5:16
+                </span>
+</div>
+<!-- Full Featured Audio Player Interface -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-inner mb-space-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm font-semibold text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">podcasts</span>
+                    DIFFUSION AUDIO OFFICIELLE
+                  </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Débit 320 kbps • Stéréo</span>
+</div>
+<!-- Custom Interactive Waveform Visualizer -->
+<div class="relative py-space-xs select-none">
+<div class="h-16 flex items-end justify-between gap-[3px] cursor-pointer group" id="waveformVisualizer">
+<!-- Script dynamically builds realistic audio bars with responsive peaks -->
+<div class="w-1.5 h-6 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-8 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-12 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-10 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-14 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-16 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-9 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-13 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-15 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-11 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-7 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-14 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-16 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-12 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-8 rounded-full bg-secondary"></div>
+<!-- Playhead indicator split -->
+<div class="w-1.5 h-10 rounded-full bg-secondary"></div>
+<div class="w-1.5 h-15 rounded-full bg-secondary-fixed"></div>
+<div class="w-1.5 h-13 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-11 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-14 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-7 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-9 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-16 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-12 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-8 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-14 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-11 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-15 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-10 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-6 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-12 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-9 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-14 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-7 rounded-full bg-outline-variant"></div>
+<div class="w-1.5 h-5 rounded-full bg-outline-variant"></div>
+</div>
+<!-- Progress Bar Scrubber Overlay -->
+<div class="w-full bg-surface-container-highest h-1 rounded-full mt-2 relative overflow-hidden">
+<div class="h-full bg-secondary rounded-full w-[36%] transition-all duration-150" id="audioProgressFill"></div>
+</div>
+</div>
+<!-- Player Controls Row -->
+<div class="flex items-center justify-between pt-space-xs mt-2">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-md text-label-md font-mono text-primary font-bold" id="currentTimeLabel">17:24</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">/ 48:20</span>
+</div>
+<!-- Central Audio Playback Triggers -->
+<div class="flex items-center gap-space-md">
+<button class="p-1 text-on-surface-variant hover:text-primary transition-colors" onclick="skipAudio(-15)" title="Reculer de 15 secondes">
+<span class="material-symbols-outlined text-[24px]">export_notes</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-primary-container shadow-lg hover:scale-105 active:scale-95 transition-all" id="mainPlayBtn" onclick="toggleMainAudio()" title="Lire ou mettre en pause la prédication">
+<span class="material-symbols-outlined text-[28px]" id="mainPlayIcon">play_arrow</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:text-primary transition-colors" onclick="skipAudio(30)" title="Avancer de 30 secondes">
+<span class="material-symbols-outlined text-[24px]">forward_30</span>
+</button>
+</div>
+<!-- Volume & Speed Controls -->
+<div class="flex items-center gap-space-sm">
+<button class="px-space-xs py-1 rounded bg-surface-container text-secondary font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors" id="speedToggleBtn" onclick="cycleSpeed()">
+                      1.0x
+                    </button>
+<div class="hidden sm:flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+<input class="w-16 accent-secondary cursor-pointer" max="100" min="0" title="Volume sonore" type="range" value="85">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons Grid: Edification, Downloads, Shares -->
+<div class="space-y-space-sm">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm">
+<!-- Action 1: Witness/Comment jump -->
+<a class="flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg bg-primary text-on-primary hover:bg-primary-container font-title-sm text-title-sm shadow-md transition-all text-center" href="#espace-temoignages">
+<span class="material-symbols-outlined text-[20px] text-secondary-fixed">rate_review</span>
+<span class="">Laisser un Témoignage</span>
+</a>
+<!-- Action 2: Download Audio -->
+<button class="flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container text-primary hover:bg-surface-container-high font-title-sm text-title-sm transition-all shadow-sm" onclick="triggerDownloadNotification('Audio MP3 HD')">
+<span class="material-symbols-outlined text-[20px] text-secondary">cloud_download</span>
+<span class="">Audio MP3 (44 Mo)</span>
+</button>
+<!-- Action 3: Download Study Guide PDF -->
+<button class="flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container text-primary hover:bg-surface-container-high font-title-sm text-title-sm transition-all shadow-sm" onclick="triggerDownloadNotification('Notes d\'étude Biblique (PDF)')">
+<span class="material-symbols-outlined text-[20px] text-secondary">picture_as_pdf</span>
+<span class="">Plan &amp; Notes (PDF)</span>
+</button>
+</div>
+<!-- Instant Share Bar -->
+<div class="flex items-center justify-between flex-wrap gap-space-sm pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">share</span>
+                  Partager cette prédication pour fortifier un proche :
+                </span>
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#128C7E] font-label-sm text-label-sm transition-colors" onclick="shareLink('WhatsApp')" title="Partager sur WhatsApp">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+                    WhatsApp
+                  </button>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm transition-colors" onclick="shareLink('Facebook')" title="Partager sur Facebook">
+<span class="material-symbols-outlined text-[16px]">public</span>
+                    Facebook
+                  </button>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm transition-colors" id="copyBtn" onclick="copyCurrentUrl()" title="Copier le lien direct">
+<span class="material-symbols-outlined text-[16px]">link</span>
+<span class="">Copier le lien</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Grid Layout: Sermon Context & Pastoral Notes vs Series Sidebar -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-xl">
+<!-- Main Column: Summary, Message Outline, Theological Notes -->
+<div class="lg:col-span-8 space-y-space-lg">
+<!-- Summary Card -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center gap-space-sm mb-space-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container/40 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[24px]">menu_book</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary">Résumé Pastoral &amp; Contexte Théologique</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Message dispensé lors du rassemblement de réveil spirituel à la CBCA Goma-Ville</p>
+</div>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed mb-space-md">
+              Face aux tempêtes intérieures, aux épreuves d'attente prolongée et aux défis quotidiens de notre époque, le Seigneur Jésus nous interpelle : <em>« Il faut toujours prier, et ne point se relâcher »</em> (Luc 18:1). Dans cette prédication poignante et profondément biblique, le Pasteur Emmanuel Kasereka dissèque la parabole de la veuve insistante et du juge inique pour révéler la nature bienveillante de Dieu et le triomphe de la prière constante.
+            </p>
+<div class="p-space-md rounded-xl bg-surface-container-low mb-space-md shadow-inner">
+<span class="font-title-sm text-title-sm text-primary block mb-space-xs font-bold">Verset d'ancrage méditatif :</span>
+<blockquote class="font-headline-sm text-headline-sm text-secondary italic leading-relaxed">
+                « Ne vous inquiétez de rien; mais en toute chose faites connaître vos besoins à Dieu par des prières et des supplications, avec des actions de grâces. Et la paix de Dieu, qui surpasse toute intelligence, gardera vos cœurs et vos pensées en Jésus-Christ. »
+              </blockquote>
+<span class="font-label-md text-label-md text-on-surface-variant block mt-space-xs font-semibold text-right">— Philippiens 4:6-7</span>
+</div>
+<!-- Detailed Sermon Outline / Plan du message -->
+<h4 class="font-title-sm text-title-sm text-primary uppercase tracking-wider mb-space-sm mt-space-md">Plan Détaillé de l'Enseignement :</h4>
+<div class="space-y-space-sm">
+<div class="flex items-start gap-space-sm p-space-sm rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-label-md shrink-0">I</span>
+<div>
+<h5 class="font-title-sm text-title-sm text-primary">L'Anatomie du Découragement dans la Prière</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Pourquoi nos cœurs s'essoufflent-ils lorsque le ciel semble silencieux ? Comment démasquer les mensonges de l'ennemi qui nous poussent à abandonner l'autel de la prière.</p>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-sm rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-label-md shrink-0">II</span>
+<div>
+<h5 class="font-title-sm text-title-sm text-primary">La Clé de la Persévérance : Connaître le Caractère du Père Céleste</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Exégèse de Luc 18. Dieu n'est pas un juge injuste qu'il faut fléchir à contre-cœur, mais un Père tendre qui fait justice à Ses élus qui crient à Lui jour et nuit.</p>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-sm rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-label-md shrink-0">III</span>
+<div>
+<h5 class="font-title-sm text-title-sm text-primary">L'Efficacité Spirituelle : Quand la Foi Active la Puissance Divine</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">La différence entre de simples répétitions et une intercession fervente et alignée sur la Parole. Conseils pratiques pour revitaliser sa routine d'intimité matinale.</p>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Sidebar: Speaker Profile & Theological Tags -->
+<div class="lg:col-span-4 space-y-space-md">
+<!-- Pastor Profile Mini Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider block mb-space-sm">Orateur du jour</span>
+<div class="flex items-center gap-space-sm mb-space-sm">
+<img class="w-16 h-16 rounded-full object-cover shadow-sm" data-alt="Close up portrait of a serene African Baptist pastor wearing a refined suit, smiling gently with eyes full of compassion, warm library and wooden church background, soft rim light, dignified portrait photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8S_gdZiDyp878wFQUn3NOPXImkKgYSU_PueooIkZJ6qbQZFirEg3_RPEQFq3Gy1QxduJKuO9qjZEUO3gLVfgoKvNMiyVaqDWvRw0sqLUwfFuie-1JrtFKG2KFgd0t--aq91jNBwdH0aeyC8gpc8CBgccV-Qd22m8Tf1LMPNQwcml66b_IpYEb5NeWNIsGpWiU6fsqxNMPZ4wwJ5ddwLnGhA_kxhtks6fcBb58nNY">
+<div>
+<h4 class="font-title-sm text-title-sm text-primary leading-tight">Pasteur Emmanuel Kasereka</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Pasteur Enseignant, CBCA</p>
+<span class="text-label-sm font-label-sm text-secondary">Plus de 34 prédications archivées</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal mb-space-sm">
+              Serviteur dévoué à l'enseignement christocentrique et à la restauration des familles par la prédication solide des Écritures.
+            </p>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary hover:underline font-semibold" href="#">
+              Voir tous les enseignements du pasteur
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<!-- Series Progress Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Série en cours</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-mono">Partie 2 / 5</span>
+</div>
+<h4 class="font-title-sm text-title-sm text-primary mb-space-xs">L'École de la Prière Victorieuse</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
+              Un parcours théologique et pratique de 5 semaines pour transformer votre autel familial et personnel.
+            </p>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden mb-space-sm">
+<div class="bg-secondary h-full rounded-full w-2/5"></div>
+</div>
+<div class="space-y-2 text-body-sm font-body-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="truncate">1. Pourquoi Prier Quand Dieu Sait Tout ?</span>
+<span class="text-secondary text-label-sm">Écouté</span>
+</div>
+<div class="flex items-center justify-between text-primary font-semibold bg-surface-container-low p-1.5 rounded">
+<span class="truncate">2. La Puissance de la Prière Persévérante</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">volume_up</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="truncate">3. Jeûne et Intercession Stratégique</span>
+<span class="text-label-sm text-outline-variant">Prochainement</span>
+</div>
+</div>
+</div>
+<!-- Thematic Tags Pill Cloud -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<h4 class="font-title-sm text-title-sm text-primary mb-space-sm">Thématiques Abordées</h4>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-space-sm py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-secondary-container hover:text-on-secondary-container transition-colors cursor-pointer">Prière Fervente</span>
+<span class="px-space-sm py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-secondary-container hover:text-on-secondary-container transition-colors cursor-pointer">Persévérance</span>
+<span class="px-space-sm py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-secondary-container hover:text-on-secondary-container transition-colors cursor-pointer">Guérison Intérieure</span>
+<span class="px-space-sm py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-secondary-container hover:text-on-secondary-container transition-colors cursor-pointer">Foi Active</span>
+<span class="px-space-sm py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-secondary-container hover:text-on-secondary-container transition-colors cursor-pointer">Combat Spirituel</span>
+<span class="px-space-sm py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-secondary-container hover:text-on-secondary-container transition-colors cursor-pointer">Évangile selon Luc</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION CENTRALE & INFÉRIEURE : ESPACE TÉMOIGNAGES & COMMENTAIRES -->
+<section class="scroll-mt-24 mb-space-xl" id="espace-temoignages">
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg lg:p-space-xl shadow-lg">
+<!-- Section Header with Total and Filter Tabs -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pb-space-lg mb-space-lg border-b border-surface-container-high">
+<div>
+<div class="flex items-center gap-space-sm mb-1">
+<span class="material-symbols-outlined text-[28px] text-secondary">forum</span>
+<h2 class="font-headline-md text-headline-md text-primary">Témoignages &amp; Fruits de la Prédication</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+<span class="font-bold text-primary" id="witnessTotalCount">142</span> fidèles ont partagé comment ce message a impacté leur marche chrétienne.
+              </p>
+</div>
+<!-- Filters -->
+<div class="flex items-center gap-1.5 p-1 rounded-xl bg-surface-container-low">
+<button class="px-space-sm py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md font-semibold shadow-sm transition-all" id="filterTop" onclick="setWitnessFilter('top')">
+                Les plus édifiants
+              </button>
+<button class="px-space-sm py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" id="filterRecent" onclick="setWitnessFilter('recent')">
+                Récents
+              </button>
+<button class="px-space-sm py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" id="filterPrayer" onclick="setWitnessFilter('prayer')">
+                Avec requêtes de prière
+              </button>
+</div>
+</div>
+<!-- Interactive Testimonial Input Form -->
+<div class="bg-surface-container-low rounded-xl p-space-lg mb-space-xl shadow-inner">
+<div class="flex items-start gap-space-md mb-space-md">
+<div class="w-11 h-11 rounded-full bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">person</span>
+</div>
+<div class="flex-1">
+<h3 class="font-title-sm text-title-sm text-primary mb-1">Déposer un Témoignage d'Édification ou un Commentaire</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Partagez comment cette parole a fortifié votre foi, transformé une situation impossible ou renouvelé votre espérance.
+                </p>
+</div>
+</div>
+<form class="space-y-space-md" id="witnessForm" onsubmit="handleWitnessSubmit(event)">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-1" for="witnessName">Votre Prénom ou Nom (Paroisse)</label>
+<input class="w-full px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-secondary/50 font-body-md text-body-md shadow-sm" id="witnessName" placeholder="Ex: Frère Jean (CBCA Katindo)" type="text">
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-1" for="witnessParish">Ville / Assemblée Locale</label>
+<input class="w-full px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-secondary/50 font-body-md text-body-md shadow-sm" id="witnessParish" placeholder="Ex: CBCA Goma, Butembo, Beni, Kinshasa..." type="text">
+</div>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-1" for="witnessContent">Votre témoignage pour la gloire de Dieu</label>
+<textarea class="w-full px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-secondary/50 font-body-md text-body-md shadow-sm resize-y" id="witnessContent" placeholder="Partagez avec humilité et vérité comment cette prédication a agi dans votre cœur..." required="" rows="4"></textarea>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-xs">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<input class="rounded text-secondary focus:ring-secondary w-4 h-4 accent-secondary" id="witnessAnonymous" type="checkbox">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Je souhaite que ce témoignage soit publié anonymement</span>
+</label>
+<div class="flex items-center gap-space-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant hidden md:inline italic">
+                    Modéré avec amour chrétien
+                  </span>
+<button class="flex items-center justify-center gap-space-xs px-space-lg py-space-sm rounded-lg bg-primary text-on-primary hover:bg-primary-container font-title-sm text-title-sm shadow-md transition-all active:scale-95" type="submit">
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed">send</span>
+<span class="">Témoigner pour la gloire de Dieu</span>
+</button>
+</div>
+</div>
+</form>
+<div class="hidden mt-space-md p-space-md rounded-lg bg-secondary-container/40 text-on-secondary-container flex items-center gap-space-sm" id="submissionAlert">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+<div>
+<p class="font-title-sm text-title-sm font-semibold">Gloire soit rendue à Dieu ! Votre témoignage a été transmis.</p>
+<p class="font-body-sm text-body-sm">Il est en cours de validation fraternelle par l'équipe pastorale avant d'apparaître publiquement.</p>
+</div>
+</div>
+</div>
+<!-- Testimonies List Container -->
+<div class="space-y-space-md" id="testimonyList">
+<!-- Témoignage 1 : Maman Christine (Vérifié) -->
+<article class="p-space-lg rounded-xl bg-surface-container-low transition-all hover:bg-surface-container shadow-sm">
+<div class="flex items-start justify-between gap-space-md mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<img class="w-12 h-12 rounded-full object-cover shadow-sm" data-alt="Portrait of an African Congolese Christian mother named Christine, wearing traditional colorful patterned headwrap with a radiant smile of gratitude and peace, natural warm lighting, dignified church member photo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyfGw9rhbVLY_pQPOTTWszPzdNXTywPNU_TW1a-uDu6Yf-pob7I8tvSpB4cShsQIpyPaZ5SHZ7WybxxXWqPfZ_gzHAMyA-QVJNNZ2PXFA-yytLz68FbY6gK4vbH4FFq8VgYlq1sEvH-g8W4YXc02JgsSnBXoMSndvHRtelvDlnbqSIEzMTuzzrQ5lqo3IgzsD2kSTQopKcTTv2C9F4BNbRB6jrpCn9CHXU0pa0Vbg">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-primary font-bold">Maman Christine Kavira</span>
+<span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-[11px] font-semibold">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+                        Témoignage Vérifié
+                      </span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Fidèle à la CBCA Goma-Ville • Il y a 2 jours</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm font-semibold bg-surface-container-lowest px-2.5 py-1 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+<span class="">45 Amens</span>
+</div>
+</div>
+<div class="pl-0 sm:pl-14">
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed mb-space-md">
+                  « Après avoir écouté la première partie et réécoulé ce message dimanche dernier, j'ai retrouvé la force qui m'avait quittée. Mon fils cadet était hospitalisé depuis trois semaines avec une forte fièvre inexpliquée et je perdais espoir. Quand le Pasteur Emmanuel a rappelé que le Seigneur entend chaque soupir de nos nuits d'insomnie (Luc 18), j'ai passé la nuit en prière fervente avec ma cellule d'intercession. Dès le lendemain matin, les médecins ont constaté la chute totale de la température. Aujourd'hui, mon fils est de retour à la maison, totalement guéri ! Toute la gloire revient à notre Dieu qui exauce la prière persévérante ! »
+                </p>
+<div class="flex items-center gap-space-md pt-space-xs border-t border-surface-container-highest">
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-lowest hover:bg-secondary-fixed/20 text-secondary transition-all font-label-md text-label-md font-semibold" onclick="incrementCommentAmen(this, 34)">
+<span class="material-symbols-outlined text-[18px]">favorite_border</span>
+<span class="">Dire Amen (<span class="amen-digit">34</span>)</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" onclick="openReplyBox('reply-christine')">
+<span class="material-symbols-outlined text-[18px]">reply</span>
+<span class="">Répondre avec bénédiction</span>
+</button>
+</div>
+<!-- Hidden Reply box container -->
+<div class="hidden mt-space-sm pl-space-sm" id="reply-christine">
+<div class="flex gap-2">
+<input class="flex-1 px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface text-body-sm focus:outline-none focus:ring-1 focus:ring-secondary" placeholder="Écrire un mot d'encouragement..." type="text">
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary text-label-sm">Envoyer</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Témoignage 2 : Frère Moïse (CBCA Butembo) -->
+<article class="p-space-lg rounded-xl bg-surface-container-low transition-all hover:bg-surface-container shadow-sm">
+<div class="flex items-start justify-between gap-space-md mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-title-md">
+                    MB
+                  </div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-primary font-bold">Frère Moïse Balume</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-[11px]">
+                        CBCA Butembo
+                      </span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Paroisse CBCA Butembo-Centre • Il y a 4 jours</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm font-semibold bg-surface-container-lowest px-2.5 py-1 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+<span class="">19 Amens</span>
+</div>
+</div>
+<div class="pl-0 sm:pl-14">
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed mb-space-md">
+                  « Cet enseignement sur le juge inique dans Luc 18 a totalement déraciné le doute qui s'installait dans ma vie chrétienne. J'avais l'habitude de baisser les bras quand une demande d'emploi tardait. Désormais, j'ai instauré une heure d'intercession à 05h00 du matin avec mon épouse. La paix de Philippiens 4:7 a envahi notre foyer même avant de voir le dénouement matériel. Merci Pasteur Emmanuel pour cette nourriture spirituelle solide ! »
+                </p>
+<div class="flex items-center gap-space-md pt-space-xs border-t border-surface-container-highest">
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-lowest hover:bg-secondary-fixed/20 text-secondary transition-all font-label-md text-label-md font-semibold" onclick="incrementCommentAmen(this, 19)">
+<span class="material-symbols-outlined text-[18px]">favorite_border</span>
+<span class="">Dire Amen (<span class="amen-digit">19</span>)</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" onclick="openReplyBox('reply-moise')">
+<span class="material-symbols-outlined text-[18px]">reply</span>
+<span class="">Répondre avec bénédiction</span>
+</button>
+</div>
+<div class="hidden mt-space-sm pl-space-sm" id="reply-moise">
+<div class="flex gap-2">
+<input class="flex-1 px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface text-body-sm focus:outline-none focus:ring-1 focus:ring-secondary" placeholder="Écrire un mot d'encouragement..." type="text">
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary text-label-sm">Envoyer</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Témoignage 3 : Réponse Pastorale Officielle (Badge Doré) -->
+<article class="p-space-lg rounded-xl bg-surface-container-lowest border-l-4 border-secondary shadow-md">
+<div class="flex items-start justify-between gap-space-md mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<img class="w-12 h-12 rounded-full object-cover shadow-sm ring-2 ring-secondary" data-alt="Dignified portrait avatar of Pastor Emmanuel Kasereka wearing formal dark suit with clerical demeanor and warm pastoral smile, framed beautifully." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCxqvMHZu9RzuWUbulycmUYaHgmy34tYR_vDiSU6N-9OOc69GqB2GDG6Y_P2h5UXb69DxhW6fkoyry67R_PUt_2QLGI6D0HvylEMP7afqXJ3h4ZRNmCWY4VaSi8Yu3XQfLjQmAft3mSfLz8ZL2z-rdkkLjfTbtcVzyElaJQ1t5gh5mmtrLi-_FMkMNeNwkvIOyqAcQWXBSYqtqwAhoRwYxtjvcPa-P_oSyZ9-9Mhg">
+<div>
+<div class="flex items-center flex-wrap gap-2">
+<span class="font-title-sm text-title-sm text-primary font-bold">Pasteur Emmanuel Kasereka</span>
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-[11px] font-bold shadow-sm">
+<span class="material-symbols-outlined text-[14px]">stars</span>
+                        Réponse Pastorale
+                      </span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary font-semibold">Bureau Pastoral CBCA • Il y a 1 jour</span>
+</div>
+</div>
+<span class="px-space-xs py-1 rounded bg-secondary-container/30 text-on-secondary-container font-label-sm text-label-sm font-bold">
+                  Bénédiction Partagée
+                </span>
+</div>
+<div class="pl-0 sm:pl-14">
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed mb-space-md italic">
+                  « Chers bien-aimés dans le Seigneur, Maman Christine, Frère Moïse et chacun de vous qui méditez cette parole : mon cœur de pasteur tressaille de joie en lisant vos témoignages vivants. Le Dieu d'Abraham, d'Isaac et de Jacob n'a pas changé. Que vos autels de prière restent embrasés ! Nous continuons à intercéder pour chacune des requêtes envoyées à notre secrétariat. Demeurez fermes, car l'exaucement est en chemin. Que la grâce du Seigneur Jésus repose sur vos maisons. »
+                </p>
+<div class="flex items-center gap-space-md pt-space-xs border-t border-surface-container-highest">
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-secondary-container/40 hover:bg-secondary-fixed/50 text-secondary transition-all font-label-md text-label-md font-bold" onclick="incrementCommentAmen(this, 88)">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+<span class="">Recevoir la bénédiction (<span class="amen-digit">88</span>)</span>
+</button>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
+                    Message officiel certifié par le Secrétariat Général CBCA
+                  </span>
+</div>
+</div>
+</article>
+</div>
+<!-- Load more testimonies trigger -->
+<div class="mt-space-lg text-center pt-space-md border-t border-surface-container-high">
+<button class="inline-flex items-center gap-space-xs px-space-lg py-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container text-primary font-title-sm text-title-sm transition-all shadow-sm">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+<span class="">Afficher 15 autres témoignages et requêtes</span>
+</button>
+</div>
+</div>
+</section>
+<!-- SECTION RECOMMANDATIONS : AUTRES PRÉDICATIONS DE LA MÊME SÉRIE -->
+<section class="mb-space-xl">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm mb-space-lg">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider block mb-1">Poursuivre votre édification</span>
+<h2 class="font-headline-md text-headline-md text-primary">Prédications Complémentaires de la Série</h2>
+</div>
+<a class="inline-flex items-center gap-1 text-secondary font-label-md text-label-md font-semibold hover:underline" href="#">
+            Voir toute la collection audio
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div>
+<div class="relative h-44 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Open leather Bible resting on an antique wooden church altar, warm morning golden hour rays streaming through glass, quiet sanctuary atmosphere, artistic editorial christian photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpERGluB_lvjG5dlJCpdqF8b8-m2i5-yU470xY5bJ9UkG2XNDVLgWqxAJHC7Y76D78K1B37nAA6OeWvHBMalzAMoKmsKc90BpAWtTECN94A4acP0AcS6-dvRl1PdffPaVkgd-DrqPm4sPwgBTgAzPzu2UqQQ89dr_xum7Y1nrh4MqSjqmv7BuBXQCsRorIXaWKM8Ag7gfe27_aCkENt5T-Kdr7vQjHiEPejQH5bzY">
+<span class="absolute top-space-sm left-space-sm px-space-xs py-0.5 rounded bg-surface/90 text-primary font-label-sm text-label-sm font-semibold backdrop-blur-sm">
+                  Matthieu 6:5-15
+                </span>
+<span class="absolute bottom-space-sm right-space-sm px-space-xs py-0.5 rounded bg-primary/80 text-on-primary font-label-sm text-label-sm">
+                  42 min
+                </span>
+</div>
+<div class="p-space-md">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold block mb-1">Partie 1 • Introduction</span>
+<h3 class="font-title-md text-title-md text-primary group-hover:text-secondary transition-colors mb-space-xs line-clamp-2">
+                  Pourquoi Prier Quand Dieu Sait Déjà Tout ?
+                </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-space-sm">
+                  Comprendre le dessein de l'intimité divine et comment la prière aligne notre volonté sur celle du Créateur.
+                </p>
+</div>
+</div>
+<div class="px-space-md pb-space-md pt-0 flex items-center justify-between text-on-surface-variant text-label-sm border-t border-surface-container-high">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">headphones</span>
+                3 420 écoutes
+              </span>
+<span class="flex items-center gap-1 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+                840 Amens
+              </span>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div>
+<div class="relative h-44 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Congregation of worshippers in a wooden Baptist church singing with hands lifted up in praise, soft atmospheric lighting, reverence and unity, high quality documentary photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD3V-K-ry3ffp5L0kGLDLnDu9aD0hPFzmA8xtHAwcDK8ykEx70PMgLDRn1yLIGLpHqXA-qrKyTjYbCUbmQRieFkVYZ6p5fNfJvg4FMZzHBHGu6i2w7u_1IFktWOm9u8df3GnzFPAfy3ghgBvmkGNaN4o5wg8F5a_8yWAITbsolK_WvLsYjN2avaA_wUJy95zuzQZgvN0dBB1TZgQnzB0pKplG2aYY5YDMOmw1RFXw">
+<span class="absolute top-space-sm left-space-sm px-space-xs py-0.5 rounded bg-surface/90 text-primary font-label-sm text-label-sm font-semibold backdrop-blur-sm">
+                  Ésaïe 58:6-12
+                </span>
+<span class="absolute bottom-space-sm right-space-sm px-space-xs py-0.5 rounded bg-primary/80 text-on-primary font-label-sm text-label-sm">
+                  51 min
+                </span>
+</div>
+<div class="p-space-md">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold block mb-1">Partie 3 • Combat Spirituel</span>
+<h3 class="font-title-md text-title-md text-primary group-hover:text-secondary transition-colors mb-space-xs line-clamp-2">
+                  Le Jeûne Biblique et l'Intercession Stratégique
+                </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-space-sm">
+                  Comment briser les forteresses et faire reculer l'ombre à travers un jeûne pur et agréable à Dieu.
+                </p>
+</div>
+</div>
+<div class="px-space-md pb-space-md pt-0 flex items-center justify-between text-on-surface-variant text-label-sm border-t border-surface-container-high">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">headphones</span>
+                2 190 écoutes
+              </span>
+<span class="flex items-center gap-1 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+                615 Amens
+              </span>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div>
+<div class="relative h-44 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A peaceful dawn landscape over Lake Kivu in Central Africa, calm waters, soft golden and blue reflection, stillness, spiritual reflection and quiet time concept." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq2qswcmbrFUyDQyxSbL5Bw6j6wNZQfXsOz_FDjqkmrGrSRi7EWbTdlnSQofA3cj2bHERzEbASidXIC1jDT65pWctmgry6_V8Kxc2yx1xHPJgspBgdLhMoGG9lGtf2uexrYsaMi4OlIhnAtzfmGNjTgAZUgJi2QbJT3TO3o2cxgwPAxLEG4Nd4sDwlYkAStKyucEhxV8i2rEefLwlKMAPiUgYNE3gN6CUY9Me4M_s">
+<span class="absolute top-space-sm left-space-sm px-space-xs py-0.5 rounded bg-surface/90 text-primary font-label-sm text-label-sm font-semibold backdrop-blur-sm">
+                  Marc 1:35
+                </span>
+<span class="absolute bottom-space-sm right-space-sm px-space-xs py-0.5 rounded bg-primary/80 text-on-primary font-label-sm text-label-sm">
+                  38 min
+                </span>
+</div>
+<div class="p-space-md">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold block mb-1">Partie 4 • Intimité Matinale</span>
+<h3 class="font-title-md text-title-md text-primary group-hover:text-secondary transition-colors mb-space-xs line-clamp-2">
+                  Bâtir son Lieu Secret : La Victoire dans le Silence
+                </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-space-sm">
+                  Découvrir la puissance de se lever avant l'aube pour chercher Sa face avant le tumulte du jour.
+                </p>
+</div>
+</div>
+<div class="px-space-md pb-space-md pt-0 flex items-center justify-between text-on-surface-variant text-label-sm border-t border-surface-container-high">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">headphones</span>
+                1 850 écoutes
+              </span>
+<span class="flex items-center gap-1 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+                490 Amens
+              </span>
+</div>
+</article>
+</div>
+</section>
+<!-- Toast Notification Floater -->
+<div class="fixed top-24 right-6 z-50 transform translate-y-[-100px] opacity-0 transition-all duration-300 pointer-events-none bg-primary text-on-primary px-space-md py-space-sm rounded-xl shadow-2xl flex items-center gap-space-sm border border-secondary-container/30" id="toastNotification">
+<span class="material-symbols-outlined text-secondary-fixed text-[22px]" id="toastIcon">check_circle</span>
+<span class="font-body-sm text-body-sm font-semibold" id="toastMessage">Action effectuée</span>
+</div>
+</div>
+</div>
+<!-- Interactive JavaScript micro-interactions -->
+<script>
+    let isPlaying = false;
+    let mainAmenCount = 1248;
+    let hasGivenMainAmen = false;
+    let currentSpeed = 1.0;
+
+    function toggleMainAudio() {
+      isPlaying = !isPlaying;
+      const icon = document.getElementById('mainPlayIcon');
+      if (isPlaying) {
+        icon.textContent = 'pause';
+        showToast('Lecture audio lancée', 'play_arrow');
+      } else {
+        icon.textContent = 'play_arrow';
+        showToast('Lecture mise en pause', 'pause');
+      }
+    }
+
+    function toggleAmenMain() {
+      const countEl = document.getElementById('heroAmenCount');
+      const iconEl = document.getElementById('heroAmenIcon');
+      const btn = document.getElementById('heroAmenBtn');
+
+      if (!hasGivenMainAmen) {
+        mainAmenCount++;
+        hasGivenMainAmen = true;
+        countEl.textContent = mainAmenCount.toLocaleString('fr-FR');
+        iconEl.style.fontVariationSettings = "'FILL' 1";
+        iconEl.classList.add('text-error', 'scale-125');
+        btn.classList.add('bg-secondary-container');
+        showToast('Que le Seigneur vous bénisse ! Votre Amen a été comptabilisé.', 'favorite');
+      } else {
+        mainAmenCount--;
+        hasGivenMainAmen = false;
+        countEl.textContent = mainAmenCount.toLocaleString('fr-FR');
+        iconEl.style.fontVariationSettings = "'FILL' 0";
+        iconEl.classList.remove('text-error', 'scale-125');
+        btn.classList.remove('bg-secondary-container');
+      }
+    }
+
+    function incrementCommentAmen(button, initialVal) {
+      const digitEl = button.querySelector('.amen-digit');
+      let currentVal = parseInt(digitEl.textContent, 10);
+      const icon = button.querySelector('.material-symbols-outlined');
+
+      if (!button.dataset.voted) {
+        currentVal++;
+        digitEl.textContent = currentVal;
+        button.dataset.voted = "true";
+        icon.textContent = 'favorite';
+        icon.style.fontVariationSettings = "'FILL' 1";
+        button.classList.add('bg-secondary-container');
+        showToast('Amen partagé avec ce frère/sœur !', 'handshake');
+      } else {
+        currentVal--;
+        digitEl.textContent = currentVal;
+        delete button.dataset.voted;
+        icon.textContent = 'favorite_border';
+        icon.style.fontVariationSettings = "'FILL' 0";
+        button.classList.remove('bg-secondary-container');
+      }
+    }
+
+    function cycleSpeed() {
+      const speeds = [1.0, 1.25, 1.5, 0.8];
+      const btn = document.getElementById('speedToggleBtn');
+      let idx = speeds.indexOf(currentSpeed);
+      idx = (idx + 1) % speeds.length;
+      currentSpeed = speeds[idx];
+      btn.textContent = currentSpeed + 'x';
+      showToast('Vitesse de lecture : ' + currentSpeed + 'x', 'speed');
+    }
+
+    function skipAudio(seconds) {
+      showToast((seconds > 0 ? '+' : '') + seconds + ' secondes', 'fast_forward');
+    }
+
+    function triggerDownloadNotification(fileName) {
+      showToast('Téléchargement de « ' + fileName + ' » démarré', 'download');
+    }
+
+    function shareLink(network) {
+      showToast('Partage sur ' + network + ' en cours...', 'share');
+    }
+
+    function copyCurrentUrl() {
+      const copyBtn = document.getElementById('copyBtn');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href);
+      }
+      showToast('Lien de la prédication copié dans le presse-papier !', 'content_paste');
+    }
+
+    function openReplyBox(boxId) {
+      const box = document.getElementById(boxId);
+      if (box) {
+        box.classList.toggle('hidden');
+      }
+    }
+
+    function setWitnessFilter(filterName) {
+      const topBtn = document.getElementById('filterTop');
+      const recBtn = document.getElementById('filterRecent');
+      const prayBtn = document.getElementById('filterPrayer');
+
+      [topBtn, recBtn, prayBtn].forEach(b => {
+        b.className = 'px-space-sm py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all';
+      });
+
+      if (filterName === 'top') {
+        topBtn.className = 'px-space-sm py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md font-semibold shadow-sm transition-all';
+        showToast('Filtre : Témoignages les plus édifiants', 'trending_up');
+      } else if (filterName === 'recent') {
+        recBtn.className = 'px-space-sm py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md font-semibold shadow-sm transition-all';
+        showToast('Filtre : Témoignages récents', 'schedule');
+      } else {
+        prayBtn.className = 'px-space-sm py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md font-semibold shadow-sm transition-all';
+        showToast('Filtre : Requêtes et prières', 'volunteer_activism');
+      }
+    }
+
+    function handleWitnessSubmit(event) {
+      event.preventDefault();
+      const content = document.getElementById('witnessContent').value;
+      const name = document.getElementById('witnessName').value || 'Fidèle CBCA';
+      const isAnon = document.getElementById('witnessAnonymous').checked;
+      const alertBox = document.getElementById('submissionAlert');
+
+      if (!content.trim()) return;
+
+      alertBox.classList.remove('hidden');
+      document.getElementById('witnessForm').reset();
+      showToast('Votre témoignage a été reçu avec gratitude !', 'volunteer_activism');
+
+      // Update counter visually
+      const totalEl = document.getElementById('witnessTotalCount');
+      let currentVal = parseInt(totalEl.textContent, 10);
+      totalEl.textContent = (currentVal + 1);
+
+      alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function showToast(msg, iconName) {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMessage');
+      const icon = document.getElementById('toastIcon');
+
+      text.textContent = msg;
+      icon.textContent = iconName || 'check_circle';
+
+      toast.classList.remove('translate-y-[-100px]', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(window._toastTimeout);
+      window._toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-[-100px]', 'opacity-0');
+      }, 3500);
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-low pb-24 text-on-surface"><div class="max-w-7xl mx-auto px-gutter pt-space-xl pb-space-lg"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-space-lg mb-space-xl"><div class="lg:col-span-4 flex flex-col gap-space-md"><div class="flex items-center gap-space-sm"><img alt="Logo Ministère CBCA" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XBxesSmVl_uCpzCkJD9HGbLs-SJzE5cbtIBuQS2aKYf_bwUxStRMs7EkT83aPGBhfArYozpisemLy_9rrrYrTNBewZdU3a98mDeqSwHaM_V21MFQjE-5Q9VNXG0SC3PK2pEnqU2Sna-i51bvF5F-_OUjOWU2LUlH9VudUiPi-w31hp3OZ-GdnXpS5x5co0_4wRmFGATzWzCbiwEIaqLyYUuKdGJitcNy_Abfjn895R"><span class="font-headline-sm text-headline-sm text-primary">Ministère Pastoral CBCA</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed max-w-sm">Plateforme de diffusion de la parole, d'édification spirituelle et d'accompagnement pastoral de la Communauté Baptiste au Centre de l'Afrique.</p><div class="p-space-md rounded-lg bg-surface-container border border-surface-container-highest"><p class="font-headline-sm text-headline-sm text-secondary italic mb-space-xs">“Ta parole est une lampe à mes pieds, et une lumière sur mon sentier.”</p><span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">— Psaumes 119:105</span></div></div><div class="lg:col-span-3 flex flex-col gap-space-sm"><h4 class="font-title-sm text-title-sm text-primary mb-space-xs">Cultes &amp; Réunions de Prière</h4><div class="space-y-space-sm text-body-sm font-body-sm text-on-surface-variant"><div class="p-space-sm rounded-lg bg-surface-container-lowest"><span class="block font-semibold text-primary">Culte Dominical Matinal</span><span class="">Dimanche : 08h00 • 10h30</span></div><div class="p-space-sm rounded-lg bg-surface-container-lowest"><span class="block font-semibold text-primary">Culte de Louange &amp; Enseignement</span><span class="">Dimanche : 10h45 • 13h00</span></div><div class="p-space-sm rounded-lg bg-surface-container-lowest"><span class="block font-semibold text-primary">Intercession &amp; Prière du Soir</span><span class="">Mercredi &amp; Vendredi : 16h30 • 18h00</span></div></div></div><div class="lg:col-span-2 flex flex-col gap-space-sm"><h4 class="font-title-sm text-title-sm text-primary mb-space-xs">Navigation</h4><nav class="flex flex-col gap-space-xs text-body-sm font-body-sm text-on-surface-variant" data-active-classes="text-primary font-bold"><a class="hover:text-primary transition-colors" data-path="accueil" href="#">Accueil</a><a class="hover:text-primary transition-colors" data-path="a-propos" href="#">Vision &amp; Présentation</a><a class="hover:text-primary transition-colors" data-path="predications" href="#">Prédications Audio</a><a class="hover:text-primary transition-colors" data-path="contact" href="#">Demande Pastorale</a><a class="hover:text-primary transition-colors" data-path="admin-connexion" href="#">Portail Pastoral</a></nav></div><div class="lg:col-span-3 flex flex-col gap-space-sm"><h4 class="font-title-sm text-title-sm text-primary mb-space-xs">Contact &amp; Écoute</h4><div class="flex flex-col gap-space-xs text-body-sm font-body-sm text-on-surface-variant"><div class="flex items-start gap-space-xs"><span class="material-symbols-outlined text-[18px] text-secondary mt-0.5">location_on</span><span class="">Siège Communautaire CBCA, Ville • Province du Nord-Kivu, RDC</span></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[18px] text-secondary">call</span><span class="">+243 998 000 000 / +243 810 000 000</span></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[18px] text-secondary">mail</span><span class="">pastoral@cbca-communaute.org</span></div></div><div class="pt-space-sm"><span class="block font-label-sm text-label-sm text-on-surface-variant mb-space-xs">Canaux &amp; Podcasts chrétiens</span><div class="flex items-center gap-space-xs"><a class="p-space-xs rounded-lg bg-surface-container hover:bg-secondary-container hover:text-on-secondary-container text-on-surface-variant transition-colors" href="#" title="Diffusion Vidéo"><span class="material-symbols-outlined text-[20px]">play_circle</span></a><a class="p-space-xs rounded-lg bg-surface-container hover:bg-secondary-container hover:text-on-secondary-container text-on-surface-variant transition-colors" href="#" title="Messagerie Pastorale"><span class="material-symbols-outlined text-[20px]">chat</span></a><a class="p-space-xs rounded-lg bg-surface-container hover:bg-secondary-container hover:text-on-secondary-container text-on-surface-variant transition-colors" href="#" title="Podcasts audio"><span class="material-symbols-outlined text-[20px]">podcasts</span></a><a class="p-space-xs rounded-lg bg-surface-container hover:bg-secondary-container hover:text-on-secondary-container text-on-surface-variant transition-colors" href="#" title="Diffusion directe"><span class="material-symbols-outlined text-[20px]">radio</span></a></div></div></div></div><div class="pt-space-md border-t border-surface-container-highest flex flex-col sm:flex-row items-center justify-between gap-space-sm text-body-sm font-body-sm text-on-surface-variant"><p class="">© 2025 Communauté Baptiste au Centre de l'Afrique (CBCA). Tous droits réservés.</p><p class="text-label-sm font-label-sm text-secondary">Plateforme Officielle du Ministère Pastoral • Enracinés dans l'Évangile</p></div></div></footer><aside aria-label="Lecteur audio persistant" class="fixed bottom-0 left-0 right-0 z-50 bg-primary-container text-on-primary shadow-[0_-8px_30px_-4px_rgba(15,37,55,0.2)] border-t border-secondary-container/20"><div class="max-w-7xl mx-auto px-gutter h-20 flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0 w-1/4"><div class="relative w-12 h-12 rounded-lg bg-primary flex-shrink-0 flex items-center justify-center border border-secondary-container/40 overflow-hidden"><span class="material-symbols-outlined text-secondary-fixed text-[24px]">mic</span></div><div class="min-w-0"><p class="font-title-sm text-title-sm text-on-primary truncate">La Puissance de la Prière Persévérante</p><p class="font-label-sm text-label-sm text-on-primary-container truncate">Pasteur Principal • CBCA Goma-Ville</p></div></div><div class="flex-1 max-w-2xl flex flex-col items-center justify-center gap-1"><div class="flex items-center gap-space-md"><button class="text-on-primary-container hover:text-on-primary transition-colors" title="Reculer de 15 sec" type="button"><span class="material-symbols-outlined text-[20px]">replay_10</span></button><button class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center hover:bg-secondary-fixed-dim transition-transform hover:scale-105" title="Lecture / Pause" type="button"><span class="material-symbols-outlined text-[24px]">play_arrow</span></button><button class="text-on-primary-container hover:text-on-primary transition-colors" title="Avancer de 30 sec" type="button"><span class="material-symbols-outlined text-[20px]">forward_30</span></button></div><div class="w-full flex items-center gap-space-sm"><span class="font-label-sm text-label-sm text-on-primary-container">14:28</span><div class="relative flex-1 h-1.5 bg-on-primary-container/30 rounded-full cursor-pointer overflow-hidden"><div class="absolute left-0 top-0 bottom-0 w-[34%] bg-secondary-fixed rounded-full"></div></div><span class="font-label-sm text-label-sm text-on-primary-container">42:15</span></div></div><div class="flex items-center justify-end gap-space-sm w-1/4"><button class="px-space-xs py-0.5 rounded text-label-sm font-label-sm bg-primary text-secondary-fixed hover:bg-surface-container-high transition-colors" title="Vitesse de lecture" type="button">1.0x</button><div class="hidden md:flex items-center gap-space-xs text-on-primary-container"><span class="material-symbols-outlined text-[18px]">volume_up</span><div class="w-16 h-1.5 bg-on-primary-container/30 rounded-full cursor-pointer"><div class="w-3/4 h-full bg-secondary-fixed rounded-full"></div></div></div><a class="p-space-xs text-on-primary-container hover:text-on-primary transition-colors" href="#" title="Télécharger l'audio MP3"><span class="material-symbols-outlined text-[20px]">download</span></a><button class="p-space-xs text-on-primary-container hover:text-on-primary transition-colors" title="Réduire le lecteur" type="button"><span class="material-symbols-outlined text-[20px]">keyboard_arrow_down</span></button></div></div></aside>
+
+</body></html>

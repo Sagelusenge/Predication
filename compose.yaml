@@ -1,0 +1,80 @@
+services:
+  database:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: papaleki
+      POSTGRES_USER: papaleki
+      POSTGRES_PASSWORD: change-this-database-password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U papaleki -d papaleki"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  migrate:
+    image: postgres:16-alpine
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: change-this-database-password
+    volumes:
+      - ./database:/database:ro
+    command: ["psql", "-v", "ON_ERROR_STOP=1", "-h", "database", "-U", "papaleki", "-d", "papaleki", "-f", "/database/install.sql"]
+    restart: "no"
+
+  api:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      APP_URL: http://localhost:3000
+      API_URL: http://localhost:4000
+      DATABASE_URL: postgresql://papaleki:change-this-database-password@database:5432/papaleki
+      COOKIE_SECRET: replace-with-at-least-32-random-characters-before-production
+      WORKER_API_KEY: replace-with-another-long-random-secret-before-production
+      STORAGE_ROOT: /app/storage
+      DATABASE_SSL: "false"
+    ports:
+      - "4000:4000"
+    volumes:
+      - media_storage:/app/storage
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/api/v1/health/ready').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+
+  worker:
+    build: .
+    command: ["node", "dist/worker.js"]
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://papaleki:change-this-database-password@database:5432/papaleki
+      COOKIE_SECRET: replace-with-at-least-32-random-characters-before-production
+      WORKER_API_KEY: replace-with-another-long-random-secret-before-production
+      STORAGE_ROOT: /app/storage
+      DATABASE_SSL: "false"
+      FFMPEG_PATH: ffmpeg
+      FFPROBE_PATH: ffprobe
+    volumes:
+      - media_storage:/app/storage
+
+volumes:
+  postgres_data:
+  media_storage:

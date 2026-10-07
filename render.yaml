@@ -1,0 +1,61 @@
+databases:
+  - name: predication-cbca-db
+    databaseName: predication_cbca
+    user: predication_cbca
+    plan: free
+    region: frankfurt
+    postgresMajorVersion: "16"
+    ipAllowList: []
+
+services:
+  - type: web
+    name: predication-cbca
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeployTrigger: commit
+    healthCheckPath: /api/v1/health/ready
+    maxShutdownDelaySeconds: 30
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: APP_URL
+        value: https://predication-cbca.onrender.com
+      - key: API_URL
+        value: https://predication-cbca.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: predication-cbca-db
+          property: connectionString
+      - key: DATABASE_SSL
+        value: "false"
+      - key: COOKIE_SECRET
+        generateValue: true
+      - key: WORKER_API_KEY
+        generateValue: true
+      - key: STORAGE_ROOT
+        value: /app/storage
+      - key: TRUST_PROXY
+        value: "true"
+      - key: LOG_LEVEL
+        value: info
+      - key: MAX_AUDIO_MB
+        value: "250"
+      - key: MAX_IMAGE_MB
+        value: "12"
+      - key: WORKER_POLL_INTERVAL_MS
+        value: "5000"
+      - key: FFMPEG_PATH
+        value: ffmpeg
+      - key: FFPROBE_PATH
+        value: ffprobe
+      - key: INITIAL_ADMIN_EMAIL
+        sync: false
+      - key: INITIAL_ADMIN_PASSWORD
+        sync: false
+      - key: INITIAL_ADMIN_FIRST_NAME
+        sync: false
+      - key: INITIAL_ADMIN_LAST_NAME
+        sync: false
