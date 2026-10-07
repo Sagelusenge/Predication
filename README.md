@@ -146,11 +146,11 @@ Pour les requêtes authentifiées du frontend, utiliser `credentials: "include"`
 
 Le fichier `render.yaml` déploie l’ensemble en une seule Blueprint :
 
-- une base PostgreSQL gérée ;
+- une connexion à une base PostgreSQL Render existante via `DATABASE_URL` ;
 - un service web Docker qui sert le frontend PWA, l’API Express et le traitement audio ;
 - l’installation idempotente du schéma et la création facultative du premier administrateur au démarrage.
 
-Dans le formulaire Blueprint, renseigner `INITIAL_ADMIN_EMAIL`, `INITIAL_ADMIN_PASSWORD`, `INITIAL_ADMIN_FIRST_NAME` et `INITIAL_ADMIN_LAST_NAME`. Les deux secrets techniques sont générés automatiquement.
+Dans le formulaire Blueprint, renseigner `DATABASE_URL`, `INITIAL_ADMIN_EMAIL`, `INITIAL_ADMIN_PASSWORD`, `INITIAL_ADMIN_FIRST_NAME` et `INITIAL_ADMIN_LAST_NAME`. Le service doit être placé dans la même région que la base lorsque l’URL PostgreSQL interne est utilisée. Les deux secrets techniques sont générés automatiquement.
 
 Le plan de test gratuit utilise le système de fichiers éphémère du service web : les audios téléversés peuvent disparaître après un redémarrage ou un redéploiement. Pour la production, brancher un stockage objet compatible S3 ou passer le service à un plan avec disque persistant.
 
