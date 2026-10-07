@@ -1,18 +1,9 @@
-databases:
-  - name: predication-cbca-db
-    databaseName: predication_cbca
-    user: predication_cbca
-    plan: free
-    region: frankfurt
-    postgresMajorVersion: "16"
-    ipAllowList: []
-
 services:
   - type: web
     name: predication-cbca
     runtime: docker
     plan: free
-    region: frankfurt
+    region: virginia
     dockerfilePath: ./Dockerfile
     dockerContext: .
     autoDeployTrigger: commit
@@ -25,9 +16,7 @@ services:
       - key: API_URL
         value: https://predication-cbca.onrender.com
       - key: DATABASE_URL
-        fromDatabase:
-          name: predication-cbca-db
-          property: connectionString
+        sync: false
       - key: DATABASE_SSL
         value: "false"
       - key: COOKIE_SECRET
