@@ -7,5 +7,6 @@
 \ir 005_seed.sql
 \ir 006_bible.sql
 \ir 007_notifications_content.sql
+\ir 008_function_search_paths.sql
 
 \echo 'Base PapaLeki installée avec succès.'

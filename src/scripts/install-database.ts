@@ -22,6 +22,7 @@ const files = [
   '005_seed.sql',
   '006_bible.sql',
   '007_notifications_content.sql',
+  '008_function_search_paths.sql',
 ];
 
 try {
