@@ -7,11 +7,11 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['brand-mark.svg', 'favicon.svg'],
+      includeAssets: ['logo-pasteur-innocent.png', 'favicon.png', 'apple-touch-icon.png', 'push-sw.js', 'pasteur-innocent.jpg', 'pasteur-innocent-famille.jpg'],
       manifest: {
-        name: 'Parole & Espérance — Ministère pastoral CBCA',
-        short_name: 'Parole & Espérance',
-        description: 'Écoutez et partagez les prédications du ministère pastoral CBCA.',
+        name: 'Pasteur Innocent Kombi Maliro — Prédications',
+        short_name: 'Pasteur Innocent',
+        description: 'Écoutez les prédications et enseignements bibliques du Pasteur Innocent Kombi Maliro.',
         theme_color: '#0057a8',
         background_color: '#ffffff',
         display: 'standalone',
@@ -24,6 +24,7 @@ export default defineConfig({
         ]
       },
       workbox: {
+        importScripts: ['push-sw.js'],
         navigateFallbackDenylist: [/^\/api\//],
         runtimeCaching: [
           {

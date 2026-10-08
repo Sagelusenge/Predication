@@ -1,4 +1,4 @@
-import { BookCheck, Check, Database, ExternalLink, RefreshCw } from 'lucide-react';
+import { BookCheck, BookOpen, Check, Database, ExternalLink, RefreshCw } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { api } from '../lib/api';
 import { useToast } from '../context/ToastContext';
@@ -59,6 +59,7 @@ export function AdminBiblePage() {
   }, [bookCode, chapterNumber, translationCode]);
 
   const selectedBook = useMemo(() => books.find((book) => book.code === bookCode), [bookCode, books]);
+  const kinande = useMemo(() => translations.find((translation) => translation.languageCode === 'nnb' || translation.code === 'nnbKB80'), [translations]);
 
   const saveFeatured = async () => {
     setSaving(true);
@@ -72,7 +73,7 @@ export function AdminBiblePage() {
         verseEnd: selectedVerse,
       });
       setFeatured(response.data);
-      notify('Le verset de l’accueil a été mis à jour.');
+      notify('Le verset de secours a été mis à jour. Le verset du jour reste automatique.');
     } catch {
       setError('Le passage n’a pas pu être enregistré.');
     } finally {
@@ -97,7 +98,7 @@ export function AdminBiblePage() {
   return (
     <div className="admin-bible-page">
       <div className="admin-page-heading">
-        <div><span className="admin-kicker">Contenu biblique</span><h1>Bibliothèque de la Bible</h1><p>Consultez les traductions et choisissez le verset affiché sur l’accueil.</p></div>
+        <div><span className="admin-kicker">Contenu biblique</span><h1>Bibliothèque de la Bible</h1><p>Lisez les traductions disponibles. Le verset de l’accueil change automatiquement chaque jour.</p></div>
         <button className="button button--soft" onClick={synchronize} disabled={syncing}><RefreshCw size={17} className={syncing ? 'is-spinning' : ''} /> {syncing ? 'Synchronisation…' : 'Vérifier les textes'}</button>
       </div>
 
@@ -118,12 +119,18 @@ export function AdminBiblePage() {
         ))}
       </div>
 
+      {kinande?.externalUrl && <section className="bible-external-reader admin-kinande-reader" data-reveal>
+        <header><div><BookOpen size={25} /><span><small>Kinande · Bible complète</small><h2>Lire la Bible en kinande</h2></span></div><a className="button button--soft" href={kinande.externalUrl} target="_blank" rel="noreferrer">Ouvrir dans une nouvelle fenêtre <ExternalLink size={16} /></a></header>
+        <iframe src={kinande.externalUrl} title="Bible complète en kinande" loading="lazy" allow="clipboard-write" />
+        <footer><span>Source autorisée : {kinande.attribution}</span><a href={kinande.sourceUrl} target="_blank" rel="noreferrer">Informations sur la traduction <ExternalLink size={14} /></a></footer>
+      </section>}
+
       {featured && <section className="admin-featured-verse" data-reveal>
-        <span><BookCheck size={25} /></span><div><small>Actuellement sur l’accueil · {featured.translation.abbreviation}</small><blockquote>« {featured.text} »</blockquote><strong>{featured.reference}</strong></div>
+        <span><BookCheck size={25} /></span><div><small>Verset de secours · {featured.translation.abbreviation}</small><blockquote>« {featured.text} »</blockquote><strong>{featured.reference}</strong></div>
       </section>}
 
       <section className="admin-bible-editor" data-reveal>
-        <header><div><span className="admin-kicker">Sélection</span><h2>Choisir un verset pour l’accueil</h2></div><button className="button button--primary" onClick={saveFeatured} disabled={saving || !chapter}>{saving ? 'Enregistrement…' : 'Afficher sur l’accueil'}</button></header>
+        <header><div><span className="admin-kicker">Sélection</span><h2>Choisir le verset de secours</h2></div><button className="button button--primary" onClick={saveFeatured} disabled={saving || !chapter}>{saving ? 'Enregistrement…' : 'Enregistrer comme secours'}</button></header>
         <div className="admin-bible-controls">
           <label>Traduction<select value={translationCode} onChange={(event) => setTranslationCode(event.target.value)}>{translations.filter((item) => item.isComplete && item.accessMode === 'database').map((item) => <option key={item.code} value={item.code}>{item.languageName} · {item.abbreviation}</option>)}</select></label>
           <label>Livre<select value={bookCode} onChange={(event) => { setBookCode(event.target.value); setChapterNumber(1); }}>{books.map((book) => <option key={book.code} value={book.code}>{book.name}</option>)}</select></label>

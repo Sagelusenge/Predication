@@ -10,7 +10,7 @@ export function SermonCard({ sermon }: { sermon: Sermon }) {
   return (
     <article className="sermon-card">
       <Link to={`/predications/${sermon.slug}`} className="sermon-cover" aria-label={`Voir ${sermon.title}`}>
-        <img src={sermon.coverUrl || '/brand-mark.svg'} alt="" loading="lazy" />
+        <img src={sermon.coverUrl || '/logo-pasteur-innocent.png'} alt="" loading="lazy" />
         <span className="sermon-category">{sermon.categoryName || 'Prédication'}</span>
       </Link>
       <div className="sermon-card-body">

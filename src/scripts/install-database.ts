@@ -21,6 +21,7 @@ const files = [
   '004_views.sql',
   '005_seed.sql',
   '006_bible.sql',
+  '007_notifications_content.sql',
 ];
 
 try {

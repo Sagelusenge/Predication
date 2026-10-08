@@ -1,12 +1,14 @@
 import { Router, type Request } from 'express';
 import { pool, withTransaction } from '../../db/pool.js';
 import { AppError } from '../../lib/errors.js';
+import { logger } from '../../lib/logger.js';
 import { pageMeta, pagination } from '../../lib/pagination.js';
 import { camelize } from '../../lib/serialize.js';
 import { updateRow } from '../../lib/sql.js';
 import { requirePermission } from '../../middleware/auth.js';
 import { validate } from '../../middleware/validate.js';
 import { idSchema } from '../public/public.schemas.js';
+import { sendSermonPublishedNotification } from '../notifications/notifications.service.js';
 import {
   adminListSchema,
   categoryCreateSchema,
@@ -188,24 +190,41 @@ sermonsAdminRouter.get('/sermons', requirePermission('sermons.view'), validate(a
   const q = req.query as unknown as { page: number; limit: number; search?: string; status?: string };
   const { offset } = pagination(q.page, q.limit);
   const result = await pool.query(
-    `SELECT *, count(*) OVER()::int AS total_count
-     FROM papaleki.v_sermon_admin_overview
-     WHERE ($1::text IS NULL OR title ILIKE '%' || $1 || '%')
-       AND ($2::papaleki.sermon_status IS NULL OR status = $2)
-     ORDER BY created_at DESC LIMIT $3 OFFSET $4`,
+    `SELECT v.*, s.cover_media_id, s.audio_media_id, s.scripture_reference,
+            count(*) OVER()::int AS total_count
+     FROM papaleki.v_sermon_admin_overview v
+     JOIN papaleki.sermons s ON s.id = v.id
+     WHERE ($1::text IS NULL OR v.title ILIKE '%' || $1 || '%')
+       AND ($2::papaleki.sermon_status IS NULL OR v.status = $2)
+     ORDER BY v.created_at DESC LIMIT $3 OFFSET $4`,
     [q.search ?? null, q.status ?? null, q.limit, offset],
   );
   const total = result.rows[0]?.total_count ?? 0;
   res.json({
     success: true,
-    data: result.rows.map(({ total_count: _total, ...row }) => camelize(row)),
+    data: result.rows.map(({ total_count: _total, ...row }) => ({
+      ...camelize(row),
+      coverUrl: row.cover_media_id ? `/api/v1/media/${row.cover_media_id}` : null,
+    })),
     meta: pageMeta(q.page, q.limit, total),
   });
 });
 
 sermonsAdminRouter.get('/sermons/:id', requirePermission('sermons.view'), validate(idSchema, 'params'), async (req, res) => {
   const [sermonResult, tagsResult] = await Promise.all([
-    pool.query('SELECT * FROM papaleki.v_sermon_admin_overview WHERE id = $1', [req.params.id]),
+    pool.query(
+      `SELECT s.*, p.display_name AS preacher_name, c.name AS category_name,
+              audio.original_filename AS audio_filename,
+              audio.processing_status AS audio_status,
+              cover.original_filename AS cover_filename
+       FROM papaleki.sermons s
+       JOIN papaleki.preachers p ON p.id = s.preacher_id
+       LEFT JOIN papaleki.sermon_categories c ON c.id = s.category_id
+       LEFT JOIN papaleki.media_files audio ON audio.id = s.audio_media_id
+       LEFT JOIN papaleki.media_files cover ON cover.id = s.cover_media_id
+       WHERE s.id = $1`,
+      [req.params.id],
+    ),
     pool.query(
       `SELECT t.id, t.name, t.slug
        FROM papaleki.sermon_tag_links stl
@@ -216,7 +235,14 @@ sermonsAdminRouter.get('/sermons/:id', requirePermission('sermons.view'), valida
   ]);
   const sermon = sermonResult.rows[0];
   if (!sermon) throw new AppError(404, 'SERMON_NOT_FOUND', 'Prédication introuvable.');
-  res.json({ success: true, data: { ...camelize(sermon), tags: camelize(tagsResult.rows) } });
+  res.json({
+    success: true,
+    data: {
+      ...camelize(sermon),
+      coverUrl: sermon.cover_media_id ? `/api/v1/media/${sermon.cover_media_id}` : null,
+      tags: camelize(tagsResult.rows),
+    },
+  });
 });
 
 const mediaStatusForSermon = async (audioMediaId: string | null | undefined): Promise<string> => {
@@ -293,6 +319,9 @@ sermonsAdminRouter.patch('/sermons/:id', requirePermission('sermons.update'), va
 
 sermonsAdminRouter.post('/sermons/:id/publish', requirePermission('sermons.publish'), validate(idSchema, 'params'), async (req, res) => {
   await pool.query('CALL papaleki.sp_publish_sermon($1, $2)', [req.params.id, req.auth!.userId]);
+  void sendSermonPublishedNotification(req.params.id as string).catch((error) => {
+    logger.error({ err: error, sermonId: req.params.id }, 'Échec de la notification de publication.');
+  });
   res.json({ success: true, message: 'Prédication publiée.' });
 });
 

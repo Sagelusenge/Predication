@@ -86,7 +86,7 @@ export function SermonDetailPage() {
       <section className="detail-hero">
         <div className="container breadcrumb"><Link to="/predications"><ArrowLeft size={15} /> Prédications</Link><ChevronRight size={14} /><span>{sermon.categoryName || 'Message'}</span></div>
         <div className="container detail-hero-grid">
-          <div className="detail-cover"><img src={sermon.coverUrl || '/brand-mark.svg'} alt="" /><span>{sermon.categoryName || 'Prédication'}</span></div>
+          <div className="detail-cover"><img src={sermon.coverUrl || '/logo-pasteur-innocent.png'} alt="" /><span>{sermon.categoryName || 'Prédication'}</span></div>
           <div className="detail-copy">
             <span className="eyebrow"><i /> Prédication audio</span>
             <h1>{sermon.title}</h1>

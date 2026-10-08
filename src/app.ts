@@ -19,6 +19,7 @@ import { adminRouter } from './modules/admin/admin.routes.js';
 import { authRouter } from './modules/auth/auth.routes.js';
 import { biblePublicRouter } from './modules/bible/bible.routes.js';
 import { mediaPublicRouter } from './modules/media/media.routes.js';
+import { notificationsRouter } from './modules/notifications/notifications.routes.js';
 import { publicRouter } from './modules/public/public.routes.js';
 import { workerRouter } from './modules/worker/worker.routes.js';
 
@@ -72,6 +73,7 @@ export const createApp = () => {
   app.use(`${API_PREFIX}/auth`, authRouter);
   app.use(`${API_PREFIX}/bible`, biblePublicRouter);
   app.use(`${API_PREFIX}/media`, mediaPublicRouter);
+  app.use(`${API_PREFIX}/notifications`, notificationsRouter);
   app.use(`${API_PREFIX}/admin`, adminRouter);
   app.use(`${API_PREFIX}/worker`, workerRouter);
   app.use(API_PREFIX, publicRouter);

@@ -6,5 +6,6 @@
 \ir 004_views.sql
 \ir 005_seed.sql
 \ir 006_bible.sql
+\ir 007_notifications_content.sql
 
 \echo 'Base PapaLeki installée avec succès.'

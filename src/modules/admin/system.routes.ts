@@ -12,6 +12,7 @@ import { validate } from '../../middleware/validate.js';
 import { idSchema } from '../public/public.schemas.js';
 import {
   adminListSchema,
+  dashboardRangeSchema,
   inviteUserSchema,
   rolesSchema,
   userUpdateSchema,
@@ -19,19 +20,54 @@ import {
 
 export const systemAdminRouter = Router();
 
-systemAdminRouter.get('/dashboard', requirePermission('dashboard.view'), async (_req, res) => {
+systemAdminRouter.get('/dashboard', requirePermission('dashboard.view'), validate(dashboardRangeSchema, 'query'), async (req, res) => {
+  const requested = req.query as unknown as { from?: string; to?: string };
+  const rangeResult = await pool.query<{ from_date: string; to_date: string }>(
+    `SELECT coalesce($1::date, (CURRENT_TIMESTAMP AT TIME ZONE 'Africa/Lubumbashi')::date - 29)::text AS from_date,
+            coalesce($2::date, (CURRENT_TIMESTAMP AT TIME ZONE 'Africa/Lubumbashi')::date)::text AS to_date`,
+    [requested.from ?? null, requested.to ?? null],
+  );
+  const range = rangeResult.rows[0]!;
+  const days = Math.round((new Date(`${range.to_date}T00:00:00Z`).getTime() - new Date(`${range.from_date}T00:00:00Z`).getTime()) / 86_400_000) + 1;
+  if (days < 1 || days > 366) throw new AppError(422, 'INVALID_DATE_RANGE', 'Choisissez une période comprise entre 1 et 366 jours.');
   const [summary, trend, performance, recent, pendingTestimonials, audioJobs, scheduled, devices] = await Promise.all([
     pool.query(
       `SELECT d.*,
               (SELECT count(*) FROM papaleki.testimonials WHERE status = 'draft') AS pending_testimonials,
-              (SELECT CASE WHEN coalesce(sum(play_count), 0) = 0 THEN 0
-                           ELSE round(100.0 * sum(completion_count)::numeric / sum(play_count)::numeric, 1)
-                      END FROM papaleki.sermons) AS average_completion_rate
+              coalesce((SELECT sum(play_starts) FROM papaleki.sermon_daily_stats
+                        WHERE stats_date BETWEEN $1::date AND $2::date), 0) AS range_plays,
+              coalesce((SELECT sum(unique_listeners) FROM papaleki.sermon_daily_stats
+                        WHERE stats_date BETWEEN $1::date AND $2::date), 0) AS range_unique_listeners,
+              (SELECT CASE WHEN coalesce(sum(play_starts), 0) = 0 THEN 0
+                           ELSE round(100.0 * sum(completions)::numeric / sum(play_starts)::numeric, 1)
+                      END FROM papaleki.sermon_daily_stats
+                      WHERE stats_date BETWEEN $1::date AND $2::date) AS range_completion_rate
        FROM papaleki.v_dashboard_summary d`,
+      [range.from_date, range.to_date],
     ),
-    pool.query('SELECT * FROM papaleki.v_daily_platform_performance_90d'),
     pool.query(
-      'SELECT * FROM papaleki.v_sermon_performance_30d ORDER BY play_starts DESC LIMIT 10',
+      `SELECT days.stats_date,
+              coalesce(sum(ds.play_starts), 0) AS play_starts,
+              coalesce(sum(ds.unique_listeners), 0) AS summed_daily_unique_listeners,
+              coalesce(sum(ds.completions), 0) AS completions
+       FROM generate_series($1::date, $2::date, interval '1 day') AS days(stats_date)
+       LEFT JOIN papaleki.sermon_daily_stats ds ON ds.stats_date = days.stats_date::date
+       GROUP BY days.stats_date ORDER BY days.stats_date`,
+      [range.from_date, range.to_date],
+    ),
+    pool.query(
+      `SELECT s.id AS sermon_id, s.title, s.slug, p.display_name AS preacher_name,
+              coalesce(sum(ds.play_starts), 0) AS play_starts,
+              coalesce(sum(ds.unique_listeners), 0) AS summed_daily_unique_listeners,
+              coalesce(sum(ds.completions), 0) AS completions
+       FROM papaleki.sermons s
+       JOIN papaleki.preachers p ON p.id = s.preacher_id
+       LEFT JOIN papaleki.sermon_daily_stats ds
+         ON ds.sermon_id = s.id AND ds.stats_date BETWEEN $1::date AND $2::date
+       WHERE s.status = 'published'
+       GROUP BY s.id, p.display_name
+       ORDER BY play_starts DESC LIMIT 10`,
+      [range.from_date, range.to_date],
     ),
     pool.query(
       `SELECT id, title, slug, scripture_reference, status, preached_on,
@@ -60,9 +96,10 @@ systemAdminRouter.get('/dashboard', requirePermission('dashboard.view'), async (
       `SELECT coalesce(device_type, 'inconnu') AS device_type, count(*)::int AS event_count
        FROM papaleki.sermon_events
        WHERE event_type = 'play_start'
-         AND occurred_at >= CURRENT_TIMESTAMP - interval '30 days'
+         AND (occurred_at AT TIME ZONE 'Africa/Lubumbashi')::date BETWEEN $1::date AND $2::date
        GROUP BY coalesce(device_type, 'inconnu')
        ORDER BY event_count DESC`,
+      [range.from_date, range.to_date],
     ),
   ]);
   res.json({
@@ -76,6 +113,7 @@ systemAdminRouter.get('/dashboard', requirePermission('dashboard.view'), async (
       activeAudioJob: camelize(audioJobs.rows[0] ?? null),
       nextScheduledSermon: camelize(scheduled.rows[0] ?? null),
       devices: camelize(devices.rows),
+      range: { from: range.from_date, to: range.to_date, days },
     },
   });
 });

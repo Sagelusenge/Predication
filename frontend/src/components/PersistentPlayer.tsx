@@ -11,7 +11,7 @@ export function PersistentPlayer() {
     <aside className="persistent-player" aria-label="Lecteur audio">
       <div className="player-progress" style={{ '--progress': `${player.duration ? (player.currentTime / player.duration) * 100 : 0}%` } as React.CSSProperties} />
       <div className="player-inner">
-        <img src={player.current.coverUrl || '/brand-mark.svg'} alt="" />
+        <img src={player.current.coverUrl || '/logo-pasteur-innocent.png'} alt="" />
         <div className="player-title">
           <strong>{player.current.title}</strong>
           <span>{player.current.preacherName || 'Ministère pastoral CBCA'}</span>

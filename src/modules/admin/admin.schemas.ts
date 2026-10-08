@@ -9,6 +9,11 @@ export const adminListSchema = paginationSchema.extend({
   status: z.string().trim().max(40).optional(),
 });
 
+export const dashboardRangeSchema = z.object({
+  from: z.iso.date().optional(),
+  to: z.iso.date().optional(),
+});
+
 export const preacherCreateSchema = z.object({
   displayName: z.string().trim().min(2).max(180),
   title: optionalText(120),

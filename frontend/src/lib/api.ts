@@ -6,6 +6,8 @@ import type {
   BibleTranslation,
   FeaturedBiblePassage,
   HomeAppConfig,
+  PublicPage,
+  PushConfig,
   Sermon,
   Testimonial,
   User
@@ -48,6 +50,9 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 export const api = {
   async appConfig() {
     return request<ApiEnvelope<HomeAppConfig>>('/app-config');
+  },
+  async page<T = Record<string, unknown>>(slug: string) {
+    return request<ApiEnvelope<PublicPage<T>>>(`/pages/${encodeURIComponent(slug)}`);
   },
   async bibleTranslations() {
     return request<ApiEnvelope<BibleTranslation[]>>('/bible/translations');
@@ -130,8 +135,20 @@ export const api = {
   async logout() {
     return request<void>('/auth/logout', { method: 'POST' });
   },
-  async dashboard() {
-    return request<ApiEnvelope<Record<string, unknown>>>('/admin/dashboard');
+  async dashboard(range?: { from: string; to: string }) {
+    const query = range ? `?from=${encodeURIComponent(range.from)}&to=${encodeURIComponent(range.to)}` : '';
+    return request<ApiEnvelope<Record<string, unknown>>>(`/admin/dashboard${query}`);
+  },
+  async pushConfig() {
+    return request<ApiEnvelope<PushConfig>>('/notifications/config');
+  },
+  async subscribePush(subscription: PushSubscriptionJSON & { locale: string; timezone: string }) {
+    return request<{ success: boolean; message: string }>('/notifications/subscribe', {
+      method: 'POST', body: JSON.stringify(subscription)
+    });
+  },
+  async unsubscribePush(endpoint: string) {
+    return request<void>('/notifications/subscribe', { method: 'DELETE', body: JSON.stringify({ endpoint }) });
   },
   async adminBibleStatus() {
     return request<ApiEnvelope<{ translations: BibleTranslation[]; featured: FeaturedBiblePassage | null }>>('/admin/bible/status');
@@ -144,6 +161,9 @@ export const api = {
   },
   async adminSermons(query = 'page=1&limit=20') {
     return request<ApiEnvelope<Array<Record<string, unknown>>>>(`/admin/sermons?${query}`);
+  },
+  async adminSermon(id: string) {
+    return request<ApiEnvelope<Record<string, unknown>>>(`/admin/sermons/${id}`);
   },
   async adminPreachers() {
     return request<ApiEnvelope<Array<{ id: string; displayName: string }>>>('/admin/preachers');
@@ -165,11 +185,19 @@ export const api = {
       body: JSON.stringify(body)
     });
   },
+  async updateSermon(id: string, body: Record<string, unknown>) {
+    return request<ApiEnvelope<Record<string, unknown>>>(`/admin/sermons/${id}`, {
+      method: 'PATCH', body: JSON.stringify(body)
+    });
+  },
   async publishSermon(id: string) {
     return request<{ success: boolean; message: string }>(`/admin/sermons/${id}/publish`, { method: 'POST' });
   },
   async archiveSermon(id: string) {
     return request<{ success: boolean; message: string }>(`/admin/sermons/${id}/archive`, { method: 'POST' });
+  },
+  async unpublishSermon(id: string) {
+    return request<ApiEnvelope<Record<string, unknown>>>(`/admin/sermons/${id}/unpublish`, { method: 'POST' });
   },
   async duplicateSermon(id: string) {
     return request<ApiEnvelope<Record<string, unknown>>>(`/admin/sermons/${id}/duplicate`, { method: 'POST' });

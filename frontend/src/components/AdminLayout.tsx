@@ -1,4 +1,4 @@
-import { BarChart3, Bell, BookMarked, BookOpenText, CircleHelp, FileAudio, Gauge, LogOut, Menu, MessageSquareQuote, Search, Settings, UploadCloud, UsersRound, X } from 'lucide-react';
+import { BarChart3, Bell, BookMarked, BookOpenText, FileAudio, Gauge, LogOut, Menu, MessageSquareQuote, Search, Settings, UploadCloud, UsersRound, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { api, ApiError } from '../lib/api';
@@ -35,14 +35,15 @@ export function AdminLayout() {
 
   if (checking) return <div className="admin-auth-loading">Vérification de la session…</div>;
 
-  const initials = profile?.displayName?.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase() || 'PL';
+  const displayName = [profile?.firstName, profile?.lastName].filter(Boolean).join(' ') || profile?.displayName || profile?.email?.split('@')[0] || 'Innocent';
+  const initials = displayName.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
   return (
     <div className="admin-shell">
       <aside className={`admin-sidebar ${open ? 'is-open' : ''}`}>
         <div className="admin-brand"><Brand /><button onClick={() => setOpen(false)} aria-label="Fermer"><X size={20} /></button></div>
         <div className="admin-profile">
           <div className="avatar">{initials}</div>
-          <div><strong>{profile?.displayName || 'Pasteur Leki'}</strong><span>{profile?.role || 'Administrateur'}</span></div>
+          <div><strong>{displayName}</strong><span>{profile?.roles?.includes('super_admin') ? 'Super administrateur' : 'Administrateur'}</span></div>
         </div>
         <nav className="admin-nav" aria-label="Administration">
           <span className="admin-nav-label">Menu principal</span>
@@ -53,7 +54,6 @@ export function AdminLayout() {
           ))}
           <span className="admin-nav-label admin-nav-label--second">Système</span>
           <NavLink to="/admin/parametres"><Settings size={19} /><span>Paramètres</span></NavLink>
-          <a href="mailto:contact@parole-esperance.cd?subject=Aide%20administration"><CircleHelp size={19} /><span>Aide & support</span></a>
         </nav>
         <button className="admin-logout" onClick={logout}><LogOut size={18} /> Déconnexion</button>
         <div className="admin-sidebar-footer"><span>Parole & Espérance</span><small>Version 1.0 · PWA</small></div>
@@ -66,7 +66,7 @@ export function AdminLayout() {
           <Link to="/admin/temoignages" className="admin-bell" aria-label="Notifications"><Bell size={20} /><i /></Link>
           <a className="view-site" href="/" target="_blank" rel="noreferrer">Voir le site</a>
         </header>
-        <main className="admin-content"><Outlet /></main>
+        <main className="admin-content"><Outlet context={{ profile }} /></main>
       </div>
     </div>
   );

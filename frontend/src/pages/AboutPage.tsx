@@ -1,20 +1,56 @@
-import { ArrowRight, BookHeart, Church, HeartHandshake, Mic2, PlayCircle, Quote, UsersRound } from 'lucide-react';
+import { ArrowRight, BookHeart, CalendarDays, Church, HeartHandshake, PlayCircle, Quote, UsersRound } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { pastorPhoto } from '../data/visuals';
+import { api } from '../lib/api';
+
+type AboutContent = {
+  heroTitle?: string;
+  heroSubtitle?: string;
+  biography?: string;
+  vision?: string;
+  mission?: string;
+  portrait?: string;
+  familyPhoto?: string;
+  timeline?: Array<{ year: string; title: string }>;
+};
 
 export function AboutPage() {
+  const [content, setContent] = useState<AboutContent | null>(null);
+  const [preacherName, setPreacherName] = useState('Pasteur Innocent Kombi Maliro');
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    void Promise.all([api.page<AboutContent>('a-propos'), api.appConfig()])
+      .then(([page, config]) => {
+        setContent(page.data.content);
+        if (config.data.primaryPreacher?.displayName) setPreacherName(config.data.primaryPreacher.displayName);
+      })
+      .catch(() => setError('La biographie n’a pas pu être chargée depuis la base de données.'));
+  }, []);
+
+  if (!content && !error) return <main className="home-data-state"><span className="data-loader" /><h1>Chargement</h1><p>Lecture des informations du ministère…</p></main>;
+
+  const page = content ?? {};
   return (
     <>
       <section className="about-hero page-hero">
         <div className="container about-hero-grid">
-          <div><span className="eyebrow"><i /> Le ministère</span><h1>Servir l’Église, <em>une parole à la fois.</em></h1><p>Parole & Espérance prolonge le ministère pastoral au-delà du culte : une médiathèque simple pour écouter, méditer et partager des enseignements bibliques.</p><Link className="button button--primary" to="/predications"><PlayCircle size={19} /> Découvrir les messages</Link></div>
-          <div className="about-photo"><img src={pastorPhoto} alt="Le Pasteur Leki pendant un enseignement" /><blockquote><Quote size={22} /> Notre désir est de rendre la Parole proche, fidèle et vivante.</blockquote></div>
+          <div><h1>{page.heroTitle || preacherName}</h1><p>{page.heroSubtitle || 'Prédication, enseignement biblique et accompagnement spirituel au service de la CBCA.'}</p><Link className="button button--primary" to="/predications"><PlayCircle size={19} /> Découvrir les messages</Link></div>
+          <div className="about-photo"><img src={page.portrait || '/pasteur-innocent.jpg'} alt={`Portrait de ${preacherName}`} /><blockquote><Quote size={22} /> Faire connaître la Parole avec fidélité, simplicité et espérance.</blockquote></div>
         </div>
       </section>
-      <section className="section story-section"><div className="container story-grid"><div><span className="eyebrow"><i /> Notre histoire</span><h2>Une présence pastorale qui continue en ligne</h2></div><div><p>Cette plateforme est née d’un constat simple : un message entendu le dimanche peut encore porter du fruit le lundi, dans un foyer, sur la route ou au travail.</p><p>Elle rassemble les prédications du Pasteur Leki et des invités du ministère, dans le respect de l’identité et de la mission de la Communauté Baptiste au Centre de l’Afrique.</p></div></div></section>
-      <section className="section mission-section"><div className="container"><div className="section-heading section-heading--center"><span className="eyebrow eyebrow--center"><i /> Notre mission <i /></span><h2>Transmettre, accompagner, rassembler</h2></div><div className="mission-grid"><article><BookHeart size={28} /><h3>Transmettre fidèlement</h3><p>Mettre à disposition un enseignement centré sur les Écritures et compréhensible.</p></article><article><HeartHandshake size={28} /><h3>Accompagner avec soin</h3><p>Offrir des ressources adaptées aux réalités spirituelles et familiales de la communauté.</p></article><article><UsersRound size={28} /><h3>Rassembler largement</h3><p>Créer un pont entre les générations et les lieux grâce à l’écoute numérique.</p></article></div></div></section>
-      <section className="ministry-band"><div className="container"><Church size={38} /><div><span>Une initiative pastorale</span><h2>Au service de la mission de la CBCA</h2></div><Link to="/contact" className="button button--gold">Entrer en contact <ArrowRight size={17} /></Link></div></section>
-      <section className="section about-cta"><div className="container"><Mic2 size={30} /><h2>La prochaine écoute peut commencer ici.</h2><p>Choisissez un thème, installez-vous et laissez la Parole accompagner votre semaine.</p><Link className="button button--primary" to="/predications">Parcourir les prédications <ArrowRight size={17} /></Link></div></section>
+
+      {error && <div className="container form-error" role="alert">{error}</div>}
+
+      <section className="section story-section"><div className="container story-grid"><div><h2>Parcours pastoral</h2></div><div><p>{page.biography}</p></div></div></section>
+
+      {!!page.timeline?.length && <section className="section about-timeline-section"><div className="container"><div className="section-heading section-heading--center"><h2>Quelques repères</h2></div><div className="about-timeline" data-reveal data-stagger>{page.timeline.map((item) => <article key={`${item.year}-${item.title}`}><CalendarDays size={23} /><strong>{item.year}</strong><p>{item.title}</p></article>)}</div></div></section>}
+
+      <section className="section mission-section"><div className="container"><div className="section-heading section-heading--center"><h2>Vision et mission</h2></div><div className="mission-grid"><article><BookHeart size={28} /><h3>Enseigner</h3><p>{page.vision}</p></article><article><HeartHandshake size={28} /><h3>Accompagner</h3><p>{page.mission}</p></article><article><UsersRound size={28} /><h3>Servir</h3><p>Mettre les prédications et les enseignements à la disposition des familles et de toute la communauté.</p></article></div></div></section>
+
+      {page.familyPhoto && <section className="section about-family-section"><div className="container about-family-grid"><img src={page.familyPhoto} alt={`${preacherName} et son épouse`} /><div><Church size={34} /><h2>Une vie consacrée au service</h2><p>Ce site prolonge en ligne un engagement pastoral vécu dans l’Église, auprès des familles et au cœur de la communauté.</p></div></div></section>}
+
+      <section className="ministry-band"><div className="container"><Church size={38} /><div><span>Une initiative pastorale</span><h2>Au service de la mission de l’ECC/3e CBCA</h2></div><Link to="/contact" className="button button--gold">Entrer en contact <ArrowRight size={17} /></Link></div></section>
     </>
   );
 }

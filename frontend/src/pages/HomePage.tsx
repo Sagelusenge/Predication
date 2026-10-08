@@ -45,7 +45,7 @@ export function HomePage() {
 
   const { page, latestSermons: sermons, testimonials, statistics, primaryPreacher } = config;
   const content = page.content;
-  const heroImage = primaryPreacher?.photoUrl || page.coverUrl || '/brand-mark.svg';
+  const heroImage = primaryPreacher?.photoUrl || page.coverUrl || '/pasteur-innocent.jpg';
   const featured = sermons[0];
   const statisticItems = [
     { value: compactNumber(statistics.publishedSermons), label: 'Prédications publiées', icon: Headphones },
@@ -59,7 +59,7 @@ export function HomePage() {
       <section className="hero">
         <div className="container hero-grid">
           <div className="hero-copy" data-reveal>
-            <span className="eyebrow"><i /> {content.hero.eyebrow}</span>
+            {content.hero.eyebrow && <span className="eyebrow"><i /> {content.hero.eyebrow}</span>}
             <h1>{content.hero.title} {content.hero.highlight && <em>{content.hero.highlight}</em>}</h1>
             <p>{content.hero.subtitle}</p>
             <div className="hero-actions">
@@ -69,7 +69,7 @@ export function HomePage() {
             <div className="hero-note"><span><Radio size={16} /></span><p><strong>{content.hero.noteTitle}</strong> — {content.hero.note}</p></div>
           </div>
           <div className="hero-visual" data-reveal>
-            <div className={`hero-image-wrap ${heroImage === '/brand-mark.svg' ? 'is-placeholder' : ''}`}>
+            <div className="hero-image-wrap">
               <img src={heroImage} alt={primaryPreacher ? `Portrait de ${primaryPreacher.displayName}` : 'Identité visuelle CBCA'} />
               <div className="hero-image-shade" />
               <blockquote><Quote size={25} /><p>{content.hero.quote}</p><cite>— {primaryPreacher?.displayName || String(config.settings['site.name'] || 'Ministère CBCA')}</cite></blockquote>
@@ -101,7 +101,7 @@ export function HomePage() {
       <section className="section latest-section">
         <div className="container">
           <div className="section-heading section-heading--row" data-reveal>
-            <div><span className="eyebrow"><i /> {content.latest.eyebrow}</span><h2>{content.latest.title}</h2></div>
+            <div>{content.latest.eyebrow && <span className="eyebrow"><i /> {content.latest.eyebrow}</span>}<h2>{content.latest.title}</h2></div>
             <Link to="/predications" className="text-link">Voir toute la médiathèque <ArrowRight size={17} /></Link>
           </div>
           {sermons.length
@@ -114,7 +114,7 @@ export function HomePage() {
         <div className="scripture-pattern" />
         <div className="container scripture-content">
           <BookOpen size={32} />
-          <span className="home-bible-label"><Languages size={15} /> Bible complète · Français · English · Kiswahili</span>
+          <span className="home-bible-label"><Languages size={15} /> Bible complète · Français · English · Kiswahili · Kinande</span>
           <blockquote>« {config.featuredBibleVerse?.text || content.scripture.quote} »</blockquote>
           <cite>{config.featuredBibleVerse?.reference || content.scripture.reference}{config.featuredBibleVerse && ` · ${config.featuredBibleVerse.translation.abbreviation}`}</cite>
           <Link className="button button--outline-light" to={config.featuredBibleVerse ? `/bible?translation=${config.featuredBibleVerse.translation.code}&book=${config.featuredBibleVerse.book.code}&chapter=${config.featuredBibleVerse.chapter}&verse=${config.featuredBibleVerse.verseStart}` : '/bible'}>Lire toute la Bible <ArrowRight size={17} /></Link>
@@ -148,7 +148,7 @@ export function HomePage() {
             <button className="button button--gold" onClick={() => player.play(featured)}><Play size={18} fill="currentColor" /> Lancer l’écoute</button>
           </div>
           <div className="cta-card">
-            <img src={featured.coverUrl || '/brand-mark.svg'} alt="" />
+            <img src={featured.coverUrl || '/logo-pasteur-innocent.png'} alt="" />
             <div><small>Prédication recommandée</small><h3>{featured.title}</h3><span>{featured.preacherName || primaryPreacher?.displayName || 'CBCA'}</span></div>
             <button onClick={() => player.play(featured)} aria-label="Écouter"><Play size={22} fill="currentColor" /></button>
           </div>

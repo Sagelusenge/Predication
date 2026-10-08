@@ -1,8 +1,9 @@
 import { Activity, AlertCircle, ArrowRight, CalendarDays, CheckCircle2, Clock3, Eye, Headphones, MessageSquareQuote, Plus, Radio, UsersRound } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { api } from '../lib/api';
 import { formatDate } from '../lib/format';
+import type { User } from '../types';
 
 type Row = Record<string, unknown>;
 type DashboardData = {
@@ -14,22 +15,48 @@ type DashboardData = {
   activeAudioJob?: Row | null;
   nextScheduledSermon?: Row | null;
   devices?: Row[];
+  range?: { from: string; to: string; days: number };
 };
 
 const number = (value: unknown) => Number(value ?? 0);
 const displayNumber = (value: unknown) => number(value).toLocaleString('fr-FR');
+const localToday = () => {
+  const parts = new Intl.DateTimeFormat('en', {
+    timeZone: 'Africa/Lubumbashi', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(new Date());
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
+};
+const daysAgo = (days: number) => {
+  const date = new Date(`${localToday()}T12:00:00Z`);
+  date.setUTCDate(date.getUTCDate() - days);
+  return date.toISOString().slice(0, 10);
+};
 
 export function AdminDashboardPage() {
+  const { profile } = useOutletContext<{ profile: User | null }>();
   const [data, setData] = useState<DashboardData>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [period, setPeriod] = useState<'today' | '7' | '30' | 'custom'>('30');
+  const [customFrom, setCustomFrom] = useState(daysAgo(29));
+  const [customTo, setCustomTo] = useState(localToday());
+
+  const selectedRange = useMemo(() => {
+    if (period === 'today') return { from: localToday(), to: localToday() };
+    if (period === '7') return { from: daysAgo(6), to: localToday() };
+    if (period === '30') return { from: daysAgo(29), to: localToday() };
+    return { from: customFrom, to: customTo };
+  }, [customFrom, customTo, period]);
 
   useEffect(() => {
-    void api.dashboard()
+    setLoading(true);
+    setError('');
+    void api.dashboard(selectedRange)
       .then((response) => setData(response.data as DashboardData))
       .catch((reason) => setError(reason instanceof Error ? reason.message : 'Le tableau de bord n’a pas pu être chargé.'))
       .finally(() => setLoading(false));
-  }, []);
+  }, [selectedRange.from, selectedRange.to]);
 
   const summary = data.summary ?? {};
   const recent = data.recentSermons ?? [];
@@ -40,26 +67,30 @@ export function AdminDashboardPage() {
   const deviceTotal = useMemo(() => (data.devices ?? []).reduce((sum, item) => sum + number(item.eventCount), 0), [data.devices]);
   const attentionCount = number(summary.pendingTestimonials) + number(summary.activeAudioJobs);
   const chartLabels = trendRows.length ? [trendRows[0], trendRows[Math.floor((trendRows.length - 1) / 2)], trendRows[trendRows.length - 1]] : [];
+  const periodLabel = period === 'today' ? 'Aujourd’hui' : period === '7' ? '7 derniers jours' : period === '30' ? '30 derniers jours' : `${formatDate(selectedRange.from)} – ${formatDate(selectedRange.to)}`;
+  const firstName = profile?.firstName || profile?.displayName?.split(/\s+/)[0] || profile?.email?.split('@')[0] || 'Innocent';
 
   if (loading) return <div className="management-empty"><span className="data-loader" /> Chargement des statistiques depuis la base de données…</div>;
   if (error) return <div className="management-empty" role="alert"><AlertCircle size={22} /> {error}</div>;
 
   return (
     <div className="dashboard-page">
-      <div className="admin-page-heading"><div><span>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date())}</span><h1>Bonjour</h1><p>Voici l’activité réelle enregistrée sur votre plateforme pastorale.</p></div><div><span className="button button--soft"><CalendarDays size={17} /> 30 derniers jours</span><Link className="button button--primary" to="/admin/publier"><Plus size={18} /> Nouvelle prédication</Link></div></div>
+      <div className="admin-page-heading"><div><span>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date())}</span><h1>Bonjour {firstName}</h1><p>Voici l’activité réelle enregistrée sur votre plateforme pastorale.</p></div><div className="dashboard-period-actions"><label className="dashboard-period-select"><CalendarDays size={17} /><select value={period} onChange={(event) => setPeriod(event.target.value as typeof period)}><option value="today">Aujourd’hui</option><option value="7">7 derniers jours</option><option value="30">30 derniers jours</option><option value="custom">Période personnalisée</option></select></label><Link className="button button--primary" to="/admin/publier"><Plus size={18} /> Nouvelle prédication</Link></div></div>
+
+      {period === 'custom' && <div className="dashboard-custom-range"><label>Du<input type="date" value={customFrom} max={customTo} onChange={(event) => setCustomFrom(event.target.value)} /></label><label>Au<input type="date" value={customTo} min={customFrom} max={localToday()} onChange={(event) => setCustomTo(event.target.value)} /></label><span>{periodLabel}</span></div>}
 
       {attentionCount > 0 && <div className="attention-banner"><div><AlertCircle size={21} /><p><strong>{attentionCount} élément{attentionCount > 1 ? 's' : ''} demande{attentionCount > 1 ? 'nt' : ''} votre attention.</strong> {displayNumber(summary.activeAudioJobs)} audio(s) en traitement et {displayNumber(summary.pendingTestimonials)} témoignage(s) à valider.</p></div><a href="#actions">Voir les actions <ArrowRight size={16} /></a></div>}
 
       <section className="stat-grid">
-        <article><span className="stat-icon stat-icon--navy"><Headphones size={21} /></span><div><small>Écoutes totales</small><strong>{displayNumber(summary.totalPlays)}</strong><em>base complète</em></div><p>Toutes les prédications</p></article>
-        <article><span className="stat-icon stat-icon--gold"><UsersRound size={21} /></span><div><small>Auditeurs sur 30 jours</small><strong>{displayNumber(summary.dailyUniqueListenersLast30Days)}</strong><em>mesure quotidienne</em></div><p>Somme des auditeurs uniques</p></article>
+        <article><span className="stat-icon stat-icon--navy"><Headphones size={21} /></span><div><small>Écoutes · {periodLabel}</small><strong>{displayNumber(summary.rangePlays)}</strong><em>{displayNumber(summary.totalPlays)} au total</em></div><p>Période sélectionnée</p></article>
+        <article><span className="stat-icon stat-icon--gold"><UsersRound size={21} /></span><div><small>Auditeurs · {periodLabel}</small><strong>{displayNumber(summary.rangeUniqueListeners)}</strong><em>mesure quotidienne</em></div><p>Somme des auditeurs uniques</p></article>
         <article><span className="stat-icon stat-icon--blue"><Radio size={21} /></span><div><small>Prédications publiées</small><strong>{displayNumber(summary.publishedSermons)}</strong><em>{displayNumber(summary.totalSermons)} au total</em></div><p>Messages visibles en ligne</p></article>
         <article><span className="stat-icon stat-icon--purple"><MessageSquareQuote size={21} /></span><div><small>À modérer</small><strong>{displayNumber(summary.pendingTestimonials)}</strong><em>témoignages</em></div><p>En attente de validation</p></article>
-        <article><span className="stat-icon stat-icon--green"><Activity size={21} /></span><div><small>Taux d’écoute moyen</small><strong>{displayNumber(summary.averageCompletionRate)}%</strong><em>lectures terminées</em></div><p>Selon les écoutes enregistrées</p></article>
+        <article><span className="stat-icon stat-icon--green"><Activity size={21} /></span><div><small>Taux d’écoute moyen</small><strong>{displayNumber(summary.rangeCompletionRate)}%</strong><em>lectures terminées</em></div><p>Sur {periodLabel.toLowerCase()}</p></article>
       </section>
 
       <section className="dashboard-grid">
-        <article className="dashboard-card listening-chart-card"><header><div><h2>Évolution des écoutes</h2><p>Nombre de lectures sur les 30 derniers jours</p></div><span><i /> Écoutes</span></header><div className="chart-summary"><strong>{displayNumber(summary.playsLast30Days)}</strong><small>données PostgreSQL</small></div>{trend.length ? <><div className="bar-chart" aria-label="Graphique des écoutes">{trend.slice(-30).map((value, index) => <i key={index} style={{ height: `${Math.max(5, value / max * 100)}%` }} title={String(value)} />)}</div><div className="chart-labels">{chartLabels.map((item, index) => <span key={index}>{item.statsDate ? formatDate(String(item.statsDate)) : '—'}</span>)}</div></> : <div className="management-empty">Le graphique apparaîtra après les premières écoutes.</div>}</article>
+        <article className="dashboard-card listening-chart-card"><header><div><h2>Évolution des écoutes</h2><p>{periodLabel}</p></div><span><i /> Écoutes</span></header><div className="chart-summary"><strong>{displayNumber(summary.rangePlays)}</strong><small>données PostgreSQL</small></div>{trend.length ? <><div className="bar-chart" aria-label="Graphique des écoutes">{trend.map((value, index) => <i key={index} style={{ height: `${Math.max(5, value / max * 100)}%` }} title={String(value)} />)}</div><div className="chart-labels">{chartLabels.map((item, index) => <span key={index}>{item.statsDate ? formatDate(String(item.statsDate)) : '—'}</span>)}</div></> : <div className="management-empty">Le graphique apparaîtra après les premières écoutes.</div>}</article>
         <article className="dashboard-card devices-card"><header><div><h2>Appareils utilisés</h2><p>Répartition des lectures enregistrées</p></div></header>{deviceTotal > 0 ? <div className="donut-wrap"><div className="donut"><span><strong>{displayNumber(deviceTotal)}</strong><small>lectures</small></span></div><ul>{(data.devices ?? []).map((item) => { const type = String(item.deviceType); const percent = Math.round(number(item.eventCount) / deviceTotal * 100); return <li key={type}><i className={type === 'mobile' || type === 'tablet' ? type : 'desktop'} /><span>{type}</span><b>{percent}%</b></li>; })}</ul></div> : <div className="management-empty">Aucune donnée d’appareil enregistrée.</div>}</article>
       </section>
 

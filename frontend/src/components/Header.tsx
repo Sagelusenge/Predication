@@ -2,12 +2,13 @@ import { Menu, Search, UserRound, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Brand } from './Brand';
+import { PushNotificationsButton } from './PushNotificationsButton';
 
 const links = [
   { to: '/', label: 'Accueil', end: true },
   { to: '/predications', label: 'Prédications' },
   { to: '/bible', label: 'Bible' },
-  { to: '/a-propos', label: 'Le ministère' },
+  { to: '/a-propos', label: 'À propos' },
   { to: '/contact', label: 'Contact' }
 ];
 
@@ -30,6 +31,7 @@ export function Header() {
             </NavLink>
           ))}
           <div className="nav-actions">
+            <PushNotificationsButton />
             <NavLink className="icon-button search-link" to="/predications" aria-label="Rechercher une prédication"><Search size={20} /></NavLink>
             <NavLink className="button button--nav" to="/connexion"><UserRound size={17} /> Se connecter</NavLink>
           </div>

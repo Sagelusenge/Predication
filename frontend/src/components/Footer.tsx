@@ -8,13 +8,13 @@ export function Footer() {
       <div className="container footer-grid">
         <div className="footer-intro">
           <Brand />
-          <p>Une parole biblique pour fortifier la foi, relever les familles et servir l’Église au quotidien.</p>
+          <p>Prédications et enseignements bibliques du Pasteur Innocent Kombi Maliro, au service de l’ECC/3e CBCA.</p>
         </div>
         <div>
           <h3>Explorer</h3>
           <Link to="/predications">Toutes les prédications</Link>
           <Link to="/bible">Lire la Bible</Link>
-          <Link to="/a-propos">Le ministère</Link>
+          <Link to="/a-propos">À propos</Link>
           <Link to="/contact">Nous écrire</Link>
           <Link to="/connexion">Administration</Link>
         </div>
@@ -32,8 +32,8 @@ export function Footer() {
         </div>
       </div>
       <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} Parole & Espérance. Tous droits réservés.</span>
-        <span>Servir par la Parole, avec simplicité.</span>
+        <span>© {new Date().getFullYear()} Pasteur Innocent Kombi Maliro. Tous droits réservés.</span>
+        <a href="https://portfolio-sage-web.onrender.com/" target="_blank" rel="noreferrer">À propos du développeur</a>
       </div>
     </footer>
   );

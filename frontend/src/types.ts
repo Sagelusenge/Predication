@@ -159,5 +159,24 @@ export type User = {
   id?: string;
   displayName?: string;
   email?: string;
+  firstName?: string;
+  lastName?: string;
   role?: string;
+  roles?: string[];
+  permissions?: string[];
+};
+
+export type PublicPage<T = Record<string, unknown>> = {
+  id: string;
+  slug: string;
+  title: string;
+  content: T;
+  coverUrl?: string | null;
+};
+
+export type PushConfig = {
+  enabled: boolean;
+  publicKey: string;
+  dailyHour: number;
+  timezone: string;
 };

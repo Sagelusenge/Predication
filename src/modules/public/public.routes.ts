@@ -9,7 +9,7 @@ import { AppError } from '../../lib/errors.js';
 import { pageMeta, pagination } from '../../lib/pagination.js';
 import { camelize } from '../../lib/serialize.js';
 import { validate } from '../../middleware/validate.js';
-import { getFeaturedBiblePassage } from '../bible/bible.service.js';
+import { getDailyFrenchBiblePassage } from '../bible/bible.service.js';
 import {
   contactSchema,
   eventSchema,
@@ -216,7 +216,7 @@ publicRouter.get('/series', async (_req, res) => {
 publicRouter.get('/preachers', async (_req, res) => {
   const result = await pool.query(
     `SELECT p.id, p.display_name, p.title, p.biography, p.church_name,
-            p.photo_media_id, p.is_primary,
+            p.photo_media_id, p.public_photo_url, p.is_primary,
             count(s.id) FILTER (WHERE s.status = 'published')::int AS sermon_count
      FROM papaleki.preachers p
      LEFT JOIN papaleki.sermons s ON s.preacher_id = p.id
@@ -229,7 +229,7 @@ publicRouter.get('/preachers', async (_req, res) => {
     success: true,
     data: result.rows.map((row) => ({
       ...camelize(row),
-      photoUrl: row.photo_media_id ? `${API_PREFIX}/media/${row.photo_media_id}` : null,
+      photoUrl: row.photo_media_id ? `${API_PREFIX}/media/${row.photo_media_id}` : row.public_photo_url,
     })),
   });
 });
@@ -314,13 +314,13 @@ publicRouter.get('/app-config', async (_req, res) => {
        WHERE status = 'published' AND published_at <= CURRENT_TIMESTAMP`,
     ),
     pool.query(
-      `SELECT id, display_name, title, biography, church_name, photo_media_id
+      `SELECT id, display_name, title, biography, church_name, photo_media_id, public_photo_url
        FROM papaleki.preachers
        WHERE is_active = true
        ORDER BY is_primary DESC, display_name
        LIMIT 1`,
     ),
-    getFeaturedBiblePassage(),
+    getDailyFrenchBiblePassage(),
   ]);
   const page = homePage.rows[0];
   const preacher = primaryPreacher.rows[0];
@@ -353,7 +353,7 @@ publicRouter.get('/app-config', async (_req, res) => {
       }),
       primaryPreacher: preacher ? {
         ...camelize(preacher),
-        photoUrl: preacher.photo_media_id ? `${API_PREFIX}/media/${preacher.photo_media_id}` : null,
+        photoUrl: preacher.photo_media_id ? `${API_PREFIX}/media/${preacher.photo_media_id}` : preacher.public_photo_url,
       } : null,
       featuredBibleVerse,
     },

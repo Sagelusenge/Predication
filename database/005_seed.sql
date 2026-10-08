@@ -189,7 +189,7 @@ UPDATE pages
 SET content = '{
   "contentVersion":"cbca-2026-01",
   "hero":{
-    "eyebrow":"Méditer · Grandir · Servir",
+    "eyebrow":"",
     "title":"Une parole qui éclaire",
     "highlight":"chaque pas.",
     "subtitle":"Retrouvez les prédications du Pasteur Leki et des serviteurs de la CBCA. Des messages bibliques à écouter partout, pour nourrir la foi et accompagner la vie.",
@@ -214,7 +214,7 @@ SET content = '{
   "scripture":{"quote":"Ainsi la foi vient de ce qu’on entend, et ce qu’on entend vient de la parole de Christ.","reference":"Romains 10:17"},
   "testimonials":{"eyebrow":"La communauté témoigne","title":"Des vies encouragées"},
   "featured":{"eyebrow":"Message à la une","title":"Emportez la Parole avec vous.","description":"Commencez par le message le plus récent, puis poursuivez votre écoute même lorsque vous changez de page."},
-  "contact":{"title":"Besoin de prière ou d’un accompagnement ?","subtitle":"Le ministère pastoral reste à votre écoute.","action":"Nous écrire"}
+  "contact":{"title":"Besoin de prière ou d’un accompagnement ?","subtitle":"Nous restons à votre écoute.","action":"Nous écrire"}
 }'::jsonb,
     updated_at = CURRENT_TIMESTAMP
 WHERE slug = 'accueil'

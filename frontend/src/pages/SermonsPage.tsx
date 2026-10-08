@@ -55,13 +55,12 @@ export function SermonsPage() {
     <>
       <section className="page-hero sermons-page-hero">
         <div className="container page-heading">
-          <span className="eyebrow"><i /> Médiathèque audio</span>
           <h1>Des messages pour <em>nourrir votre foi.</em></h1>
           <p>Écoutez, méditez et partagez les prédications du ministère pastoral CBCA.</p>
         </div>
         {featured && <div className="container featured-sermon" data-reveal>
           <div className="featured-cover">
-            <img src={featured.coverUrl || '/brand-mark.svg'} alt="" />
+            <img src={featured.coverUrl || '/logo-pasteur-innocent.png'} alt="" />
             <span>Message à la une</span>
           </div>
           <div className="featured-copy">

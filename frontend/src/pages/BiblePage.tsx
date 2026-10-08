@@ -122,7 +122,6 @@ export function BiblePage() {
     <div className="bible-page">
       <section className="bible-hero">
         <div className="container" data-reveal>
-          <span className="eyebrow eyebrow--light"><i /> La Parole à portée de main</span>
           <div className="bible-hero-grid">
             <div><h1>Lire toute la <em>Bible.</em></h1><p>Parcourez les 66 livres en français, anglais, swahili et kinande, puis recherchez un mot dans les traductions indexées.</p></div>
             <BookHeart size={94} strokeWidth={1.1} aria-hidden="true" />
