@@ -994,9 +994,17 @@ td > button { border: 0; background: transparent; cursor: pointer; }
 .site-footer { background: var(--cbca-black); }
 .admin-sidebar { background: var(--cbca-blue-dark); }
 .admin-sidebar::after { background: var(--cbca-red); }
-.attention-banner { border-left-color: var(--cbca-red); }
+.admin-nav a.active { background: var(--cbca-white); color: var(--cbca-blue-dark); box-shadow: inset 4px 0 var(--cbca-red); }
+.attention-banner { border-color: #b9d3e8; border-left: 4px solid var(--cbca-red); background: #f2f8fd; }
+.attention-banner svg, .attention-banner a { color: var(--cbca-red); }
+.form-card > header > span, .moderation-card > header > span, .moderation-item > div:first-child > span, .quick-actions article > span { background: #e7f1f9; color: var(--cbca-blue); }
+.bar-chart i { background: linear-gradient(var(--cbca-blue), var(--cbca-red)); }
 .stat-icon--gold, .user-list article > span { background: #e7f1f9; color: var(--cbca-blue); }
 .statistics-bar i { background: linear-gradient(90deg, var(--cbca-blue), var(--cbca-red)); }
+.page-hero, .detail-hero, .testimony-detail-section, .home-cta-section { background: linear-gradient(145deg, #eaf3fa, #fff 66%); }
+.recommended-grid li > button, .info-card > span, .contact-cards article > span, .login-icon { background: #e7f1f9; color: var(--cbca-blue); }
+.sermon-notes blockquote { background: #f2f8fd; }
+.auth-action-page { background: radial-gradient(circle at 10% 10%, #dfeef9, transparent 30%), var(--cream); }
 
 /* États reliés à la base */
 .home-data-state { min-height: 62vh; padding: 80px 24px; background: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; }
