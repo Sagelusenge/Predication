@@ -20,15 +20,49 @@ import {
 export const systemAdminRouter = Router();
 
 systemAdminRouter.get('/dashboard', requirePermission('dashboard.view'), async (_req, res) => {
-  const [summary, trend, performance, recent] = await Promise.all([
-    pool.query('SELECT * FROM papaleki.v_dashboard_summary'),
+  const [summary, trend, performance, recent, pendingTestimonials, audioJobs, scheduled, devices] = await Promise.all([
+    pool.query(
+      `SELECT d.*,
+              (SELECT count(*) FROM papaleki.testimonials WHERE status = 'draft') AS pending_testimonials,
+              (SELECT CASE WHEN coalesce(sum(play_count), 0) = 0 THEN 0
+                           ELSE round(100.0 * sum(completion_count)::numeric / sum(play_count)::numeric, 1)
+                      END FROM papaleki.sermons) AS average_completion_rate
+       FROM papaleki.v_dashboard_summary d`,
+    ),
     pool.query('SELECT * FROM papaleki.v_daily_platform_performance_90d'),
     pool.query(
       'SELECT * FROM papaleki.v_sermon_performance_30d ORDER BY play_starts DESC LIMIT 10',
     ),
     pool.query(
-      `SELECT id, title, status, preached_on, published_at, play_count, updated_at
+      `SELECT id, title, slug, scripture_reference, status, preached_on,
+              published_at, play_count, duration_seconds, updated_at
        FROM papaleki.sermons ORDER BY updated_at DESC LIMIT 8`,
+    ),
+    pool.query(
+      `SELECT id, author_name, author_role, quote, created_at
+       FROM papaleki.testimonials
+       WHERE status = 'draft'
+       ORDER BY created_at DESC LIMIT 2`,
+    ),
+    pool.query(
+      `SELECT job_id, status, progress_percent, original_filename, queued_at
+       FROM papaleki.v_audio_processing_queue
+       WHERE status IN ('queued', 'processing')
+       ORDER BY queued_at LIMIT 1`,
+    ),
+    pool.query(
+      `SELECT id, title, scheduled_for
+       FROM papaleki.sermons
+       WHERE status = 'scheduled' AND scheduled_for >= CURRENT_TIMESTAMP
+       ORDER BY scheduled_for LIMIT 1`,
+    ),
+    pool.query(
+      `SELECT coalesce(device_type, 'inconnu') AS device_type, count(*)::int AS event_count
+       FROM papaleki.sermon_events
+       WHERE event_type = 'play_start'
+         AND occurred_at >= CURRENT_TIMESTAMP - interval '30 days'
+       GROUP BY coalesce(device_type, 'inconnu')
+       ORDER BY event_count DESC`,
     ),
   ]);
   res.json({
@@ -38,6 +72,10 @@ systemAdminRouter.get('/dashboard', requirePermission('dashboard.view'), async (
       trend: camelize(trend.rows),
       topSermons: camelize(performance.rows),
       recentSermons: camelize(recent.rows),
+      pendingTestimonials: camelize(pendingTestimonials.rows),
+      activeAudioJob: camelize(audioJobs.rows[0] ?? null),
+      nextScheduledSermon: camelize(scheduled.rows[0] ?? null),
+      devices: camelize(devices.rows),
     },
   });
 });

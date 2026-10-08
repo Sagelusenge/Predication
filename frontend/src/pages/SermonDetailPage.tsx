@@ -5,16 +5,16 @@ import { LikeButton } from '../components/LikeButton';
 import { SermonCard } from '../components/SermonCard';
 import { Waveform } from '../components/Waveform';
 import { useAudioPlayer } from '../context/AudioPlayerContext';
-import { demoSermons, demoTestimonials } from '../data/demo';
 import { api } from '../lib/api';
 import { formatDate, formatDuration } from '../lib/format';
-import type { Sermon } from '../types';
+import type { Sermon, Testimonial } from '../types';
 import { useToast } from '../context/ToastContext';
 
 export function SermonDetailPage() {
   const { slug = '' } = useParams();
-  const fallback = demoSermons.find((item) => item.slug === slug) || demoSermons[0];
-  const [sermon, setSermon] = useState<Sermon>(fallback);
+  const [sermon, setSermon] = useState<Sermon | null>(null);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [loadError, setLoadError] = useState('');
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -22,13 +22,15 @@ export function SermonDetailPage() {
   const { notify } = useToast();
 
   useEffect(() => {
-    setSermon(fallback);
-    void api.sermon(slug).then((response) => setSermon(response.data)).catch(() => undefined);
-  }, [fallback, slug]);
+    setSermon(null);
+    setLoadError('');
+    void api.sermon(slug).then((response) => setSermon(response.data)).catch(() => setLoadError('Cette prédication est introuvable ou n’est pas encore publiée.'));
+    void api.testimonials().then((response) => setTestimonials(response.data.slice(0, 2))).catch(() => setTestimonials([]));
+  }, [slug]);
 
   useEffect(() => {
-    setSaved(localStorage.getItem(`papaleki-saved-${sermon.id}`) === '1');
-  }, [sermon.id]);
+    if (sermon) setSaved(localStorage.getItem(`papaleki-saved-${sermon.id}`) === '1');
+  }, [sermon]);
 
   const submitTestimony = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -47,6 +49,7 @@ export function SermonDetailPage() {
   };
 
   const toggleSaved = () => {
+    if (!sermon) return;
     const next = !saved;
     setSaved(next);
     localStorage.setItem(`papaleki-saved-${sermon.id}`, next ? '1' : '0');
@@ -54,6 +57,7 @@ export function SermonDetailPage() {
   };
 
   const share = async () => {
+    if (!sermon) return;
     const url = window.location.href;
     try {
       if (navigator.share) await navigator.share({ title: sermon.title, text: sermon.excerpt ?? '', url });
@@ -65,13 +69,17 @@ export function SermonDetailPage() {
   };
 
   const download = () => {
-    if (!sermon.audioUrl) { notify('Le fichier audio de démonstration n’est pas téléchargeable.', 'info'); return; }
+    if (!sermon?.audioUrl) { notify('Aucun fichier audio téléchargeable n’est disponible.', 'info'); return; }
     const separator = sermon.audioUrl.includes('?') ? '&' : '?';
     window.location.assign(`${sermon.audioUrl}${separator}download=1`);
     if (/^[0-9a-f-]{36}$/i.test(sermon.id)) void api.recordEvent(sermon.id, 'download').catch(() => undefined);
   };
 
-  const related = sermon.related?.length ? sermon.related : demoSermons.filter((item) => item.id !== sermon.id).slice(0, 3);
+  if (!sermon) {
+    return <main className="home-data-state" role={loadError ? 'alert' : undefined}><Headphones size={34} /><h1>{loadError ? 'Prédication indisponible' : 'Chargement de la prédication'}</h1><p>{loadError || 'Lecture des informations depuis la base de données…'}</p>{loadError && <Link className="button button--primary" to="/predications">Retour aux prédications</Link>}</main>;
+  }
+
+  const related = sermon.related ?? [];
 
   return (
     <>
@@ -97,12 +105,9 @@ export function SermonDetailPage() {
         <div className="container sermon-content-grid">
           <article className="sermon-notes">
             <span className="eyebrow"><i /> Notes du message</span>
-            <h2>Dieu demeure fidèle au cœur de nos saisons</h2>
-            <p>{sermon.description || 'Ce message nous invite à reconnaître que la fidélité de Dieu ne dépend ni de nos émotions, ni de la facilité du chemin. Elle s’enracine dans sa promesse et nous apprend à persévérer.'}</p>
-            <p>La foi biblique ne nie pas les difficultés. Elle choisit de les regarder depuis la présence de Dieu, avec une espérance qui travaille notre caractère et renouvelle notre manière d’aimer.</p>
-            <blockquote><Quote size={24} /><p>« L’espérance ne trompe point, parce que l’amour de Dieu est répandu dans nos cœurs par le Saint-Esprit. »</p><cite>{sermon.scriptureReference || 'Romains 5:5'}</cite></blockquote>
-            <h3>Trois repères pour la semaine</h3>
-            <ul className="lesson-list"><li><Check size={17} /><span><strong>Se souvenir</strong> des fidélités passées de Dieu.</span></li><li><Check size={17} /><span><strong>Confier</strong> ce que nous ne pouvons pas contrôler.</span></li><li><Check size={17} /><span><strong>Poser un acte</strong> de foi concret envers quelqu’un.</span></li></ul>
+            <h2>{sermon.title}</h2>
+            {sermon.description ? <p>{sermon.description}</p> : <p>Les notes de cette prédication n’ont pas encore été ajoutées.</p>}
+            {sermon.scriptureReference && <blockquote><Quote size={24} /><p>Passage biblique du message</p><cite>{sermon.scriptureReference}</cite></blockquote>}
           </article>
           <aside className="sermon-sidebar">
             <div className="info-card"><span><ListChecks size={21} /></span><h3>À propos du message</h3><dl><div><dt>Prédicateur</dt><dd>{sermon.preacherName || 'Pasteur Leki'}</dd></div><div><dt>Passage</dt><dd>{sermon.scriptureReference || 'Romains 5:1–5'}</dd></div><div><dt>Thème</dt><dd>{sermon.categoryName || 'Espérance'}</dd></div><div><dt>Date</dt><dd>{formatDate(sermon.preachedOn)}</dd></div></dl></div>
@@ -122,12 +127,12 @@ export function SermonDetailPage() {
             <button className="button button--primary" disabled={sending}>{sending ? 'Envoi…' : <>Envoyer mon témoignage <ChevronRight size={17} /></>}</button>
           </form>
         </div>
-        <div className="container short-testimonies">{demoTestimonials.slice(0, 2).map((item) => <blockquote key={item.id}><Quote size={21} /><p>{item.content}</p><cite>{item.authorName} · {item.authorLocation}</cite></blockquote>)}</div>
+        {testimonials.length > 0 && <div className="container short-testimonies">{testimonials.map((item) => <blockquote key={item.id}><Quote size={21} /><p>{item.content}</p><cite>{item.authorName}{item.authorLocation ? ` · ${item.authorLocation}` : ''}</cite></blockquote>)}</div>}
       </section>
 
-      <section className="section related-section">
+      {related.length > 0 && <section className="section related-section">
         <div className="container"><div className="section-heading section-heading--row"><div><span className="eyebrow"><i /> Poursuivre l’écoute</span><h2>Messages associés</h2></div><Link className="text-link" to="/predications">Tout afficher <ChevronRight size={17} /></Link></div><div className="sermon-grid">{related.slice(0, 3).map((item) => <SermonCard key={item.id} sermon={item} />)}</div></div>
-      </section>
+      </section>}
     </>
   );
 }

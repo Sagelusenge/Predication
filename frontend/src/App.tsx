@@ -23,10 +23,51 @@ function ScrollToTop() {
   return null;
 }
 
+function ScrollAnimations() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const selector = '[data-reveal], .section-heading, .sermon-card, .dashboard-card, .management-card, .admin-page-heading';
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const observed = new WeakSet<Element>();
+    const observer = reduceMotion ? null : new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer?.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -36px' });
+
+    const register = (root: ParentNode) => {
+      const elements = [
+        ...(root instanceof Element && root.matches(selector) ? [root] : []),
+        ...Array.from(root.querySelectorAll(selector)),
+      ];
+      elements.forEach((element) => {
+        if (observed.has(element)) return;
+        observed.add(element);
+        element.setAttribute('data-motion', '');
+        if (reduceMotion) element.classList.add('is-visible');
+        else observer?.observe(element);
+      });
+    };
+
+    register(document);
+    const mutations = new MutationObserver((records) => records.forEach((record) => record.addedNodes.forEach((node) => {
+      if (node instanceof Element) register(node);
+    })));
+    mutations.observe(document.getElementById('root') ?? document.body, { childList: true, subtree: true });
+    return () => { observer?.disconnect(); mutations.disconnect(); };
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <>
       <ScrollToTop />
+      <ScrollAnimations />
       <Routes>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<HomePage />} />

@@ -94,6 +94,42 @@ VALUES
     ('storage.allowed_audio_mime_types', 'storage', '["audio/mpeg","audio/mp4","audio/wav","audio/ogg","audio/webm"]'::jsonb, 'Formats audio autorisés.', false)
 ON CONFLICT (setting_key) DO NOTHING;
 
+-- Remplace uniquement les valeurs de démonstration livrées avec le projet.
+-- Les valeurs personnalisées depuis l'administration ne sont jamais écrasées.
+UPDATE site_settings
+SET value = to_jsonb('Pasteur Leki'::text), updated_at = CURRENT_TIMESTAMP
+WHERE setting_key = 'site.name'
+  AND value = to_jsonb('Pasteur [Nom du pasteur]'::text);
+
+UPDATE site_settings
+SET value = to_jsonb('Communauté Baptiste au Centre de l’Afrique (CBCA)'::text), updated_at = CURRENT_TIMESTAMP
+WHERE setting_key = 'church.name'
+  AND value = to_jsonb('CBCA – [Nom de la paroisse]'::text);
+
+UPDATE site_settings
+SET value = to_jsonb('contact@parole-esperance.cd'::text), updated_at = CURRENT_TIMESTAMP
+WHERE setting_key = 'contact.email'
+  AND value = to_jsonb('contact@exemple.cd'::text);
+
+-- Un prédicateur réel est indispensable : sermons.preacher_id est une clé étrangère.
+-- L'ancienne interface utilisait un UUID de démonstration qui provoquait l'erreur SQL.
+INSERT INTO preachers (display_name, title, biography, church_name, is_primary, is_active)
+SELECT
+    'Pasteur Leki',
+    'Pasteur de la CBCA',
+    'Serviteur de Dieu engagé dans l’annonce de l’Évangile et l’accompagnement pastoral.',
+    'Communauté Baptiste au Centre de l’Afrique (CBCA)',
+    NOT EXISTS (SELECT 1 FROM preachers WHERE is_primary = true),
+    true
+WHERE NOT EXISTS (
+    SELECT 1 FROM preachers WHERE lower(display_name) = lower('Pasteur Leki')
+);
+
+UPDATE preachers
+SET is_primary = true, updated_at = CURRENT_TIMESTAMP
+WHERE lower(display_name) = lower('Pasteur Leki')
+  AND NOT EXISTS (SELECT 1 FROM preachers WHERE is_primary = true);
+
 INSERT INTO sermon_categories (name, slug, description, display_order)
 VALUES
     ('Foi', 'foi', 'Enseignements pour grandir dans la foi.', 10),
@@ -146,5 +182,42 @@ VALUES
         CURRENT_TIMESTAMP
     )
 ON CONFLICT (slug) DO NOTHING;
+
+-- Enrichit une seule fois l'accueil historique. La clé contentVersion empêche les
+-- déploiements suivants d'écraser les modifications faites par l'administrateur.
+UPDATE pages
+SET content = '{
+  "contentVersion":"cbca-2026-01",
+  "hero":{
+    "eyebrow":"Méditer · Grandir · Servir",
+    "title":"Une parole qui éclaire",
+    "highlight":"chaque pas.",
+    "subtitle":"Retrouvez les prédications du Pasteur Leki et des serviteurs de la CBCA. Des messages bibliques à écouter partout, pour nourrir la foi et accompagner la vie.",
+    "primaryAction":"Écouter les prédications",
+    "secondaryAction":"Découvrir le ministère",
+    "noteTitle":"Nouveau chaque semaine",
+    "note":"Retrouvez le message du dimanche dès sa publication.",
+    "quote":"La foi grandit lorsque la Parole trouve une place dans notre quotidien."
+  },
+  "values":{
+    "eyebrow":"Notre engagement",
+    "title":"La Parole au cœur de la vie",
+    "introduction":"Une plateforme simple, pensée pour transmettre l’Évangile et rester proche de la communauté.",
+    "items":[
+      {"title":"Un enseignement biblique","description":"Des messages enracinés dans les Écritures, accessibles et applicables au quotidien."},
+      {"title":"Une présence pastorale","description":"Des paroles de consolation, de discernement et d’encouragement pour chaque saison."},
+      {"title":"Une foi partagée","description":"Une ressource ouverte aux familles, aux cellules et à tous ceux qui cherchent Dieu."},
+      {"title":"Une écoute sans distraction","description":"Un lecteur sobre et continu, également installable sur téléphone grâce à la PWA."}
+    ]
+  },
+  "latest":{"eyebrow":"À écouter maintenant","title":"Dernières prédications"},
+  "scripture":{"quote":"Ainsi la foi vient de ce qu’on entend, et ce qu’on entend vient de la parole de Christ.","reference":"Romains 10:17"},
+  "testimonials":{"eyebrow":"La communauté témoigne","title":"Des vies encouragées"},
+  "featured":{"eyebrow":"Message à la une","title":"Emportez la Parole avec vous.","description":"Commencez par le message le plus récent, puis poursuivez votre écoute même lorsque vous changez de page."},
+  "contact":{"title":"Besoin de prière ou d’un accompagnement ?","subtitle":"Le ministère pastoral reste à votre écoute.","action":"Nous écrire"}
+}'::jsonb,
+    updated_at = CURRENT_TIMESTAMP
+WHERE slug = 'accueil'
+  AND NOT (content ? 'contentVersion');
 
 COMMIT;

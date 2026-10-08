@@ -1,4 +1,4 @@
-import type { ApiEnvelope, Sermon, Testimonial, User } from '../types';
+import type { ApiEnvelope, HomeAppConfig, Sermon, Testimonial, User } from '../types';
 
 const API_URL = (import.meta.env.VITE_API_URL ?? '/api/v1').replace(/\/$/, '');
 
@@ -36,7 +36,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   async appConfig() {
-    return request<ApiEnvelope<{ settings: Record<string, unknown>; latestSermons: Sermon[] }>>('/app-config');
+    return request<ApiEnvelope<HomeAppConfig>>('/app-config');
+  },
+  async categories() {
+    return request<ApiEnvelope<Array<{ id: string; name: string; slug: string; sermonCount: number }>>>('/categories');
   },
   async sermons(query = '') {
     return request<ApiEnvelope<Sermon[]>>(`/sermons${query ? `?${query}` : ''}`);

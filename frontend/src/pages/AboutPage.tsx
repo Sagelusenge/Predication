@@ -1,6 +1,6 @@
 import { ArrowRight, BookHeart, Church, HeartHandshake, Mic2, PlayCircle, Quote, UsersRound } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { pastorPhoto } from '../data/demo';
+import { pastorPhoto } from '../data/visuals';
 
 export function AboutPage() {
   return (

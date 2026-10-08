@@ -27,6 +27,63 @@ export type Testimonial = {
   photoUrl?: string | null;
 };
 
+export type HomeValue = {
+  title: string;
+  description: string;
+};
+
+export type HomePageContent = {
+  contentVersion?: string;
+  hero: {
+    eyebrow: string;
+    title: string;
+    highlight?: string;
+    subtitle: string;
+    primaryAction: string;
+    secondaryAction: string;
+    noteTitle: string;
+    note: string;
+    quote: string;
+  };
+  values: {
+    eyebrow: string;
+    title: string;
+    introduction: string;
+    items: HomeValue[];
+  };
+  latest: { eyebrow: string; title: string };
+  scripture: { quote: string; reference: string };
+  testimonials: { eyebrow: string; title: string };
+  featured: { eyebrow: string; title: string; description: string };
+  contact: { title: string; subtitle: string; action: string };
+};
+
+export type HomeAppConfig = {
+  settings: Record<string, unknown>;
+  latestSermons: Sermon[];
+  testimonials: Testimonial[];
+  page: {
+    id: string;
+    title: string;
+    content: HomePageContent;
+    coverUrl?: string | null;
+  } | null;
+  statistics: {
+    publishedSermons: number;
+    totalDurationSeconds: number;
+    totalPlays: number;
+    totalLikes: number;
+  };
+  primaryPreacher: {
+    id: string;
+    displayName: string;
+    title?: string | null;
+    biography?: string | null;
+    churchName?: string | null;
+    photoUrl?: string | null;
+  } | null;
+};
+
 export type ApiEnvelope<T> = {
   success: boolean;
   data: T;

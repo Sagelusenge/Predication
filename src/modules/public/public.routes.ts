@@ -284,7 +284,7 @@ publicRouter.get('/settings', async (_req, res) => {
 });
 
 publicRouter.get('/app-config', async (_req, res) => {
-  const [settings, latest] = await Promise.all([
+  const [settings, latest, homePage, testimonials, statistics, primaryPreacher] = await Promise.all([
     pool.query('SELECT setting_key, value FROM papaleki.v_public_site_settings'),
     pool.query(
       `SELECT id, title, slug, excerpt, preached_on, duration_seconds,
@@ -294,7 +294,34 @@ publicRouter.get('/app-config', async (_req, res) => {
        ORDER BY published_at DESC
        LIMIT 3`,
     ),
+    pool.query(
+      `SELECT * FROM papaleki.v_public_pages
+       WHERE slug = 'accueil'
+       LIMIT 1`,
+    ),
+    pool.query(
+      `SELECT id, author_name, author_role, quote, photo_media_id
+       FROM papaleki.v_public_testimonials
+       LIMIT 3`,
+    ),
+    pool.query(
+      `SELECT count(*)::int AS published_sermons,
+              coalesce(sum(duration_seconds), 0)::double precision AS total_duration_seconds,
+              coalesce(sum(play_count), 0)::double precision AS total_plays,
+              coalesce(sum(like_count), 0)::double precision AS total_likes
+       FROM papaleki.sermons
+       WHERE status = 'published' AND published_at <= CURRENT_TIMESTAMP`,
+    ),
+    pool.query(
+      `SELECT id, display_name, title, biography, church_name, photo_media_id
+       FROM papaleki.preachers
+       WHERE is_active = true
+       ORDER BY is_primary DESC, display_name
+       LIMIT 1`,
+    ),
   ]);
+  const page = homePage.rows[0];
+  const preacher = primaryPreacher.rows[0];
   res.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=300');
   res.json({
     success: true,
@@ -305,6 +332,27 @@ publicRouter.get('/app-config', async (_req, res) => {
         audioUrl: `${API_PREFIX}/media/${row.audio_media_id}/stream`,
         coverUrl: row.cover_media_id ? `${API_PREFIX}/media/${row.cover_media_id}` : null,
       })),
+      page: page ? {
+        ...camelize(page),
+        coverUrl: page.cover_media_id ? `${API_PREFIX}/media/${page.cover_media_id}` : null,
+      } : null,
+      testimonials: testimonials.rows.map((row) => ({
+        id: row.id,
+        authorName: row.author_name,
+        authorLocation: row.author_role?.replace(/^Depuis\s+/i, '') ?? null,
+        content: row.quote,
+        photoUrl: row.photo_media_id ? `${API_PREFIX}/media/${row.photo_media_id}` : null,
+      })),
+      statistics: camelize(statistics.rows[0] ?? {
+        published_sermons: 0,
+        total_duration_seconds: 0,
+        total_plays: 0,
+        total_likes: 0,
+      }),
+      primaryPreacher: preacher ? {
+        ...camelize(preacher),
+        photoUrl: preacher.photo_media_id ? `${API_PREFIX}/media/${preacher.photo_media_id}` : null,
+      } : null,
     },
   });
 });
