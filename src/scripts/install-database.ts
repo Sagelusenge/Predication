@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import argon2 from 'argon2';
 import pg from 'pg';
+import { importBibleTranslations } from '../modules/bible/bible-import.service.js';
 
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) throw new Error('DATABASE_URL est requis pour installer la base de données.');
@@ -19,6 +20,7 @@ const files = [
   '003_procedures.sql',
   '004_views.sql',
   '005_seed.sql',
+  '006_bible.sql',
 ];
 
 try {
@@ -50,6 +52,8 @@ try {
   } else {
     console.log('[database] Administration déjà initialisée.');
   }
+
+  await importBibleTranslations(pool);
 } finally {
   await pool.end();
 }

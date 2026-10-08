@@ -9,6 +9,8 @@ Cette base PostgreSQL 16 couvre le site public, l’administration, le traitemen
 - `003_procedures.sql` : procédures de publication, traitement audio, statistiques et maintenance.
 - `004_views.sql` : vues publiques, administratives et analytiques.
 - `005_seed.sql` : rôles, permissions, paramètres, catégories et pages initiales.
+- `006_bible.sql` : traductions, livres, versets, index de recherche et réglage du passage d’accueil.
+- `bible-sources/` : textes VPL compressés et importés automatiquement par le serveur.
 - `install.sql` : installation complète dans le bon ordre avec `psql`.
 
 Toutes les tables et routines sont placées dans le schéma `papaleki`.
@@ -23,7 +25,7 @@ Depuis le dossier `database` :
 psql -v ON_ERROR_STOP=1 -d nom_de_la_base -f install.sql
 ```
 
-Les cinq scripts utilisent des transactions. Une erreur annule donc le script concerné au lieu de laisser une installation partielle.
+Les six scripts utilisent des transactions. Une erreur annule donc le script concerné au lieu de laisser une installation partielle.
 
 ## Premier super administrateur
 
@@ -68,6 +70,18 @@ La procédure ne fonctionne qu’une seule fois, lorsque la table des utilisateu
 - `pages`, `testimonials`
 - `contact_messages`
 - `site_settings`
+
+### Bible multilingue
+
+- `bible_translations` : langue, titre, licence, attribution et état d’import.
+- `bible_books`, `bible_book_names` : canon de 66 livres et noms localisés.
+- `bible_verses` : texte complet indexé par traduction, livre, chapitre et verset.
+
+Les traductions livrées sont Louis Segond 1910 (domaine public), World English Bible
+(domaine public) et Swahili Unlocked Literal Bible (CC BY-SA 4.0). Les notices et
+liens vers les sources eBible.org sont conservés dans `bible_translations` et affichés
+par le lecteur. Le kinande pourra être ajouté dès qu’un texte complet assorti d’une
+licence de redistribution vérifiable sera disponible.
 
 ## Cycle d’une prédication
 

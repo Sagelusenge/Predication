@@ -13,6 +13,7 @@ export function Footer() {
         <div>
           <h3>Explorer</h3>
           <Link to="/predications">Toutes les prédications</Link>
+          <Link to="/bible">Lire la Bible</Link>
           <Link to="/a-propos">Le ministère</Link>
           <Link to="/contact">Nous écrire</Link>
           <Link to="/connexion">Administration</Link>

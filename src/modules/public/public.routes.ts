@@ -9,6 +9,7 @@ import { AppError } from '../../lib/errors.js';
 import { pageMeta, pagination } from '../../lib/pagination.js';
 import { camelize } from '../../lib/serialize.js';
 import { validate } from '../../middleware/validate.js';
+import { getFeaturedBiblePassage } from '../bible/bible.service.js';
 import {
   contactSchema,
   eventSchema,
@@ -284,7 +285,7 @@ publicRouter.get('/settings', async (_req, res) => {
 });
 
 publicRouter.get('/app-config', async (_req, res) => {
-  const [settings, latest, homePage, testimonials, statistics, primaryPreacher] = await Promise.all([
+  const [settings, latest, homePage, testimonials, statistics, primaryPreacher, featuredBibleVerse] = await Promise.all([
     pool.query('SELECT setting_key, value FROM papaleki.v_public_site_settings'),
     pool.query(
       `SELECT id, title, slug, excerpt, preached_on, duration_seconds,
@@ -319,6 +320,7 @@ publicRouter.get('/app-config', async (_req, res) => {
        ORDER BY is_primary DESC, display_name
        LIMIT 1`,
     ),
+    getFeaturedBiblePassage(),
   ]);
   const page = homePage.rows[0];
   const preacher = primaryPreacher.rows[0];
@@ -353,6 +355,7 @@ publicRouter.get('/app-config', async (_req, res) => {
         ...camelize(preacher),
         photoUrl: preacher.photo_media_id ? `${API_PREFIX}/media/${preacher.photo_media_id}` : null,
       } : null,
+      featuredBibleVerse,
     },
   });
 });

@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Headphones, HeartHandshake, MessageCircleHeart, Play, Quote, Radio, RefreshCw, ShieldCheck, ThumbsUp, UsersRound } from 'lucide-react';
+import { ArrowRight, BookOpen, Headphones, HeartHandshake, Languages, MessageCircleHeart, Play, Quote, Radio, RefreshCw, ShieldCheck, ThumbsUp, UsersRound } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SermonCard } from '../components/SermonCard';
@@ -110,12 +110,14 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="scripture-section" data-reveal>
+      <section className="scripture-section home-bible-section" data-reveal>
         <div className="scripture-pattern" />
         <div className="container scripture-content">
           <BookOpen size={32} />
-          <blockquote>« {content.scripture.quote} »</blockquote>
-          <cite>{content.scripture.reference}</cite>
+          <span className="home-bible-label"><Languages size={15} /> Bible complète · Français · English · Kiswahili</span>
+          <blockquote>« {config.featuredBibleVerse?.text || content.scripture.quote} »</blockquote>
+          <cite>{config.featuredBibleVerse?.reference || content.scripture.reference}{config.featuredBibleVerse && ` · ${config.featuredBibleVerse.translation.abbreviation}`}</cite>
+          <Link className="button button--outline-light" to={config.featuredBibleVerse ? `/bible?translation=${config.featuredBibleVerse.translation.code}&book=${config.featuredBibleVerse.book.code}&chapter=${config.featuredBibleVerse.chapter}&verse=${config.featuredBibleVerse.verseStart}` : '/bible'}>Lire toute la Bible <ArrowRight size={17} /></Link>
         </div>
       </section>
 

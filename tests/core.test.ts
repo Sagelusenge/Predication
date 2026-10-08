@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { app } from '../src/app.js';
 import { hashToken } from '../src/lib/crypto.js';
 import { camelize } from '../src/lib/serialize.js';
+import { parseVpl } from '../src/modules/bible/bible-import.service.js';
 import { storagePath, storageRoot } from '../src/modules/media/storage.service.js';
 
 describe('API core', () => {
@@ -38,5 +39,12 @@ describe('Utilitaires', () => {
   it('empêche une clé de stockage de sortir du répertoire prévu', () => {
     expect(storagePath('images/test.webp')).toBe(path.join(storageRoot, 'images', 'test.webp'));
     expect(() => storagePath('../secret.txt')).toThrow();
+  });
+
+  it('importe les références bibliques VPL, y compris les plages de versets', () => {
+    expect(parseVpl('GEN 1:1 Au commencement.\nPSA 1:2-3 Un passage.\nACT 8:37 ')).toEqual([
+      { bookCode: 'GEN', chapter: 1, verseStart: 1, verseEnd: 1, text: 'Au commencement.' },
+      { bookCode: 'PSA', chapter: 1, verseStart: 2, verseEnd: 3, text: 'Un passage.' },
+    ]);
   });
 });

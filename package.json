@@ -17,7 +17,8 @@
     "test:watch": "vitest",
     "admin:bootstrap": "tsx src/scripts/bootstrap-admin.ts",
     "db:install": "psql -v ON_ERROR_STOP=1 -f database/install.sql",
-    "db:install:node": "tsx src/scripts/install-database.ts"
+    "db:install:node": "tsx src/scripts/install-database.ts",
+    "db:bible:import": "tsx src/scripts/import-bible.ts"
   },
   "engines": {
     "node": ">=22"

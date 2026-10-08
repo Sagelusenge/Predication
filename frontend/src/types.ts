@@ -27,6 +27,66 @@ export type Testimonial = {
   photoUrl?: string | null;
 };
 
+export type BibleTranslation = {
+  id?: string;
+  code: string;
+  languageCode: string;
+  languageName: string;
+  title: string;
+  abbreviation: string;
+  sourceUrl: string;
+  licenseName: string;
+  copyrightNotice?: string | null;
+  attribution: string;
+  textDirection?: 'ltr' | 'rtl';
+  isActive?: boolean;
+  isComplete: boolean;
+  verseCount: number;
+  importedAt?: string | null;
+};
+
+export type BibleBook = {
+  code: string;
+  name: string;
+  shortName: string;
+  canonicalOrder: number;
+  testament: 'old' | 'new';
+  chapterCount: number;
+};
+
+export type BibleVerse = {
+  verseStart: number;
+  verseEnd: number;
+  text: string;
+};
+
+export type BibleChapter = {
+  translation: BibleTranslation;
+  book: BibleBook;
+  chapter: number;
+  verses: BibleVerse[];
+};
+
+export type FeaturedBiblePassage = {
+  translation: BibleTranslation;
+  book: Pick<BibleBook, 'code' | 'name' | 'testament'>;
+  chapter: number;
+  verseStart: number;
+  verseEnd: number;
+  reference: string;
+  text: string;
+  verses: BibleVerse[];
+};
+
+export type BibleSearchResult = {
+  bookCode: string;
+  bookName: string;
+  chapter: number;
+  verseStart: number;
+  verseEnd: number;
+  verseText: string;
+};
+
 export type HomeValue = {
   title: string;
   description: string;
@@ -82,6 +142,7 @@ export type HomeAppConfig = {
     churchName?: string | null;
     photoUrl?: string | null;
   } | null;
+  featuredBibleVerse: FeaturedBiblePassage | null;
 };
 
 export type ApiEnvelope<T> = {

@@ -36,6 +36,15 @@ export default defineConfig({
             }
           },
           {
+            urlPattern: ({ url }) => url.pathname.startsWith('/api/v1/bible'),
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'bible-api',
+              networkTimeoutSeconds: 5,
+              expiration: { maxEntries: 120, maxAgeSeconds: 2592000 }
+            }
+          },
+          {
             urlPattern: ({ request }) => request.destination === 'image',
             handler: 'CacheFirst',
             options: {

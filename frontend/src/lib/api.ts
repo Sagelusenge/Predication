@@ -1,4 +1,15 @@
-import type { ApiEnvelope, HomeAppConfig, Sermon, Testimonial, User } from '../types';
+import type {
+  ApiEnvelope,
+  BibleBook,
+  BibleChapter,
+  BibleSearchResult,
+  BibleTranslation,
+  FeaturedBiblePassage,
+  HomeAppConfig,
+  Sermon,
+  Testimonial,
+  User
+} from '../types';
 
 const API_URL = (import.meta.env.VITE_API_URL ?? '/api/v1').replace(/\/$/, '');
 
@@ -37,6 +48,21 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 export const api = {
   async appConfig() {
     return request<ApiEnvelope<HomeAppConfig>>('/app-config');
+  },
+  async bibleTranslations() {
+    return request<ApiEnvelope<BibleTranslation[]>>('/bible/translations');
+  },
+  async bibleBooks(translation: string) {
+    return request<ApiEnvelope<BibleBook[]>>(`/bible/translations/${encodeURIComponent(translation)}/books`);
+  },
+  async bibleChapter(translation: string, book: string, chapter: number) {
+    return request<ApiEnvelope<BibleChapter>>(`/bible/chapter/${encodeURIComponent(translation)}/${encodeURIComponent(book)}/${chapter}`);
+  },
+  async searchBible(translation: string, query: string, page = 1) {
+    return request<ApiEnvelope<BibleSearchResult[]>>(`/bible/search?translation=${encodeURIComponent(translation)}&q=${encodeURIComponent(query)}&page=${page}&limit=40`);
+  },
+  async featuredBiblePassage() {
+    return request<ApiEnvelope<FeaturedBiblePassage>>('/bible/featured');
   },
   async categories() {
     return request<ApiEnvelope<Array<{ id: string; name: string; slug: string; sermonCount: number }>>>('/categories');
@@ -106,6 +132,15 @@ export const api = {
   },
   async dashboard() {
     return request<ApiEnvelope<Record<string, unknown>>>('/admin/dashboard');
+  },
+  async adminBibleStatus() {
+    return request<ApiEnvelope<{ translations: BibleTranslation[]; featured: FeaturedBiblePassage | null }>>('/admin/bible/status');
+  },
+  async saveFeaturedBiblePassage(body: { translationCode: string; bookCode: string; chapter: number; verseStart: number; verseEnd: number }) {
+    return request<ApiEnvelope<FeaturedBiblePassage>>('/admin/bible/featured', { method: 'PUT', body: JSON.stringify(body) });
+  },
+  async importBible() {
+    return request<ApiEnvelope<BibleTranslation[]>>('/admin/bible/import', { method: 'POST' });
   },
   async adminSermons(query = 'page=1&limit=20') {
     return request<ApiEnvelope<Array<Record<string, unknown>>>>(`/admin/sermons?${query}`);

@@ -6,6 +6,7 @@ import { Brand } from './Brand';
 const links = [
   { to: '/', label: 'Accueil', end: true },
   { to: '/predications', label: 'Prédications' },
+  { to: '/bible', label: 'Bible' },
   { to: '/a-propos', label: 'Le ministère' },
   { to: '/contact', label: 'Contact' }
 ];

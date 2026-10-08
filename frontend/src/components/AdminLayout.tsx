@@ -1,4 +1,4 @@
-import { BarChart3, Bell, BookOpenText, CircleHelp, FileAudio, Gauge, LogOut, Menu, MessageSquareQuote, Search, Settings, UploadCloud, UsersRound, X } from 'lucide-react';
+import { BarChart3, Bell, BookMarked, BookOpenText, CircleHelp, FileAudio, Gauge, LogOut, Menu, MessageSquareQuote, Search, Settings, UploadCloud, UsersRound, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { api, ApiError } from '../lib/api';
@@ -8,6 +8,7 @@ import { Brand } from './Brand';
 const adminLinks = [
   { to: '/admin', label: 'Vue d’ensemble', icon: Gauge, end: true },
   { to: '/admin/predications', label: 'Prédications', icon: BookOpenText },
+  { to: '/admin/bible', label: 'Bible', icon: BookMarked },
   { to: '/admin/publier', label: 'Nouvelle publication', icon: UploadCloud },
   { to: '/admin/medias', label: 'Bibliothèque audio', icon: FileAudio },
   { to: '/admin/temoignages', label: 'Témoignages', icon: MessageSquareQuote },
