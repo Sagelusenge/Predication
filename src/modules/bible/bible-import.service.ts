@@ -84,6 +84,21 @@ const sources = [
   },
 ] as const;
 
+const externalSources = [
+  {
+    code: 'nnbKB80',
+    languageCode: 'nnb',
+    languageName: 'Kinande',
+    title: 'Amasako wa Nyamuhanga awakahulawa mo Biblia',
+    abbreviation: 'KB80',
+    sourceUrl: 'https://www.bible.com/fr/versions/1833-kb80-amasako-aboytrtre-wa-nyamuhanga-awakahulawa-mo-biblia',
+    externalUrl: 'https://www.bible.com/fr/bible/1833/GEN.1.KB80',
+    licenseName: 'Licence des Sociétés bibliques',
+    copyrightNotice: 'Bible in Kinandi © Bible Society of the Democratic Republic of Congo, and Bible Society of Uganda, 1980.',
+    attribution: 'Bible complète en kinande KB80 — © Société biblique de la République démocratique du Congo et Société biblique d’Ouganda, 1980. Lecture autorisée via YouVersion.',
+  },
+] as const;
+
 export const parseVpl = (content: string): BibleVerseImport[] => content
   .split(/\r?\n/)
   .map((line) => line.match(/^([1-3A-Z]{3}) (\d+):(\d+)(?:-(\d+))?\s*(.*)$/))
@@ -135,12 +150,13 @@ const insertVerseBatch = async (client: PoolClient, translationId: string, verse
 };
 
 export const importBibleTranslations = async (pool: Pool): Promise<void> => {
-  for (const source of sources) {
-    const metadata = await pool.query<{ id: string; is_complete: boolean; verse_count: number }>(
+  for (const source of externalSources) {
+    await pool.query(
       `INSERT INTO papaleki.bible_translations
          (code, language_code, language_name, title, abbreviation, source_url,
-          license_name, copyright_notice, attribution, is_active)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, true)
+          license_name, copyright_notice, attribution, access_mode, external_url,
+          is_active, is_complete, verse_count)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'external', $10, true, true, 0)
        ON CONFLICT (code) DO UPDATE SET
          language_code = EXCLUDED.language_code,
          language_name = EXCLUDED.language_name,
@@ -149,7 +165,36 @@ export const importBibleTranslations = async (pool: Pool): Promise<void> => {
          source_url = EXCLUDED.source_url,
          license_name = EXCLUDED.license_name,
          copyright_notice = EXCLUDED.copyright_notice,
-         attribution = EXCLUDED.attribution
+         attribution = EXCLUDED.attribution,
+         access_mode = EXCLUDED.access_mode,
+         external_url = EXCLUDED.external_url,
+         is_active = true,
+         is_complete = true`,
+      [
+        source.code, source.languageCode, source.languageName, source.title, source.abbreviation,
+        source.sourceUrl, source.licenseName, source.copyrightNotice, source.attribution, source.externalUrl,
+      ],
+    );
+    console.log(`[bible] ${source.code} disponible via la source officielle externe.`);
+  }
+
+  for (const source of sources) {
+    const metadata = await pool.query<{ id: string; is_complete: boolean; verse_count: number }>(
+      `INSERT INTO papaleki.bible_translations
+         (code, language_code, language_name, title, abbreviation, source_url,
+          license_name, copyright_notice, attribution, access_mode, external_url, is_active)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'database', NULL, true)
+       ON CONFLICT (code) DO UPDATE SET
+         language_code = EXCLUDED.language_code,
+         language_name = EXCLUDED.language_name,
+         title = EXCLUDED.title,
+         abbreviation = EXCLUDED.abbreviation,
+         source_url = EXCLUDED.source_url,
+         license_name = EXCLUDED.license_name,
+         copyright_notice = EXCLUDED.copyright_notice,
+         attribution = EXCLUDED.attribution,
+         access_mode = EXCLUDED.access_mode,
+         external_url = EXCLUDED.external_url
        RETURNING id, is_complete, verse_count`,
       [
         source.code, source.languageCode, source.languageName, source.title, source.abbreviation,

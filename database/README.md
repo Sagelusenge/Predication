@@ -80,8 +80,10 @@ La procédure ne fonctionne qu’une seule fois, lorsque la table des utilisateu
 Les traductions livrées sont Louis Segond 1910 (domaine public), World English Bible
 (domaine public) et Swahili Unlocked Literal Bible (CC BY-SA 4.0). Les notices et
 liens vers les sources eBible.org sont conservés dans `bible_translations` et affichés
-par le lecteur. Le kinande pourra être ajouté dès qu’un texte complet assorti d’une
-licence de redistribution vérifiable sera disponible.
+par le lecteur. La Bible complète kinande KB80 est proposée dans le même lecteur via
+YouVersion, sous la licence de la Société biblique de la RDC et de la Société biblique
+d’Ouganda. Son accès externe et son attribution sont enregistrés dans
+`bible_translations`; son texte protégé n’est pas recopié dans PostgreSQL.
 
 ## Cycle d’une prédication
 

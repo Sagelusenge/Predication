@@ -38,6 +38,8 @@ export type BibleTranslation = {
   licenseName: string;
   copyrightNotice?: string | null;
   attribution: string;
+  accessMode: 'database' | 'external';
+  externalUrl?: string | null;
   textDirection?: 'ltr' | 'rtl';
   isActive?: boolean;
   isComplete: boolean;

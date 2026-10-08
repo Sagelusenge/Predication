@@ -15,6 +15,9 @@ CREATE TABLE IF NOT EXISTS bible_translations (
     license_name        varchar(120) NOT NULL,
     copyright_notice    text,
     attribution         text NOT NULL,
+    access_mode         varchar(12) NOT NULL DEFAULT 'database'
+                            CHECK (access_mode IN ('database', 'external')),
+    external_url        text,
     text_direction      varchar(3) NOT NULL DEFAULT 'ltr'
                             CHECK (text_direction IN ('ltr', 'rtl')),
     is_active           boolean NOT NULL DEFAULT true,
@@ -24,6 +27,15 @@ CREATE TABLE IF NOT EXISTS bible_translations (
     created_at          timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at          timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE bible_translations
+    ADD COLUMN IF NOT EXISTS access_mode varchar(12) NOT NULL DEFAULT 'database',
+    ADD COLUMN IF NOT EXISTS external_url text;
+
+ALTER TABLE bible_translations DROP CONSTRAINT IF EXISTS bible_translations_access_mode_check;
+ALTER TABLE bible_translations
+    ADD CONSTRAINT bible_translations_access_mode_check
+    CHECK (access_mode IN ('database', 'external'));
 
 CREATE TABLE IF NOT EXISTS bible_books (
     code                varchar(3) PRIMARY KEY,

@@ -1,4 +1,4 @@
-import { BookCheck, BookOpen, Check, Database, RefreshCw } from 'lucide-react';
+import { BookCheck, Check, Database, ExternalLink, RefreshCw } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { api } from '../lib/api';
 import { useToast } from '../context/ToastContext';
@@ -86,7 +86,7 @@ export function AdminBiblePage() {
     try {
       const response = await api.importBible();
       setTranslations(response.data);
-      notify('Les trois traductions ont été vérifiées et synchronisées.');
+      notify('Les traductions et l’accès à la Bible kinande ont été vérifiés.');
     } catch {
       setError('La synchronisation des traductions a échoué.');
     } finally {
@@ -105,12 +105,17 @@ export function AdminBiblePage() {
 
       <div className="bible-admin-stats" data-reveal data-stagger>
         {translations.map((translation) => (
-          <article key={translation.code}>
+          <article className={translation.accessMode === 'external' ? 'bible-admin-external' : ''} key={translation.code}>
             <span><Database size={21} /></span>
-            <div><small>{translation.languageName}</small><strong>{translation.title}</strong><em><Check size={13} /> {translation.verseCount.toLocaleString('fr-FR')} versets</em></div>
+            <div>
+              <small>{translation.languageName}</small>
+              <strong>{translation.title}</strong>
+              {translation.accessMode === 'external'
+                ? <em><ExternalLink size={13} /> Bible complète · source autorisée</em>
+                : <em><Check size={13} /> {translation.verseCount.toLocaleString('fr-FR')} versets</em>}
+            </div>
           </article>
         ))}
-        <article className="bible-admin-pending"><span><BookOpen size={21} /></span><div><small>Kinande</small><strong>Prêt à être ajouté</strong><em>En attente d’une source redistribuable</em></div></article>
       </div>
 
       {featured && <section className="admin-featured-verse" data-reveal>
@@ -120,7 +125,7 @@ export function AdminBiblePage() {
       <section className="admin-bible-editor" data-reveal>
         <header><div><span className="admin-kicker">Sélection</span><h2>Choisir un verset pour l’accueil</h2></div><button className="button button--primary" onClick={saveFeatured} disabled={saving || !chapter}>{saving ? 'Enregistrement…' : 'Afficher sur l’accueil'}</button></header>
         <div className="admin-bible-controls">
-          <label>Traduction<select value={translationCode} onChange={(event) => setTranslationCode(event.target.value)}>{translations.filter((item) => item.isComplete).map((item) => <option key={item.code} value={item.code}>{item.languageName} · {item.abbreviation}</option>)}</select></label>
+          <label>Traduction<select value={translationCode} onChange={(event) => setTranslationCode(event.target.value)}>{translations.filter((item) => item.isComplete && item.accessMode === 'database').map((item) => <option key={item.code} value={item.code}>{item.languageName} · {item.abbreviation}</option>)}</select></label>
           <label>Livre<select value={bookCode} onChange={(event) => { setBookCode(event.target.value); setChapterNumber(1); }}>{books.map((book) => <option key={book.code} value={book.code}>{book.name}</option>)}</select></label>
           <label>Chapitre<select value={chapterNumber} onChange={(event) => setChapterNumber(Number(event.target.value))}>{Array.from({ length: selectedBook?.chapterCount || 1 }, (_, index) => <option key={index + 1} value={index + 1}>{index + 1}</option>)}</select></label>
         </div>

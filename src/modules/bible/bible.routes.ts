@@ -20,7 +20,7 @@ export const bibleAdminRouter = Router();
 const translationFields = `
   id, code, language_code, language_name, title, abbreviation,
   source_url, license_name, copyright_notice, attribution,
-  text_direction, is_complete, verse_count, imported_at`;
+  access_mode, external_url, text_direction, is_complete, verse_count, imported_at`;
 
 biblePublicRouter.get('/translations', async (_req, res) => {
   const result = await pool.query(
@@ -40,6 +40,7 @@ biblePublicRouter.get('/translations/:translation/books', validate(bibleTranslat
      JOIN papaleki.bible_book_names bn ON bn.translation_id = t.id
      JOIN papaleki.bible_books b ON b.code = bn.book_code
      WHERE t.code = $1 AND t.is_active = true AND t.is_complete = true
+       AND t.access_mode = 'database'
      ORDER BY b.canonical_order`,
     [req.params.translation],
   );
@@ -61,6 +62,7 @@ biblePublicRouter.get('/chapter/:translation/:book/:chapter', validate(bibleChap
      JOIN papaleki.bible_verses v ON v.translation_id = t.id AND v.book_code = b.code
      WHERE t.code = $1 AND b.code = $2 AND v.chapter = $3
        AND t.is_active = true AND t.is_complete = true
+       AND t.access_mode = 'database'
      ORDER BY v.verse_start`,
     [req.params.translation, req.params.book, req.params.chapter],
   );
@@ -111,6 +113,7 @@ biblePublicRouter.get('/search', validate(bibleSearchSchema, 'query'), async (re
      JOIN papaleki.bible_books b ON b.code = v.book_code
      JOIN papaleki.bible_book_names bn ON bn.translation_id = t.id AND bn.book_code = b.code
      WHERE t.code = $1 AND t.is_active = true AND t.is_complete = true
+       AND t.access_mode = 'database'
        AND v.verse_text ILIKE '%' || $2 || '%'
      ORDER BY b.canonical_order, v.chapter, v.verse_start
      LIMIT $3 OFFSET $4`,
