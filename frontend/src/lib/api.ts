@@ -171,12 +171,42 @@ export const api = {
   async adminCategories() {
     return request<ApiEnvelope<Array<{ id: string; name: string }>>>('/admin/categories');
   },
-  async uploadMedia(kind: 'audio' | 'image', file: File) {
+  async uploadMedia(
+    kind: 'audio' | 'image',
+    file: File,
+    onProgress?: (progress: { loaded: number; total: number; percent: number }) => void
+  ) {
     const form = new FormData();
     form.append('file', file);
-    return request<ApiEnvelope<{ id: string; processingStatus: string }>>(`/admin/media/${kind}`, {
-      method: 'POST',
-      body: form
+    return new Promise<ApiEnvelope<{ id: string; processingStatus: string }>>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `${API_URL}/admin/media/${kind}`);
+      xhr.withCredentials = true;
+      xhr.upload.addEventListener('progress', (event) => {
+        const total = event.lengthComputable ? event.total : file.size;
+        onProgress?.({
+          loaded: event.loaded,
+          total,
+          percent: total > 0 ? Math.min(100, Math.round((event.loaded / total) * 100)) : 0
+        });
+      });
+      xhr.addEventListener('load', () => {
+        const payload = (() => {
+          try { return JSON.parse(xhr.responseText); } catch { return null; }
+        })();
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(payload as ApiEnvelope<{ id: string; processingStatus: string }>);
+          return;
+        }
+        reject(new ApiError(
+          payload?.error?.message ?? payload?.message ?? 'Le fichier n’a pas pu être envoyé.',
+          xhr.status,
+          payload?.error?.code
+        ));
+      });
+      xhr.addEventListener('error', () => reject(new ApiError('Connexion interrompue pendant l’envoi du fichier.', 0, 'UPLOAD_NETWORK_ERROR')));
+      xhr.addEventListener('abort', () => reject(new ApiError('Envoi du fichier annulé.', 0, 'UPLOAD_ABORTED')));
+      xhr.send(form);
     });
   },
   async createSermon(body: Record<string, unknown>) {

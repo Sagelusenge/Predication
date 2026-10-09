@@ -11,7 +11,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const notify = useCallback((message: string, type: ToastType = 'success') => {
     const id = Date.now() + Math.random();
     setToasts((items) => [...items, { id, message, type }]);
-    window.setTimeout(() => setToasts((items) => items.filter((item) => item.id !== id)), 3600);
+    window.setTimeout(() => setToasts((items) => items.filter((item) => item.id !== id)), type === 'error' ? 9000 : 6500);
   }, []);
   const value = useMemo(() => ({ notify }), [notify]);
   return <ToastContext.Provider value={value}>{children}<div className="toast-stack" aria-live="polite">{toasts.map((toast) => <div className={`toast toast--${toast.type}`} key={toast.id}>{toast.type === 'success' ? <CheckCircle2 size={18} /> : toast.type === 'error' ? <XCircle size={18} /> : <Info size={18} />}<span>{toast.message}</span></div>)}</div></ToastContext.Provider>;

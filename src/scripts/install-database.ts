@@ -23,6 +23,7 @@ const files = [
   '006_bible.sql',
   '007_notifications_content.sql',
   '008_function_search_paths.sql',
+  '009_audio_processing_experience.sql',
 ];
 
 try {

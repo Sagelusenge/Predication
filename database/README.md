@@ -12,6 +12,7 @@ Cette base PostgreSQL 16 couvre le site public, l’administration, le traitemen
 - `006_bible.sql` : traductions, livres, versets, index de recherche et réglage du passage d’accueil.
 - `007_notifications_content.sql` : notifications push, contenu pastoral et réglages associés.
 - `008_function_search_paths.sql` : résolution sécurisée du schéma pour les fonctions, procédures et triggers.
+- `009_audio_processing_experience.sql` : compression audio, suivi de traitement et publication automatique optionnelle.
 - `bible-sources/` : textes VPL compressés et importés automatiquement par le serveur.
 - `install.sql` : installation complète dans le bon ordre avec `psql`.
 

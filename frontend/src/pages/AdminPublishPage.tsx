@@ -1,6 +1,7 @@
 import { CalendarDays, Check, ChevronLeft, FileAudio, ImagePlus, Info, LoaderCircle, Save, Send, UploadCloud, X } from 'lucide-react';
 import { type FormEvent, useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useToast } from '../context/ToastContext';
 import { api, ApiError } from '../lib/api';
 
 type SelectOption = { id: string; name?: string; displayName?: string };
@@ -15,8 +16,11 @@ export function AdminPublishPage() {
   const [optionsLoading, setOptionsLoading] = useState(true);
   const [optionsError, setOptionsError] = useState('');
   const [state, setState] = useState<'idle' | 'uploading' | 'saving' | 'done' | 'error'>('idle');
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [operationLabel, setOperationLabel] = useState('');
   const [error, setError] = useState('');
   const [sermon, setSermon] = useState<Record<string, unknown> | null>(null);
+  const { notify } = useToast();
   const coverPreview = useMemo(() => cover ? URL.createObjectURL(cover) : String(sermon?.coverUrl || ''), [cover, sermon]);
 
   useEffect(() => {
@@ -35,12 +39,28 @@ export function AdminPublishPage() {
     if (!editId && !audio) { setError('Ajoutez d’abord le fichier audio de la prédication.'); return; }
     if (!preachers.length) { setError('La publication est impossible tant qu’aucun prédicateur n’est disponible dans la base de données.'); return; }
     const form = new FormData(event.currentTarget);
+    const submitter = (event.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null;
+    const publishWhenReady = submitter?.value === 'publish';
     setError('');
     try {
       setState(audio || cover ? 'uploading' : 'saving');
-      const audioMedia = audio ? await api.uploadMedia('audio', audio) : null;
-      const coverMedia = cover ? await api.uploadMedia('image', cover) : null;
+      setUploadProgress(0);
+      const totalBytes = (audio?.size ?? 0) + (cover?.size ?? 0);
+      let completedBytes = 0;
+      const upload = async (kind: 'audio' | 'image', file: File) => {
+        setOperationLabel(kind === 'audio' ? 'Envoi de l’audio' : 'Envoi de la couverture');
+        const response = await api.uploadMedia(kind, file, ({ loaded }) => {
+          const percent = totalBytes ? Math.round(((completedBytes + loaded) / totalBytes) * 100) : 0;
+          setUploadProgress(Math.min(100, percent));
+        });
+        completedBytes += file.size;
+        setUploadProgress(totalBytes ? Math.round((completedBytes / totalBytes) * 100) : 100);
+        return response;
+      };
+      const audioMedia = audio ? await upload('audio', audio) : null;
+      const coverMedia = cover ? await upload('image', cover) : null;
       setState('saving');
+      setOperationLabel('Enregistrement de la prédication');
       const payload: Record<string, unknown> = {
         title: form.get('title'),
         excerpt: form.get('excerpt') || null,
@@ -51,16 +71,32 @@ export function AdminPublishPage() {
         preachedOn: form.get('preachedOn'),
         isFeatured: form.get('isFeatured') === 'on',
         allowDownload: form.get('allowDownload') === 'on',
+        publishWhenReady: Boolean(audio && publishWhenReady),
         tagIds: []
       };
       if (audioMedia) payload.audioMediaId = audioMedia.data.id;
       if (coverMedia) payload.coverMediaId = coverMedia.data.id;
-      if (editId) await api.updateSermon(editId, payload);
+      if (editId) {
+        await api.updateSermon(editId, payload);
+        if (publishWhenReady && !audio) await api.publishSermon(editId);
+      }
       else await api.createSermon({ ...payload, audioMediaId: audioMedia!.data.id, coverMediaId: coverMedia?.data.id ?? null });
       setState('done');
+      setOperationLabel('');
+      notify(
+        audio
+          ? publishWhenReady
+            ? 'Audio envoyé. La prédication sera publiée automatiquement après compression.'
+            : 'Audio envoyé. La compression continue en arrière-plan.'
+          : publishWhenReady ? 'Prédication publiée.' : 'Prédication enregistrée.',
+        'success'
+      );
     } catch (reason) {
-      setError(reason instanceof ApiError ? reason.message : 'La publication n’a pas pu être enregistrée.');
+      const message = reason instanceof ApiError ? reason.message : 'La publication n’a pas pu être enregistrée.';
+      setError(message);
+      notify(message, 'error');
       setState('error');
+      setOperationLabel('');
     }
   };
 
@@ -70,6 +106,10 @@ export function AdminPublishPage() {
       {state === 'done' && <div className="publish-success"><Check size={20} /><div><strong>{editId ? 'Modifications enregistrées' : 'Prédication enregistrée'}</strong><p>{audio ? 'Le nouvel audio est envoyé au traitement.' : 'Toutes les informations ont été sauvegardées.'}</p></div><Link to="/admin/predications">Voir la liste</Link></div>}
       {optionsError && <div className="form-error">{optionsError}</div>}
       {error && <div className="form-error">{error}</div>}
+      {(state === 'uploading' || state === 'saving') && <div className="upload-progress-toast" role="status" aria-live="polite">
+        <div><LoaderCircle size={20} className="spin" /><span><strong>{operationLabel}</strong><small>{state === 'uploading' ? `${uploadProgress} % envoyé` : 'Finalisation…'}</small></span></div>
+        <progress max="100" value={state === 'saving' ? 100 : uploadProgress}>{uploadProgress}%</progress>
+      </div>}
       <form key={editId ? `${editId}:${sermon ? 'ready' : 'loading'}` : 'new'} id="publish-sermon-form" onSubmit={submit} className="publish-layout">
         <div className="publish-main">
           <section className="dashboard-card form-card"><header><span>01</span><div><h2>Informations du message</h2><p>Les informations visibles par les auditeurs.</p></div></header><div className="form-card-body"><label>Titre de la prédication<input required minLength={3} name="title" defaultValue={String(sermon?.title || '')} placeholder="Ex. Une espérance qui ne déçoit point" /></label><div className="form-row"><label>Prédicateur<select required name="preacherId" defaultValue={String(sermon?.preacherId || '')} disabled={optionsLoading || !preachers.length}><option value="" disabled>{optionsLoading ? 'Chargement depuis la base…' : preachers.length ? 'Sélectionner' : 'Aucun prédicateur disponible'}</option>{preachers.map((item) => <option key={item.id} value={item.id}>{item.displayName}</option>)}</select></label><label>Date de prédication<div className="input-with-icon input-with-icon--right"><input required type="date" name="preachedOn" defaultValue={String(sermon?.preachedOn || new Date().toISOString().slice(0, 10)).slice(0, 10)} /><CalendarDays size={17} /></div></label></div><div className="form-row"><label>Thème<select name="categoryId" defaultValue={String(sermon?.categoryId || '')} disabled={optionsLoading}><option value="">Sans catégorie</option>{categories.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label><label>Passage biblique<input name="scriptureReference" defaultValue={String(sermon?.scriptureReference || '')} placeholder="Ex. Romains 5:1–5" /></label></div><label>Courte introduction<textarea name="excerpt" rows={3} maxLength={500} defaultValue={String(sermon?.excerpt || '')} placeholder="Présentez le message en quelques lignes…" /></label><label>Notes de la prédication<textarea name="description" rows={7} defaultValue={String(sermon?.description || '')} placeholder="Résumé, points principaux, applications…" /></label></div></section>
@@ -80,7 +120,7 @@ export function AdminPublishPage() {
         <aside className="publish-aside">
           <section className="dashboard-card form-card cover-card"><header><span>03</span><div><h2>Image de couverture</h2></div></header><div className="form-card-body"><label className="cover-upload"><input type="file" accept="image/*" onChange={(event) => setCover(event.target.files?.[0] ?? null)} />{coverPreview ? <img src={coverPreview} alt="Aperçu de la couverture" /> : <><ImagePlus size={31} /><strong>Ajouter une image</strong><small>Format paysage recommandé</small></>}</label></div></section>
           <section className="dashboard-card form-card publish-options"><header><span>04</span><div><h2>Options</h2></div></header><div className="form-card-body"><label className="toggle-row"><span><strong>Autoriser le téléchargement</strong><small>L’audio pourra être enregistré.</small></span><input name="allowDownload" type="checkbox" defaultChecked={sermon ? Boolean(sermon.allowDownload) : true} /></label><label className="toggle-row"><span><strong>Mettre à la une</strong><small>Visible en priorité sur l’accueil.</small></span><input name="isFeatured" type="checkbox" defaultChecked={Boolean(sermon?.isFeatured)} /></label></div></section>
-          <div className="publish-buttons"><button type="submit" className="button button--soft" disabled={state === 'uploading' || state === 'saving' || optionsLoading || !preachers.length || Boolean(editId && !sermon)}><Save size={17} /> {editId ? 'Enregistrer les modifications' : 'Enregistrer le brouillon'}</button><button type="submit" className="button button--primary" disabled={state === 'uploading' || state === 'saving' || optionsLoading || !preachers.length || Boolean(editId && !sermon)}>{state === 'uploading' || state === 'saving' ? <><LoaderCircle size={17} className="spin" /> {state === 'uploading' ? 'Envoi des fichiers…' : 'Enregistrement…'}</> : <><Send size={17} /> {editId ? 'Mettre à jour' : 'Enregistrer la prédication'}</>}</button></div>
+          <div className="publish-buttons"><button type="submit" name="intent" value="draft" className="button button--soft" disabled={state === 'uploading' || state === 'saving' || optionsLoading || !preachers.length || Boolean(editId && !sermon)}><Save size={17} /> {editId ? 'Enregistrer sans publier' : 'Enregistrer le brouillon'}</button><button type="submit" name="intent" value="publish" className="button button--primary" disabled={state === 'uploading' || state === 'saving' || optionsLoading || !preachers.length || Boolean(editId && !sermon)}>{state === 'uploading' || state === 'saving' ? <><LoaderCircle size={17} className="spin" /> {state === 'uploading' ? `${uploadProgress} % envoyé` : 'Enregistrement…'}</> : <><Send size={17} /> {editId ? 'Enregistrer et publier' : 'Publier après traitement'}</>}</button></div>
         </aside>
       </form>
     </div>

@@ -259,20 +259,21 @@ const mediaStatusForSermon = async (audioMediaId: string | null | undefined): Pr
 
 sermonsAdminRouter.post('/sermons', requirePermission('sermons.create'), validate(sermonCreateSchema), async (req, res) => {
   const b = req.body;
-  const status = await mediaStatusForSermon(b.audioMediaId);
+  const mediaStatus = await mediaStatusForSermon(b.audioMediaId);
+  const status = mediaStatus === 'ready' && b.publishWhenReady ? 'published' : mediaStatus;
   const sermon = await withTransaction(async (client) => {
     const result = await client.query(
       `INSERT INTO papaleki.sermons
        (title, slug, excerpt, description, scripture_reference, preacher_id,
         category_id, series_id, audio_media_id, cover_media_id, preached_on,
-        status, is_featured, allow_download, created_by, updated_by)
+        status, is_featured, allow_download, publish_when_ready, created_by, updated_by)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11,
-               $12::papaleki.sermon_status, $13, $14, $15, $15)
+               $12::papaleki.sermon_status, $13, $14, $15, $16, $16)
        RETURNING *`,
       [b.title, b.slug ?? '', b.excerpt ?? null, b.description ?? null,
         b.scriptureReference ?? null, b.preacherId, b.categoryId ?? null,
         b.seriesId ?? null, b.audioMediaId ?? null, b.coverMediaId ?? null,
-        b.preachedOn, status, b.isFeatured, b.allowDownload, req.auth!.userId],
+        b.preachedOn, status, b.isFeatured, b.allowDownload, b.publishWhenReady, req.auth!.userId],
     );
     const row = result.rows[0]!;
     for (const tagId of b.tagIds) {
@@ -283,6 +284,11 @@ sermonsAdminRouter.post('/sermons', requirePermission('sermons.create'), validat
     }
     return row;
   }, auditContext(req));
+  if (sermon.status === 'published') {
+    void sendSermonPublishedNotification(sermon.id).catch((error) => {
+      logger.error({ err: error, sermonId: sermon.id }, 'Echec de la notification de publication.');
+    });
+  }
   res.status(201).json({ success: true, data: camelize(sermon) });
 });
 
@@ -290,7 +296,8 @@ sermonsAdminRouter.patch('/sermons/:id', requirePermission('sermons.update'), va
   const { tagIds, ...changes } = req.body;
   const internalChanges: Record<string, unknown> = { ...changes, updatedBy: req.auth!.userId };
   if (changes.audioMediaId !== undefined) {
-    internalChanges.status = await mediaStatusForSermon(changes.audioMediaId);
+    const mediaStatus = await mediaStatusForSermon(changes.audioMediaId);
+    internalChanges.status = mediaStatus === 'ready' && changes.publishWhenReady ? 'published' : mediaStatus;
     if (changes.audioMediaId === null) internalChanges.durationSeconds = null;
   }
 
@@ -301,7 +308,7 @@ sermonsAdminRouter.patch('/sermons/:id', requirePermission('sermons.update'), va
         scriptureReference: 'scripture_reference', preacherId: 'preacher_id', categoryId: 'category_id',
         seriesId: 'series_id', audioMediaId: 'audio_media_id', coverMediaId: 'cover_media_id',
         preachedOn: 'preached_on', isFeatured: 'is_featured', allowDownload: 'allow_download',
-        status: 'status', durationSeconds: 'duration_seconds', updatedBy: 'updated_by' }, client,
+        publishWhenReady: 'publish_when_ready', status: 'status', durationSeconds: 'duration_seconds', updatedBy: 'updated_by' }, client,
     );
     if (tagIds !== undefined) {
       await client.query('DELETE FROM papaleki.sermon_tag_links WHERE sermon_id = $1', [req.params.id]);

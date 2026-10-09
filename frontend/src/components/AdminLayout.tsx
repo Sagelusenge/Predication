@@ -4,6 +4,7 @@ import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { api, ApiError } from '../lib/api';
 import type { User } from '../types';
 import { Brand } from './Brand';
+import { AudioProcessingMonitor } from './AudioProcessingMonitor';
 
 const adminLinks = [
   { to: '/admin', label: 'Vue d’ensemble', icon: Gauge, end: true },
@@ -67,6 +68,7 @@ export function AdminLayout() {
           <a className="view-site" href="/" target="_blank" rel="noreferrer">Voir le site</a>
         </header>
         <main className="admin-content"><Outlet context={{ profile }} /></main>
+        <AudioProcessingMonitor />
       </div>
     </div>
   );

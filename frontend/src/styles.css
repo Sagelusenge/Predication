@@ -477,11 +477,30 @@ input:focus, textarea:focus, select:focus { border-color: var(--gold); outline: 
 .auth-action-card h1 { margin: 18px 0 8px; font: 700 2rem/1.15 var(--serif); }
 .auth-action-card > p { color: var(--muted); font-size: .75rem; }
 .auth-action-card form { display: grid; gap: 16px; margin-top: 22px; }
-.toast-stack { position: fixed; z-index: 200; top: 20px; right: 20px; width: min(380px, calc(100% - 40px)); display: grid; gap: 9px; }
+.toast-stack { position: fixed; z-index: 240; right: 20px; bottom: 22px; width: min(400px, calc(100% - 40px)); display: grid; gap: 9px; }
 .toast { padding: 13px 15px; border: 1px solid #dce3e6; border-radius: 9px; background: #fff; display: flex; align-items: center; gap: 9px; color: #29404e; font-size: .72rem; font-weight: 700; box-shadow: var(--shadow); animation: reveal .25s ease both; }
 .toast--success svg { color: var(--success); }
 .toast--error svg { color: var(--danger); }
 .toast--info svg { color: #397296; }
+.upload-progress-toast, .audio-processing-monitor { position: fixed; z-index: 225; bottom: 22px; left: max(22px, calc((100vw - 1500px) / 2)); width: min(430px, calc(100vw - 44px)); padding: 16px; border: 1px solid #cbd9e3; border-radius: 12px; background: #fff; box-shadow: 0 18px 55px rgba(4, 36, 62, .2); }
+.upload-progress-toast > div, .audio-processing-monitor__heading { display: flex; align-items: center; gap: 11px; }
+.upload-progress-toast > div > span, .audio-processing-monitor__heading > span { min-width: 0; display: grid; flex: 1; }
+.upload-progress-toast strong, .audio-processing-monitor strong { color: var(--cbca-blue-dark); font-size: .75rem; }
+.upload-progress-toast small, .audio-processing-monitor small { overflow: hidden; color: #697b89; font-size: .64rem; text-overflow: ellipsis; white-space: nowrap; }
+.upload-progress-toast progress, .audio-processing-monitor progress { width: 100%; height: 7px; margin-top: 12px; overflow: hidden; border: 0; border-radius: 999px; background: #e5edf3; accent-color: var(--cbca-blue); }
+.audio-processing-monitor__heading > svg { color: var(--cbca-blue); }
+.audio-processing-monitor__heading > em { color: var(--cbca-blue); font-size: .69rem; font-style: normal; font-weight: 800; }
+.audio-processing-monitor__footer { margin-top: 9px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #657783; font-size: .6rem; }
+.audio-processing-monitor__footer a { color: var(--cbca-blue); font-weight: 800; white-space: nowrap; }
+.audio-processing-monitor.is-failed { border-color: #efb6b1; background: #fff7f6; }
+.audio-processing-monitor.is-failed .audio-processing-monitor__heading > svg, .audio-processing-monitor.is-failed .audio-processing-monitor__heading > em { color: var(--cbca-red); }
+.sermon-processing-line { width: 118px; height: 4px; margin-top: 5px; overflow: hidden; border-radius: 999px; background: #dfe8ee; display: block; }
+.sermon-processing-line b { height: 100%; border-radius: inherit; background: var(--cbca-blue); display: block; transition: width .3s ease; }
+.sermons-admin-table td small svg { margin-right: 4px; color: var(--cbca-red); vertical-align: -2px; }
+.status--failed { background: #fee9e7; color: #aa2b22; }
+.status--failed i { background: var(--cbca-red); }
+body:has(.upload-progress-toast) .toast-stack,
+body:has(.audio-processing-monitor) .toast-stack { bottom: 175px; }
 .not-found { min-height: 100vh; padding: 50px; display: grid; place-content: center; justify-items: center; text-align: center; background: var(--cream); }
 .not-found > span { color: #ddcfb6; font: 700 7rem var(--serif); }
 .not-found h1 { font: 700 2rem var(--serif); }
@@ -955,6 +974,9 @@ td > button { border: 0; background: transparent; cursor: pointer; }
 
 /* Small mobile */
 @media (max-width: 480px) {
+  .toast-stack { right: 12px; width: calc(100% - 24px); }
+  .upload-progress-toast, .audio-processing-monitor { left: 12px; bottom: 12px; width: calc(100vw - 24px); }
+  .audio-processing-monitor__footer { align-items: flex-start; flex-direction: column; }
   .container { width: calc(100% - 2rem); }
   .brand small { display: none; }
   .hero-actions { flex-direction: column; }

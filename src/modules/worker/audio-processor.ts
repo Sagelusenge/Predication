@@ -62,7 +62,7 @@ const transcode = async (jobId: string, inputPath: string, outputPath: string, d
   await runProcess(env.FFMPEG_PATH, [
     '-hide_banner', '-y', '-i', inputPath,
     '-vn', '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11',
-    '-codec:a', 'libmp3lame', '-b:a', '128k', '-ar', '44100',
+    '-codec:a', 'libmp3lame', '-b:a', '96k', '-ac', '1', '-ar', '44100',
     '-progress', 'pipe:1', '-nostats', outputPath,
   ], (chunk) => {
     progressBuffer += chunk.toString();
@@ -74,7 +74,7 @@ const transcode = async (jobId: string, inputPath: string, outputPath: string, d
       const percent = Math.min(95, Math.max(1, Math.floor((Number(value) / 1_000_000 / duration) * 95)));
       if (percent >= lastReported + 5) {
         lastReported = percent;
-        void pool.query('CALL papaleki.sp_update_audio_progress($1, $2, $3, $4)', [
+        void pool.query('CALL papaleki.sp_update_audio_progress($1::uuid, $2::text, $3::smallint, $4::jsonb)', [
           jobId, workerName, percent, { stage: 'transcoding' },
         ]).catch((error) => logger.warn({ err: error, jobId }, 'Progression audio non enregistrée.'));
       }
@@ -109,7 +109,7 @@ const createWaveform = async (audioPath: string, duration: number): Promise<numb
 
 const claimJob = async (): Promise<ClaimedJob | undefined> => {
   const claimed = await pool.query<{ p_job_id: string | null }>(
-    'CALL papaleki.sp_claim_audio_job($1, NULL)', [workerName],
+    'CALL papaleki.sp_claim_audio_job($1::text, NULL::uuid)', [workerName],
   );
   const id = claimed.rows[0]?.p_job_id;
   if (!id) return undefined;
@@ -131,10 +131,11 @@ export const processNextAudio = async (): Promise<boolean> => {
   const temporaryOutput = storagePath(`.tmp/${job.id}.mp3`);
   let finalPath: string | undefined;
   try {
+    const originalSize = await fileSize(inputPath);
     const inputDuration = await probeDuration(inputPath);
     await transcode(job.id, inputPath, temporaryOutput, inputDuration);
     const duration = await probeDuration(temporaryOutput);
-    await pool.query('CALL papaleki.sp_update_audio_progress($1, $2, 97, $3)', [
+    await pool.query('CALL papaleki.sp_update_audio_progress($1::uuid, $2::text, 97::smallint, $3::jsonb)', [
       job.id, workerName, { stage: 'waveform' },
     ]);
     const waveform = await createWaveform(temporaryOutput, duration);
@@ -152,10 +153,19 @@ export const processNextAudio = async (): Promise<boolean> => {
          WHERE id = $5`,
         [key, size, checksum, job.storage_key, job.media_file_id],
       );
-      await client.query('CALL papaleki.sp_finish_audio_job($1, true, $2, $3, NULL)', [
+      await client.query('CALL papaleki.sp_finish_audio_job($1::uuid, true, $2::numeric, $3::jsonb, NULL::text)', [
         job.id,
         duration,
-        { codec: 'mp3', bitrateKbps: 128, normalizedLufs: -16, waveform },
+        {
+          codec: 'mp3',
+          bitrateKbps: 96,
+          channels: 1,
+          normalizedLufs: -16,
+          originalSizeBytes: originalSize,
+          compressedSizeBytes: size,
+          savedPercent: Math.max(0, Number(((1 - size / originalSize) * 100).toFixed(1))),
+          waveform,
+        },
       ]);
     });
 
@@ -166,7 +176,7 @@ export const processNextAudio = async (): Promise<boolean> => {
     await removeFileQuietly(temporaryOutput);
     await removeFileQuietly(finalPath);
     const message = error instanceof Error ? error.message.slice(0, 10_000) : 'Erreur audio inconnue.';
-    await pool.query('CALL papaleki.sp_finish_audio_job($1, false, NULL, $2, $3)', [
+    await pool.query('CALL papaleki.sp_finish_audio_job($1::uuid, false, NULL::numeric, $2::jsonb, $3::text)', [
       job.id, { stage: 'failed' }, message,
     ]).catch((finishError) => logger.error({ err: finishError, jobId: job.id }, 'Échec de clôture du traitement.'));
     logger.error({ err: error, jobId: job.id }, 'Traitement audio échoué.');

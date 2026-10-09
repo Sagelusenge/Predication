@@ -65,6 +65,7 @@ export const sermonCreateSchema = z.object({
   preachedOn: z.iso.date().default(() => new Date().toISOString().slice(0, 10)),
   isFeatured: z.boolean().default(false),
   allowDownload: z.boolean().default(true),
+  publishWhenReady: z.boolean().default(false),
   tagIds: z.array(z.uuid()).max(30).default([]),
 });
 export const sermonUpdateSchema = sermonCreateSchema.partial();
