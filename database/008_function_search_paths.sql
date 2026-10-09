@@ -13,6 +13,14 @@ BEGIN
         JOIN pg_namespace n ON n.oid = p.pronamespace
         WHERE n.nspname = 'papaleki'
           AND p.prokind IN ('f', 'p')
+          AND p.proowner = current_user::regrole
+          AND NOT EXISTS (
+              SELECT 1
+              FROM pg_depend d
+              WHERE d.classid = 'pg_proc'::regclass
+                AND d.objid = p.oid
+                AND d.deptype = 'e'
+          )
     LOOP
         EXECUTE format(
             'ALTER ROUTINE %s SET search_path TO papaleki, public',
