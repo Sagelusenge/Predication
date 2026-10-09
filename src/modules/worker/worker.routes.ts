@@ -36,7 +36,7 @@ workerRouter.use(requireWorkerKey);
 
 workerRouter.post('/jobs/claim', validate(claimSchema), async (req, res) => {
   const claimed = await pool.query<{ p_job_id: string | null }>(
-    'CALL papaleki.sp_claim_audio_job($1, NULL)',
+    'CALL papaleki.sp_claim_audio_job($1::text, NULL::uuid)',
     [req.body.workerName],
   );
   const jobId = claimed.rows[0]?.p_job_id;
@@ -56,7 +56,7 @@ workerRouter.post('/jobs/claim', validate(claimSchema), async (req, res) => {
 });
 
 workerRouter.patch('/jobs/:id/progress', validate(idSchema, 'params'), validate(progressSchema), async (req, res) => {
-  await pool.query('CALL papaleki.sp_update_audio_progress($1, $2, $3, $4)', [
+  await pool.query('CALL papaleki.sp_update_audio_progress($1::uuid, $2::text, $3::smallint, $4::jsonb)', [
     req.params.id,
     req.body.workerName,
     req.body.progressPercent,
@@ -87,7 +87,7 @@ workerRouter.post('/jobs/:id/finish', validate(idSchema, 'params'), validate(fin
         [b.storageKey, b.mimeType ?? null, b.fileSizeBytes ?? null, b.checksumSha256 ?? null, row.media_file_id],
       );
     }
-    await client.query('CALL papaleki.sp_finish_audio_job($1, $2, $3, $4, $5)', [
+    await client.query('CALL papaleki.sp_finish_audio_job($1::uuid, $2::boolean, $3::numeric, $4::jsonb, $5::text)', [
       req.params.id,
       b.success,
       b.durationSeconds ?? null,

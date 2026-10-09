@@ -164,7 +164,7 @@ export const processNextAudio = async (): Promise<boolean> => {
         `UPDATE papaleki.media_files
          SET storage_provider = $1, storage_key = $2, mime_type = 'audio/mpeg',
              file_size_bytes = $3, checksum_sha256 = $4,
-             metadata = metadata || jsonb_build_object('original_storage_key', $5)
+             metadata = metadata || jsonb_build_object('original_storage_key', $5::text)
          WHERE id = $6`,
         [DATABASE_STORAGE_PROVIDER, key, size, checksum, job.storage_key, job.media_file_id],
       );
