@@ -9,5 +9,6 @@
 \ir 007_notifications_content.sql
 \ir 008_function_search_paths.sql
 \ir 009_audio_processing_experience.sql
+\ir 010_database_media_storage.sql
 
 \echo 'Base PapaLeki installée avec succès.'

@@ -4,20 +4,26 @@ import { env } from '../../config/env.js';
 import { pool, withTransaction } from '../../db/pool.js';
 import { logger } from '../../lib/logger.js';
 import {
-  buildStorageKey,
   ensureStorage,
   fileSize,
-  moveFile,
   removeFileQuietly,
   sha256File,
   storagePath,
 } from '../media/storage.service.js';
+import {
+  DATABASE_STORAGE_PROVIDER,
+  databaseStorageKey,
+  persistFileInDatabase,
+  writeDatabaseFileToPath,
+} from '../media/database-storage.service.js';
 
 interface ClaimedJob {
   id: string;
   media_file_id: string;
+  storage_provider: string;
   storage_key: string;
   original_filename: string;
+  file_size_bytes: number;
 }
 
 const workerName = `${os.hostname()}-${process.pid}`.slice(0, 120);
@@ -114,7 +120,8 @@ const claimJob = async (): Promise<ClaimedJob | undefined> => {
   const id = claimed.rows[0]?.p_job_id;
   if (!id) return undefined;
   const result = await pool.query<ClaimedJob>(
-    `SELECT j.id, j.media_file_id, m.storage_key, m.original_filename
+    `SELECT j.id, j.media_file_id, m.storage_provider, m.storage_key,
+            m.original_filename, m.file_size_bytes
      FROM papaleki.audio_processing_jobs j
      JOIN papaleki.media_files m ON m.id = j.media_file_id
      WHERE j.id = $1`,
@@ -127,11 +134,18 @@ export const processNextAudio = async (): Promise<boolean> => {
   const job = await claimJob();
   if (!job) return false;
 
-  const inputPath = storagePath(job.storage_key);
+  const inputPath = job.storage_provider === DATABASE_STORAGE_PROVIDER
+    ? storagePath(`.tmp/${job.id}.source`)
+    : storagePath(job.storage_key);
   const temporaryOutput = storagePath(`.tmp/${job.id}.mp3`);
   let finalPath: string | undefined;
   try {
-    const originalSize = await fileSize(inputPath);
+    if (job.storage_provider === DATABASE_STORAGE_PROVIDER) {
+      await writeDatabaseFileToPath(job.media_file_id, inputPath);
+    }
+    const originalSize = job.storage_provider === DATABASE_STORAGE_PROVIDER
+      ? job.file_size_bytes
+      : await fileSize(inputPath);
     const inputDuration = await probeDuration(inputPath);
     await transcode(job.id, inputPath, temporaryOutput, inputDuration);
     const duration = await probeDuration(temporaryOutput);
@@ -139,19 +153,20 @@ export const processNextAudio = async (): Promise<boolean> => {
       job.id, workerName, { stage: 'waveform' },
     ]);
     const waveform = await createWaveform(temporaryOutput, duration);
-    const key = buildStorageKey('audio/processed', 'mp3');
-    finalPath = await moveFile(temporaryOutput, key);
+    const key = databaseStorageKey(job.media_file_id);
+    finalPath = temporaryOutput;
     const size = await fileSize(finalPath);
     const checksum = await sha256File(finalPath);
 
     await withTransaction(async (client) => {
+      await persistFileInDatabase(client, job.media_file_id, finalPath!);
       await client.query(
         `UPDATE papaleki.media_files
-         SET storage_key = $1, mime_type = 'audio/mpeg',
-             file_size_bytes = $2, checksum_sha256 = $3,
-             metadata = metadata || jsonb_build_object('original_storage_key', $4)
-         WHERE id = $5`,
-        [key, size, checksum, job.storage_key, job.media_file_id],
+         SET storage_provider = $1, storage_key = $2, mime_type = 'audio/mpeg',
+             file_size_bytes = $3, checksum_sha256 = $4,
+             metadata = metadata || jsonb_build_object('original_storage_key', $5)
+         WHERE id = $6`,
+        [DATABASE_STORAGE_PROVIDER, key, size, checksum, job.storage_key, job.media_file_id],
       );
       await client.query('CALL papaleki.sp_finish_audio_job($1::uuid, true, $2::numeric, $3::jsonb, NULL::text)', [
         job.id,
@@ -170,6 +185,7 @@ export const processNextAudio = async (): Promise<boolean> => {
     });
 
     if (inputPath !== finalPath) await removeFileQuietly(inputPath);
+    await removeFileQuietly(finalPath);
     logger.info({ jobId: job.id, mediaId: job.media_file_id, duration }, 'Audio traité.');
     return true;
   } catch (error) {

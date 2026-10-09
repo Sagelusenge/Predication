@@ -1,15 +1,17 @@
+import { randomUUID } from 'node:crypto';
+import { once } from 'node:events';
 import { createReadStream } from 'node:fs';
 import { mkdirSync } from 'node:fs';
 import { rm, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileTypeFromFile } from 'file-type';
-import { Router } from 'express';
+import { Router, type Response } from 'express';
 import multer from 'multer';
 import sharp from 'sharp';
 import { z } from 'zod';
 import { AUDIO_MIME_TYPES, IMAGE_MIME_TYPES } from '../../config/constants.js';
 import { env } from '../../config/env.js';
-import { pool } from '../../db/pool.js';
+import { pool, withTransaction } from '../../db/pool.js';
 import { AppError } from '../../lib/errors.js';
 import { pageMeta, pagination, paginationSchema } from '../../lib/pagination.js';
 import { camelize } from '../../lib/serialize.js';
@@ -26,6 +28,12 @@ import {
   storagePath,
   temporaryRoot,
 } from './storage.service.js';
+import {
+  DATABASE_STORAGE_PROVIDER,
+  databaseStorageKey,
+  forEachDatabaseFileRange,
+  persistFileInDatabase,
+} from './database-storage.service.js';
 
 mkdirSync(temporaryRoot, { recursive: true });
 
@@ -95,10 +103,23 @@ const getMedia = async (id: string, authenticated: boolean): Promise<MediaRow> =
   if (!media || (!media.is_public && !authenticated)) {
     throw new AppError(404, 'MEDIA_NOT_FOUND', 'Média introuvable.');
   }
-  if (media.storage_provider !== 'local') {
+  if (media.storage_provider !== 'local' && media.storage_provider !== DATABASE_STORAGE_PROVIDER) {
     throw new AppError(501, 'STORAGE_PROVIDER_UNSUPPORTED', 'Fournisseur de stockage non pris en charge.');
   }
   return media;
+};
+
+const sendDatabaseRange = async (
+  mediaId: string,
+  start: number,
+  end: number,
+  res: Response,
+): Promise<void> => {
+  await forEachDatabaseFileRange(mediaId, start, end, async (chunk) => {
+    if (res.destroyed) return;
+    if (!res.write(chunk)) await once(res, 'drain');
+  });
+  if (!res.destroyed) res.end();
 };
 
 export const mediaPublicRouter = Router();
@@ -107,6 +128,18 @@ mediaPublicRouter.get('/:id', validate(idSchema, 'params'), async (req, res) => 
   const media = await getMedia(req.params.id as string, Boolean(req.auth));
   if (media.kind === 'audio') {
     res.redirect(307, `${req.baseUrl}/${media.id}/stream`);
+    return;
+  }
+  if (media.storage_provider === DATABASE_STORAGE_PROVIDER) {
+    res.set({
+      'Content-Type': media.mime_type,
+      'Content-Length': String(media.file_size_bytes),
+      'Cache-Control': media.is_public
+        ? 'public, max-age=86400, stale-while-revalidate=604800'
+        : 'private, no-store',
+      ETag: `"${media.id}-${media.file_size_bytes}"`,
+    });
+    await sendDatabaseRange(media.id, 0, media.file_size_bytes - 1, res);
     return;
   }
   const absolutePath = storagePath(media.storage_key);
@@ -127,11 +160,12 @@ mediaPublicRouter.get('/:id/stream', validate(idSchema, 'params'), async (req, r
   const media = await getMedia(req.params.id as string, Boolean(req.auth));
   if (media.kind !== 'audio') throw new AppError(422, 'NOT_AUDIO', 'Ce média n’est pas un audio.');
 
-  const absolutePath = storagePath(media.storage_key);
-  const info = await stat(absolutePath).catch(() => {
-    throw new AppError(404, 'FILE_NOT_FOUND', 'Fichier absent du stockage.');
-  });
-  const size = info.size;
+  const absolutePath = media.storage_provider === 'local' ? storagePath(media.storage_key) : undefined;
+  const size = absolutePath
+    ? (await stat(absolutePath).catch(() => {
+        throw new AppError(404, 'FILE_NOT_FOUND', 'Fichier absent du stockage.');
+      })).size
+    : media.file_size_bytes;
   const range = req.headers.range;
   const wantsDownload = req.query.download === '1';
   if (wantsDownload && !media.allow_download && !req.auth) {
@@ -152,7 +186,11 @@ mediaPublicRouter.get('/:id/stream', validate(idSchema, 'params'), async (req, r
 
   if (!range) {
     res.set('Content-Length', String(size));
-    createReadStream(absolutePath).pipe(res);
+    if (media.storage_provider === DATABASE_STORAGE_PROVIDER) {
+      await sendDatabaseRange(media.id, 0, size - 1, res);
+    } else {
+      createReadStream(absolutePath!).pipe(res);
+    }
     return;
   }
 
@@ -172,7 +210,11 @@ mediaPublicRouter.get('/:id/stream', validate(idSchema, 'params'), async (req, r
     'Content-Range': `bytes ${start}-${end}/${size}`,
     'Content-Length': String(end - start + 1),
   });
-  createReadStream(absolutePath, { start, end }).pipe(res);
+  if (media.storage_provider === DATABASE_STORAGE_PROVIDER) {
+    await sendDatabaseRange(media.id, start, end, res);
+  } else {
+    createReadStream(absolutePath!, { start, end }).pipe(res);
+  }
 });
 
 export const mediaAdminRouter = Router();
@@ -240,58 +282,73 @@ mediaAdminRouter.post('/audio', requirePermission('media.upload'), audioUpload, 
 
 mediaAdminRouter.post('/image', requirePermission('media.upload'), imageUpload, async (req, res) => {
   if (!req.file) throw new AppError(422, 'FILE_REQUIRED', 'Une image est requise.');
-  let finalPath: string | undefined;
+  const uploadedFile = req.file;
+  let processedPath: string | undefined;
   try {
-    const detected = await fileTypeFromFile(req.file.path);
+    const detected = await fileTypeFromFile(uploadedFile.path);
     if (!detected || !IMAGE_MIME_TYPES.has(detected.mime)) {
       throw new AppError(422, 'INVALID_IMAGE_TYPE', 'Format d’image non autorisé.');
     }
-    const key = buildStorageKey('images', 'webp');
-    const processedPath = `${req.file.path}.webp`;
-    const processed = sharp(req.file.path).rotate().resize({
+    const mediaId = randomUUID();
+    const key = databaseStorageKey(mediaId);
+    processedPath = `${uploadedFile.path}.webp`;
+    const processed = sharp(uploadedFile.path).rotate().resize({
       width: 2400,
       height: 2400,
       fit: 'inside',
       withoutEnlargement: true,
     }).webp({ quality: 85 });
     const info = await processed.toFile(processedPath);
-    finalPath = await moveFile(processedPath, key);
-    const result = await pool.query(
-      `INSERT INTO papaleki.media_files
-       (kind, processing_status, storage_key, original_filename, mime_type,
+    const checksum = await sha256File(processedPath);
+    const result = await withTransaction(async (client) => {
+      const inserted = await client.query(
+        `INSERT INTO papaleki.media_files
+       (id, kind, processing_status, storage_provider, storage_key, original_filename, mime_type,
         file_size_bytes, checksum_sha256, width_pixels, height_pixels,
         alt_text, metadata, uploaded_by)
-       VALUES ('image', 'ready', $1, $2, 'image/webp', $3, $4, $5, $6, $7, $8, $9)
+       VALUES ($1, 'image', 'ready', $2, $3, $4, 'image/webp', $5, $6, $7, $8, $9, $10, $11)
        RETURNING *`,
-      [
-        key,
-        req.file.originalname,
-        info.size,
-        await sha256File(finalPath),
-        info.width,
-        info.height,
-        typeof req.body.altText === 'string' ? req.body.altText.trim().slice(0, 255) : null,
-        { originalMime: detected.mime, originalSize: req.file.size },
-        req.auth!.userId,
-      ],
-    );
-    await rm(req.file.path, { force: true });
+        [
+          mediaId,
+          DATABASE_STORAGE_PROVIDER,
+          key,
+          uploadedFile.originalname,
+          info.size,
+          checksum,
+          info.width,
+          info.height,
+          typeof req.body.altText === 'string' ? req.body.altText.trim().slice(0, 255) : null,
+          { originalMime: detected.mime, originalSize: uploadedFile.size },
+          req.auth!.userId,
+        ],
+      );
+      await persistFileInDatabase(client, mediaId, processedPath!);
+      return inserted;
+    });
     res.status(201).json({ success: true, data: camelize(result.rows[0]) });
   } catch (error) {
-    await removeFileQuietly(finalPath);
-    await rm(req.file.path, { force: true }).catch(() => undefined);
     throw error;
+  } finally {
+    await Promise.all([
+      rm(uploadedFile.path, { force: true }).catch(() => undefined),
+      processedPath ? rm(processedPath, { force: true }).catch(() => undefined) : Promise.resolve(),
+    ]);
   }
 });
 
 mediaAdminRouter.delete('/:id', requirePermission('media.manage'), validate(idSchema, 'params'), async (req, res) => {
-  const mediaResult = await pool.query<{ storage_key: string }>(
-    'SELECT storage_key FROM papaleki.media_files WHERE id = $1 AND deleted_at IS NULL',
+  const mediaResult = await pool.query<{ storage_key: string; storage_provider: string }>(
+    'SELECT storage_key, storage_provider FROM papaleki.media_files WHERE id = $1 AND deleted_at IS NULL',
     [req.params.id],
   );
-  await pool.query('CALL papaleki.sp_soft_delete_media($1, $2)', [req.params.id, req.auth!.userId]);
-  const key = mediaResult.rows[0]?.storage_key;
-  if (key) await removeFileQuietly(storagePath(key));
+  const media = mediaResult.rows[0];
+  await withTransaction(async (client) => {
+    await client.query('CALL papaleki.sp_soft_delete_media($1, $2)', [req.params.id, req.auth!.userId]);
+    if (media?.storage_provider === DATABASE_STORAGE_PROVIDER) {
+      await client.query('DELETE FROM papaleki.media_file_chunks WHERE media_file_id = $1', [req.params.id]);
+    }
+  });
+  if (media?.storage_provider === 'local') await removeFileQuietly(storagePath(media.storage_key));
   res.status(204).send();
 });
 

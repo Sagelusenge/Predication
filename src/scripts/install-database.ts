@@ -24,6 +24,7 @@ const files = [
   '007_notifications_content.sql',
   '008_function_search_paths.sql',
   '009_audio_processing_experience.sql',
+  '010_database_media_storage.sql',
 ];
 
 try {

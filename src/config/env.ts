@@ -23,6 +23,7 @@ const schema = z.object({
   STORAGE_ROOT: z.string().min(1).default('./storage'),
   MAX_AUDIO_MB: z.coerce.number().int().min(1).max(2048).default(500),
   MAX_IMAGE_MB: z.coerce.number().int().min(1).max(50).default(12),
+  DATABASE_MEDIA_MAX_MB: z.coerce.number().int().min(50).max(900).default(800),
   WORKER_POLL_INTERVAL_MS: z.coerce.number().int().min(1000).max(60_000).default(5000),
   WORKER_API_KEY: z.string().min(32).default('development-worker-key-change-me-123456'),
   FFMPEG_PATH: z.string().default('ffmpeg'),
