@@ -10,6 +10,16 @@ const processingState = (item: ProcessingSermon) => String(item.latestJobStatus 
 const isActive = (item: ProcessingSermon) => ['queued', 'processing', 'uploaded'].includes(processingState(item));
 const isFailed = (item: ProcessingSermon) => processingState(item) === 'failed' || item.audioStatus === 'failed';
 
+const showSystemNotification = (title: string, body: string, url: string) => {
+  if (!('Notification' in window) || Notification.permission !== 'granted' || !('serviceWorker' in navigator)) return;
+  void navigator.serviceWorker.ready.then((registration) => registration.showNotification(title, {
+    body,
+    icon: '/pwa-192x192.png',
+    badge: '/favicon.png',
+    data: { url },
+  })).catch(() => undefined);
+};
+
 export function AudioProcessingMonitor() {
   const [items, setItems] = useState<ProcessingSermon[]>([]);
   const previous = useRef(new Map<string, string>());
@@ -31,8 +41,10 @@ export function AudioProcessingMonitor() {
             if (before && ['queued', 'processing', 'uploaded'].includes(before)) {
               if (current === 'completed' || item.audioStatus === 'ready') {
                 notify(`Compression terminée : ${String(item.title)}.`, 'success');
+                showSystemNotification('Compression terminée', String(item.title), '/admin/predications');
               } else if (current === 'failed' || item.audioStatus === 'failed') {
                 notify(`La compression de « ${String(item.title)} » a échoué.`, 'error');
+                showSystemNotification('Compression interrompue', String(item.title), `/admin/publier?edit=${String(item.id)}`);
               }
             }
           }
