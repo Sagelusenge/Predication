@@ -20,6 +20,10 @@ type DashboardData = {
 
 const number = (value: unknown) => Number(value ?? 0);
 const displayNumber = (value: unknown) => number(value).toLocaleString('fr-FR');
+const displayPercent = (value: unknown) => number(value).toLocaleString('fr-FR', {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+});
 const localToday = () => {
   const parts = new Intl.DateTimeFormat('en', {
     timeZone: 'Africa/Lubumbashi', year: 'numeric', month: '2-digit', day: '2-digit',
@@ -86,7 +90,7 @@ export function AdminDashboardPage() {
         <article><span className="stat-icon stat-icon--gold"><UsersRound size={21} /></span><div><small>Auditeurs · {periodLabel}</small><strong>{displayNumber(summary.rangeUniqueListeners)}</strong><em>mesure quotidienne</em></div><p>Somme des auditeurs uniques</p></article>
         <article><span className="stat-icon stat-icon--blue"><Radio size={21} /></span><div><small>Prédications publiées</small><strong>{displayNumber(summary.publishedSermons)}</strong><em>{displayNumber(summary.totalSermons)} au total</em></div><p>Messages visibles en ligne</p></article>
         <article><span className="stat-icon stat-icon--purple"><MessageSquareQuote size={21} /></span><div><small>À modérer</small><strong>{displayNumber(summary.pendingTestimonials)}</strong><em>témoignages</em></div><p>En attente de validation</p></article>
-        <article><span className="stat-icon stat-icon--green"><Activity size={21} /></span><div><small>Taux d’écoute moyen</small><strong>{displayNumber(summary.rangeCompletionRate)}%</strong><em>lectures terminées</em></div><p>Sur {periodLabel.toLowerCase()}</p></article>
+        <article className="stat-card--rate"><span className="stat-icon stat-icon--green"><Activity size={21} /></span><div><small>Taux d’écoute moyen</small><strong title={`${displayPercent(summary.rangeCompletionRate)} %`}>{displayPercent(summary.rangeCompletionRate)} %</strong><em>lectures terminées</em></div><p>Sur {periodLabel.toLowerCase()}</p></article>
       </section>
 
       <section className="dashboard-grid">

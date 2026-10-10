@@ -570,6 +570,9 @@ body:has(.audio-processing-monitor) .toast-stack { bottom: 175px; }
 .stat-grid small { grid-column: 1 / -1; margin-bottom: 6px; color: #728089; font-size: .53rem; font-weight: 700; }
 .stat-grid strong { overflow: hidden; font: 700 1.55rem var(--serif); text-overflow: ellipsis; }
 .stat-grid em { display: flex; align-items: center; gap: 2px; padding: 4px 6px; border-radius: 10px; font-size: .48rem; font-style: normal; font-weight: 800; }
+.stat-grid .stat-card--rate > div { grid-template-columns: auto minmax(0, 1fr); column-gap: 9px; }
+.stat-grid .stat-card--rate strong { overflow: visible; white-space: nowrap; text-overflow: clip; }
+.stat-grid .stat-card--rate em { justify-self: end; text-align: right; }
 .stat-grid em.up { background: #e6f4ed; color: #277052; }
 .stat-grid em.down { background: #faecea; color: #a4453d; }
 .stat-grid article > p { margin: 9px 0 0; color: #9aa3a8; font-size: .5rem; }
