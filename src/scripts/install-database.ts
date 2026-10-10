@@ -25,6 +25,7 @@ const files = [
   '008_function_search_paths.sql',
   '009_audio_processing_experience.sql',
   '010_database_media_storage.sql',
+  '011_direct_user_creation.sql',
 ];
 
 try {

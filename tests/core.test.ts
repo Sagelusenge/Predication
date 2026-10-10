@@ -5,6 +5,7 @@ import { app } from '../src/app.js';
 import { hashToken } from '../src/lib/crypto.js';
 import { camelize } from '../src/lib/serialize.js';
 import { parseVpl } from '../src/modules/bible/bible-import.service.js';
+import { createUserSchema } from '../src/modules/admin/admin.schemas.js';
 import { storagePath, storageRoot } from '../src/modules/media/storage.service.js';
 
 describe('API core', () => {
@@ -34,6 +35,12 @@ describe('Utilitaires', () => {
     expect(hash).toHaveLength(64);
     expect(hash).toBe(hashToken('secret'));
     expect(hash).not.toContain('secret');
+  });
+
+  it('valide un mot de passe sûr lors de la création directe d’un utilisateur', () => {
+    const base = { email: 'editeur@example.com', firstName: 'Jean', lastName: 'Maliro', roleCode: 'editor' };
+    expect(createUserSchema.safeParse({ ...base, password: 'TropFaible' }).success).toBe(false);
+    expect(createUserSchema.safeParse({ ...base, password: 'Compte2026Fort' }).success).toBe(true);
   });
 
   it('empêche une clé de stockage de sortir du répertoire prévu', () => {

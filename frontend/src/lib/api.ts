@@ -259,8 +259,8 @@ export const api = {
   async adminUsers() {
     return request<ApiEnvelope<Array<Record<string, unknown>>>>('/admin/users?page=1&limit=50');
   },
-  async inviteUser(body: { email: string; firstName: string; lastName: string; roleCode: string }) {
-    return request<ApiEnvelope<Record<string, unknown>>>('/admin/users/invite', { method: 'POST', body: JSON.stringify(body) });
+  async createUser(body: { email: string; firstName: string; lastName: string; roleCode: string; password: string }) {
+    return request<ApiEnvelope<Record<string, unknown>>>('/admin/users', { method: 'POST', body: JSON.stringify(body) });
   },
   async deactivateUser(id: string) {
     return request<{ success: boolean; message: string }>(`/admin/users/${id}/deactivate`, { method: 'POST' });

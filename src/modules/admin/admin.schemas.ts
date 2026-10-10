@@ -109,11 +109,18 @@ export const settingSchema = z.object({
   isPublic: z.boolean().default(false),
 });
 
-export const inviteUserSchema = z.object({
+export const createUserSchema = z.object({
   email: z.email().transform((value) => value.trim().toLowerCase()),
   firstName: z.string().trim().min(2).max(100),
   lastName: z.string().trim().min(2).max(100),
   roleCode: z.enum(['super_admin', 'administrator', 'editor', 'analyst']),
+  password: z
+    .string()
+    .min(10, 'Le mot de passe doit contenir au moins 10 caractères.')
+    .max(200)
+    .regex(/[A-Z]/, 'Une majuscule est requise.')
+    .regex(/[a-z]/, 'Une minuscule est requise.')
+    .regex(/[0-9]/, 'Un chiffre est requis.'),
 });
 
 export const rolesSchema = z.object({

@@ -745,6 +745,9 @@ td > button { border: 0; background: transparent; cursor: pointer; }
 .invite-form { margin-bottom: 18px; padding: 20px; display: grid; gap: 14px; }
 .invite-form h2 { margin: 0; display: flex; align-items: center; gap: 8px; font-size: .9rem; }
 .invite-form .button { justify-self: start; }
+.invite-form .input-with-icon { width: 100%; }
+.invite-form .input-with-icon input { width: 100%; }
+.password-help { margin-top: -4px; color: #72808a; font-size: .55rem; }
 .user-list { padding: 0 18px; }
 .user-list article { min-height: 70px; display: grid; grid-template-columns: 40px 1fr auto auto; align-items: center; gap: 12px; border-bottom: 1px solid #edf0f1; }
 .user-list article > span { width: 37px; height: 37px; border-radius: 50%; background: #f1dfb7; display: grid; place-items: center; font-size: .56rem; font-weight: 800; }

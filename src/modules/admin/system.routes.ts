@@ -1,9 +1,7 @@
+import argon2 from 'argon2';
 import { Router } from 'express';
-import { env } from '../../config/env.js';
 import { pool, withTransaction } from '../../db/pool.js';
-import { createToken, hashToken } from '../../lib/crypto.js';
 import { AppError } from '../../lib/errors.js';
-import { sendMail } from '../../lib/mailer.js';
 import { pageMeta, pagination } from '../../lib/pagination.js';
 import { camelize } from '../../lib/serialize.js';
 import { updateRow } from '../../lib/sql.js';
@@ -13,7 +11,7 @@ import { idSchema } from '../public/public.schemas.js';
 import {
   adminListSchema,
   dashboardRangeSchema,
-  inviteUserSchema,
+  createUserSchema,
   rolesSchema,
   userUpdateSchema,
 } from './admin.schemas.js';
@@ -210,38 +208,27 @@ systemAdminRouter.patch('/users/:id', requirePermission('users.manage'), validat
   res.json({ success: true, data: camelize(row) });
 });
 
-systemAdminRouter.post('/users/invite', requirePermission('users.manage'), validate(inviteUserSchema), async (req, res) => {
+systemAdminRouter.post('/users', requirePermission('users.manage'), validate(createUserSchema), async (req, res) => {
   if (req.body.roleCode === 'super_admin' && !req.auth!.roles.includes('super_admin')) {
     throw new AppError(403, 'FORBIDDEN', 'Seul un super administrateur peut attribuer ce rôle.');
   }
-  const token = createToken(48);
-  const expiresAt = new Date(Date.now() + env.INVITATION_TTL_DAYS * 86_400_000);
+  const passwordHash = await argon2.hash(req.body.password, { type: argon2.argon2id });
   const result = await pool.query<{ p_user_id: string }>(
-    'CALL papaleki.sp_invite_user($1, $2, $3, $4, $5, $6, $7, NULL)',
+    `CALL papaleki.sp_create_user(
+       $1::uuid, $2::citext, $3::text, $4::text, $5::text, $6::text, NULL::uuid
+     )`,
     [
       req.auth!.userId,
       req.body.email,
+      passwordHash,
       req.body.firstName,
       req.body.lastName,
       req.body.roleCode,
-      hashToken(token),
-      expiresAt,
     ],
   );
-  const invitationUrl = `${env.APP_URL}/accepter-invitation?token=${encodeURIComponent(token)}`;
-  await sendMail({
-    to: req.body.email,
-    subject: 'Invitation à administrer la plateforme PapaLeki',
-    text: `Vous avez été invité. Activez votre compte : ${invitationUrl}`,
-    html: `<p>Vous avez été invité à administrer la plateforme PapaLeki.</p><p><a href="${invitationUrl}">Activer mon compte</a></p>`,
-    developmentUrl: invitationUrl,
-  });
   res.status(201).json({
     success: true,
-    data: {
-      userId: result.rows[0]?.p_user_id,
-      ...(env.NODE_ENV === 'development' ? { developmentToken: token } : {}),
-    },
+    data: { userId: result.rows[0]?.p_user_id },
   });
 });
 
